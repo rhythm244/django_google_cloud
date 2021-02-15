@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 
 import os
 from secret_key_generator import secret_key_generator
+from decouple import config
+
+PASSWORD_DATABASE = config('PASSWORD_DATABASE')
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -34,7 +37,7 @@ DEBUG = False
 # have ALLOWED_HOSTS = ['*'] when the app is deployed. If you deploy a Django
 # app not on App Engine, make sure to set an appropriate host here.
 # See https://docs.djangoproject.com/en/2.1/ref/settings/
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['my-django-gae-304810.et.r.appspot.com','127.0.0.1']
 
 
 # Application definition
@@ -99,7 +102,7 @@ if os.getenv('GAE_APPLICATION', None):
             'ENGINE': 'django.db.backends.mysql',
             'HOST': '/cloudsql/my-django-gae-304810:asia-southeast1:myapp-django',
             'USER': 'thong-gae',
-            'PASSWORD': 'Vpkdg]jogd,55',
+            'PASSWORD': config('PASSWORD_DATABASE'),
             'NAME': 'main',
         }
     }
@@ -117,7 +120,7 @@ else:
             'PORT': '3306',
             'NAME': 'main',
             'USER': 'thong-gae',
-            'PASSWORD': 'Vpkdg]jogd,55',
+            'PASSWORD': config('PASSWORD_DATABASE'),
         }
     }
 # [END db_setup]
