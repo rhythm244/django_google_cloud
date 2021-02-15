@@ -16,4 +16,4 @@ See our [Running Django in the App Engine Standard Environment](https://cloud.go
 
 # Myapp 
 1. Need to add app.yaml to your root folder before gcloud app deploy
-2. before deploy connect to instance sql by proxy [ref]: https://cloud.google.com/sql/docs/mysql/sql-proxy
+2. before deploy connect to instance sql by proxy [ref](https://cloud.google.com/sql/docs/mysql/sql-proxy)
