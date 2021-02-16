@@ -12,9 +12,12 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 
 import os
 from secret_key_generator import secret_key_generator
-from decouple import config
 
-PASSWORD_DATABASE = config('PASSWORD_DATABASE')
+db_name = os.environ.get('DB_NAME')
+db_password = os.environ.get('DB_PASSWORD')
+db_user = os.environ.get('DB_USER')
+db_connect_name = os.environ.get('DB_CONNECT_NAME')
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -37,7 +40,7 @@ DEBUG = False
 # have ALLOWED_HOSTS = ['*'] when the app is deployed. If you deploy a Django
 # app not on App Engine, make sure to set an appropriate host here.
 # See https://docs.djangoproject.com/en/2.1/ref/settings/
-ALLOWED_HOSTS = ['my-django-gae-304810.et.r.appspot.com','127.0.0.1']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -100,10 +103,10 @@ if os.getenv('GAE_APPLICATION', None):
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'HOST': '/cloudsql/my-django-gae-304810:asia-southeast1:myapp-django',
-            'USER': 'thong-gae',
-            'PASSWORD': config('PASSWORD_DATABASE'),
-            'NAME': 'main',
+            'HOST': db_connect_name,
+            'USER': db_user,
+            'PASSWORD': db_password,
+            'NAME': db_name,
         }
     }
 else:
@@ -118,9 +121,9 @@ else:
             'ENGINE': 'django.db.backends.mysql',
             'HOST': '127.0.0.1',
             'PORT': '3306',
-            'NAME': 'main',
-            'USER': 'thong-gae',
-            'PASSWORD': config('PASSWORD_DATABASE'),
+            'NAME': db_name,
+            'USER': db_user,
+            'PASSWORD': db_password,
         }
     }
 # [END db_setup]
@@ -172,4 +175,8 @@ USE_TZ = True
 
 STATIC_ROOT = 'static'
 STATIC_URL = '/static/'
+
+
+
+
 

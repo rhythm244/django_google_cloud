@@ -13,7 +13,3 @@ example app to deploy.
 
 # Tutorial
 See our [Running Django in the App Engine Standard Environment](https://cloud.google.com/python/django/appengine) tutorial for instructions for setting up and deploying this sample application.
-
-# Myapp 
-1. Need to add app.yaml to your root folder before gcloud app deploy
-2. before deploy connect to instance sql by proxy [ref](https://cloud.google.com/sql/docs/mysql/sql-proxy)
