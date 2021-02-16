@@ -11,12 +11,12 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
-from secret_key_generator import secret_key_generator
 
 db_name = os.environ.get('DB_NAME')
 db_password = os.environ.get('DB_PASSWORD')
 db_user = os.environ.get('DB_USER')
 db_connect_name = os.environ.get('DB_CONNECT_NAME')
+seckey_key = os.environ.get('SECRET_KEY')
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -31,7 +31,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECRET_KEY = 'lldtg$9(wi49j_hpv8nnqlh!cj7kmbwq0$rj7vy(b(b30vlyzj'
 
 
-SECRET_KEY = secret_key_generator.generate()
+SECRET_KEY = seckey_key
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
