@@ -113,7 +113,7 @@ venv.bak/
 
 #thong set
 app.yaml
-.secret
+.secret.txt
 cloud_sql_proxy.exe
 
 
