@@ -112,9 +112,9 @@ venv.bak/
 
 
 #thong set
-app.yaml
-.secret.txt
-cloud_sql_proxy.exe.exe
+app
+.secret
+cloud_sql_proxy.exe
 
 
 # Spyder project settings
