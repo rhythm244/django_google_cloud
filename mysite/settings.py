@@ -126,6 +126,16 @@ else:
             'PASSWORD': db_password,
         }
     }
+    # DATABASES = { 
+    #     'default': {
+    #         'ENGINE': 'django.db.backends.mysql',
+    #         'HOST': '127.0.0.1',
+    #         'PORT': '3307',
+    #         'NAME': 'django_mysql',
+    #         'USER': 'root',
+    #         'PASSWORD': db_password,
+    #     }
+    # }
 # [END db_setup]
 
 # Use a in-memory sqlite3 database when testing in CI systems
