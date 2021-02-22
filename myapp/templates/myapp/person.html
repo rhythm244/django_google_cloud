@@ -1,0 +1,60 @@
+{% extends "myapp/layout.html" %}
+
+{% block body %}
+
+{% load static %}
+
+<style>
+    table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  padding: 5px;
+}
+    td img {
+        width: 100px;
+        height: 100px;
+    }
+</style>
+
+<table style="margin-bottom: 1rem;">
+
+    <tr>
+        {% for division in divisions %}
+        <th>
+            <a href="{% url 'myapp:person_division' division.id %}">{{ division.department }}</a>
+        </th>
+        {% endfor %}
+    </tr>
+</table>
+
+<table>
+    <tr>
+        <th>ชื่อ</th>
+        <th>สกุล</th>
+        <th>ปี เดือน วัน เกิด</th>
+        <th>เบอร์โทร</th>
+        <th>ตำแหน่ง</th>
+        <th>รูปภาพ</th>
+    </tr>
+{% for employee in employees %}
+    <tr>
+        <td>{{employee.first_name_thai}}</td>
+        <td>{{employee.last_name_thai}}</td>
+        <td>{{employee.date_birth}}</td>
+        <td>{{employee.telephone}}</td>
+        <td>{{employee.position.position}}</td>   
+        <!-- <td>{{employee.picture.employee_image}}</td> -->
+        <td><img src="https://storage.googleapis.com/media-bucket-thong-django-2/{{employee.picture.employee_image}}" ></td>
+        <!-- <td><img src="{% static 'media/image/{{employee.picture.employee_image}}' %}" ></td> -->
+        <td><a href="{% url 'myapp:person_one' employee.id %}">more info</a></td>
+        
+    </tr>
+
+{% endfor %}
+</table>
+
+
+
+<a href="{% url 'myapp:index' %}">Home</a>
+
+{% endblock %}

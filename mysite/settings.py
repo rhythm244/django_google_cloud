@@ -34,7 +34,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = seckey_key
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+# DEBUG = False
+DEBUG = True
 
 # SECURITY WARNING: App Engine's security features ensure that it is safe to
 # have ALLOWED_HOSTS = ['*'] when the app is deployed. If you deploy a Django
@@ -79,6 +80,11 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+
+            # 'libraries':{
+            #             'media':  'myapp.templatetags.media',
+ 
+            # }
         },
     },
 ]
@@ -186,7 +192,28 @@ USE_TZ = True
 STATIC_ROOT = 'static'
 STATIC_URL = '/static/'
 
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# import sys
+
+# gae_dir = google.__path__.append('C:\Program Files (x86)\Google\Cloud SDK\google-cloud-sdk\platform\google_appengine')
 
 
+from google.oauth2 import service_account
 
+GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
+    os.path.join(BASE_DIR, 'credential.json')
+)
+GS_FILE_OVERWRITE = False
+GS_BLOB_CHUNK_SIZE = 2097152 # 1024 * 1024 B * 2 = 2 MB (limit file 2 MB)
+DEFAULT_FILE_STORAGE= 'storages.backends.gcloud.GoogleCloudStorage'
+# print(DEFAULT_FILE_STORAGE)
+GS_PROJECT_ID = 'my-django-gae-304810'
+GS_BUCKET_NAME = 'media-bucket-thong-django-2' 
+# GS_FILE_OVERWRITE = True
+
+MEDIA_ROOT = "media/"
+UPLOAD_ROOT = 'media/uploads/'
+MEDIA_URL = 'https://storage.googleapis.com/{}/'.format(GS_BUCKET_NAME)
 

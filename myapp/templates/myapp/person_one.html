@@ -1,0 +1,29 @@
+{% extends "myapp/layout.html" %}
+
+{% block body %}
+
+<p>Person information</p>
+
+
+<p>{{ employee.rank }}</p>
+<p>{{ employee.first_name_thai }}</p>
+<p>{{ employee.last_name_thai }}</p>
+<p>{{ employee.first_name_eng }}</p>
+<p>{{ employee.last_name_eng }}</p>
+<p>{{ employee.date_birth }}</p>
+<p>{{ employee.telephone }}</p>
+<p>{{ employee.position }}</p>
+<p>Still service : {{ employee.still_service }}</p>
+
+<h2>Upload picture</h2>
+<form action="{% url 'myapp:upload' employee.id %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="save">
+</form>
+
+
+
+<a href="{% url 'myapp:person' %}">person</a>
+
+{% endblock %}
