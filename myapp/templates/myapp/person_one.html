@@ -2,8 +2,14 @@
 
 {% block body %}
 
-<p>Person information</p>
+<h2>Person information</h2>
 
+<style>
+    img {
+        width: 100px;
+        height: 100px;
+    }
+</style>
 
 <p>{{ employee.rank }}</p>
 <p>{{ employee.first_name_thai }}</p>
@@ -13,17 +19,24 @@
 <p>{{ employee.date_birth }}</p>
 <p>{{ employee.telephone }}</p>
 <p>{{ employee.position }}</p>
+<img src="https://storage.googleapis.com/media-bucket-thong-django-2/{{employee.picture.employee_image}}" >
 <p>Still service : {{ employee.still_service }}</p>
 
 <h2>Upload picture</h2>
+{% if messages %}
+    {% for message in messages %}
+        <!-- ถ้ามี message เข้ามา ให้ดูว่าเป็น message.tags แบบไหน แล้วให้คลาสของ message เป็นแบบที่ตั้งไว้ใน
+        setting.py -->
+        {% if message.tags %}
+            <div style="padding: 10px; margin: 5px;" class="{{message.tags}}" role="alert">{{ message }}</div>
+        {% endif %}
+    {% endfor %}
+{% endif %}
 <form action="{% url 'myapp:upload' employee.id %}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
-    <input type="submit" value="save">
+    <input class="btn btn-primary" type="submit" value="save">
 </form>
 
-
-
-<a href="{% url 'myapp:person' %}">person</a>
 
 {% endblock %}

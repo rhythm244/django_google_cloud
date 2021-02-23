@@ -1,9 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils import timezone
-# from PIL import Image
-# from myapp.storage import OverwriteStorage
-
+from django.core.exceptions import ValidationError
 
 # Create your models here.
 
@@ -56,24 +54,20 @@ class Rank(models.Model):
     def __str__(self):
         return f"{self.airforce_rank}"
 
+def validate_image(image):
+    file_size = image.file.size
+    limit_kb = 500
+    if file_size > limit_kb * 1024:
+        raise ValidationError(f"Max size of file is {limit_kb}")
+
 class Picture(models.Model):
     class Meta():
         ordering = ['id']
     employee = models.ForeignKey('Employee', on_delete=models.CASCADE, default=None, null=False, related_name='employee_picture')
-    employee_image = models.ImageField(upload_to='image/')
+    employee_image = models.ImageField('Image', upload_to='image/', validators=[validate_image])
 
     def __str__(self):
         return f"{self.employee.rank} {self.employee.first_name_thai} {self.employee_image}"
-
-    # def save(self, *args, **kwargs):
-    #     super().save(*args, **kwargs)
-
-    #     img = Image.open(self.employee_image.path)
-
-    #     if img.height > 100 or img.width > 100:
-    #         output_size = (100, 100)
-    #         img.thumbnail(output_size)
-    #         img.save(self.image.path)
 
 class Employee(models.Model):
     

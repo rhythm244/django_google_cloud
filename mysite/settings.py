@@ -11,6 +11,15 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+from django.contrib.messages import constants as message_constants
+
+MESSAGE_TAGS = {
+    message_constants.DEBUG: 'debug',
+    message_constants.INFO: 'info',
+    message_constants.SUCCESS: 'alert-success',
+    message_constants.WARNING: 'warning',
+    message_constants.ERROR: 'alert-danger',
+}
 
 db_name = os.environ.get('DB_NAME')
 db_password = os.environ.get('DB_PASSWORD')
@@ -211,7 +220,6 @@ DEFAULT_FILE_STORAGE= 'storages.backends.gcloud.GoogleCloudStorage'
 # print(DEFAULT_FILE_STORAGE)
 GS_PROJECT_ID = 'my-django-gae-304810'
 GS_BUCKET_NAME = 'media-bucket-thong-django-2' 
-# GS_FILE_OVERWRITE = True
 
 MEDIA_ROOT = "media/"
 UPLOAD_ROOT = 'media/uploads/'

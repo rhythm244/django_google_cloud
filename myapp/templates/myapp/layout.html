@@ -1,12 +1,43 @@
+{% load static %}
+
+<!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>601 One Stop Service</title>
-</head>
-<body>
-    {% block body %}
-    {% endblock %}
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <!-- <title>{% block title %}Auctions{% endblock %}</title> -->
+        <title>601 One Stop Service</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link href="{% static 'myapp/styles.css' %}" rel="stylesheet">
+    </head>
+    <body>
+        <h1>601 SQDN</h1>
+        <div>
+            {% if user.is_authenticated %}
+                Signed in as <strong>{{ user.username }}</strong>.
+            {% else %}
+                Not signed in.
+            {% endif %}
+        </div>
+        <ul class="nav">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'myapp:index' %}">HOME</a>
+            </li>
+            {% if user.is_authenticated %}
+            <li>
+                <a class="nav-link" href="{% url 'myapp:person' %}">Person</a>
+            </li>
+            <li class="nav-item"> 
+                <a class="nav-link" href="{% url 'myapp:logout' %}">Log Out</a>
+            </li>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'myapp:login' %}">Log In</a>
+                </li>
+            {% endif %}
+        </ul>
+        <hr>
+        {% block body %}
+        {% endblock %}
+    </body>
 </html>

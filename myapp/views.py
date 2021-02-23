@@ -18,7 +18,32 @@ def index(request):
             'form': form,
         }
         return render(request, "myapp/index.html", context)
-        
+
+def login_view(request):  
+    if request.method == "POST":
+
+        # Attempt to sign user in
+        username = request.POST["username"]
+        password = request.POST["password"]
+        user = authenticate(request, username=username, password=password)
+
+        # Check if authentication successful
+        if user is not None:
+            login(request, user)
+            return HttpResponseRedirect(reverse("myapp:index"))
+        else:
+            return render(request, "myapp/login.html", {
+                "message": "Invalid username and/or password."
+            })
+    else:
+        return render(request, "myapp/login.html")
+
+
+def logout_view(request):
+    logout(request)
+    return HttpResponseRedirect(reverse("myapp:index"))
+
+@login_required
 def person(request):
     """แสดงคนของ ฝูง.601 ทั้งหมด """
     employees = Employee.objects.all()
@@ -33,6 +58,7 @@ def person(request):
     }
     return render(request, "myapp/person.html", context)
 
+@login_required
 def person_division(request, division_id):
     """ทำเพื่อให้ filter ฝ่ายของฝูง.601 """
     employees = Employee.objects.filter(division_id=division_id)
@@ -46,6 +72,7 @@ def person_division(request, division_id):
     }
     return render(request, "myapp/person.html", context)
 
+@login_required
 def person_one(request, employee_id):
     employee = Employee.objects.get(pk=employee_id)
     form = PictureForm()
@@ -56,6 +83,7 @@ def person_one(request, employee_id):
     }
     return render(request, 'myapp/person_one.html', context)
 
+@login_required
 def upload(request, employee_id):
     if request.method == 'POST':
         form = PictureForm(request.POST, request.FILES)
@@ -74,9 +102,12 @@ def upload(request, employee_id):
             for item in employee:
                 item.picture = f
                 item.id = employee_id
-                item.save()
+                item.save()          
+                messages.success(request, "Upload Success")
+        else:
+            messages.error(request, "File not more than 500 Kb")
 
-            return HttpResponseRedirect(reverse("myapp:index"))
+        return HttpResponseRedirect(reverse("myapp:person_one", args=(employee_id,)))
     else: 
         form = PictureForm()
         context = {
