@@ -37,7 +37,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # Update the secret key to a value of your own before deploying the app.
-# SECRET_KEY = 'lldtg$9(wi49j_hpv8nnqlh!cj7kmbwq0$rj7vy(b(b30vlyzj'
 
 
 SECRET_KEY = seckey_key
@@ -141,6 +140,7 @@ else:
             'PASSWORD': db_password,
         }
     }
+    ## set for connect mysql on local mechine
     # DATABASES = { 
     #     'default': {
     #         'ENGINE': 'django.db.backends.mysql',
@@ -204,11 +204,6 @@ STATIC_URL = '/static/'
 # MEDIA_URL = '/media/'
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-# import sys
-
-# gae_dir = google.__path__.append('C:\Program Files (x86)\Google\Cloud SDK\google-cloud-sdk\platform\google_appengine')
-
-
 from google.oauth2 import service_account
 
 GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
@@ -218,8 +213,12 @@ GS_FILE_OVERWRITE = False
 GS_BLOB_CHUNK_SIZE = 2097152 # 1024 * 1024 B * 2 = 2 MB (limit file 2 MB)
 DEFAULT_FILE_STORAGE= 'storages.backends.gcloud.GoogleCloudStorage'
 # print(DEFAULT_FILE_STORAGE)
-GS_PROJECT_ID = 'my-django-gae-304810'
-GS_BUCKET_NAME = 'media-bucket-thong-django-2' 
+
+gs_project_id = os.environ.get('GS_PROJECT_ID')
+gs_bucket_name = os.environ.get('GS_BUCKET_NAME')
+
+GS_PROJECT_ID = gs_project_id
+GS_BUCKET_NAME = gs_bucket_name
 
 MEDIA_ROOT = "media/"
 UPLOAD_ROOT = 'media/uploads/'

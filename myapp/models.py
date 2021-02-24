@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils import timezone
 from django.core.exceptions import ValidationError
+from django.utils.translation import gettext_lazy as _
 
 # Create your models here.
 
@@ -58,7 +59,10 @@ def validate_image(image):
     file_size = image.file.size
     limit_kb = 500
     if file_size > limit_kb * 1024:
-        raise ValidationError(f"Max size of file is {limit_kb}")
+        raise ValidationError(
+            _('%(image)s is not more than 500 Kb'),
+            params={'image': image},
+        )
 
 class Picture(models.Model):
     class Meta():

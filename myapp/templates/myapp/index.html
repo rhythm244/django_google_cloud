@@ -2,7 +2,22 @@
 
 {% block body %}
 
-Welcome Sir Join us to see the wolrd.
+{% if user.is_authenticated %}
+    Welcome Sir Join us to see the wolrd.
+{% else %}
+    Welcome
+{% endif %}
+
+{% if messages %}
+    {% for message in messages %}
+        <!-- ถ้ามี message เข้ามา ให้ดูว่าเป็น message.tags แบบไหน แล้วให้คลาสของ message เป็นแบบที่ตั้งไว้ใน
+        setting.py -->
+        {% if message.tags %}
+            <div style="padding: 10px; margin: 5px;" class="{{message.tags}}" role="alert">{{ message }}</div>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
 
 
 {% endblock %}

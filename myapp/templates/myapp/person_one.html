@@ -11,17 +11,19 @@
     }
 </style>
 
-<p>{{ employee.rank }}</p>
-<p>{{ employee.first_name_thai }}</p>
-<p>{{ employee.last_name_thai }}</p>
-<p>{{ employee.first_name_eng }}</p>
-<p>{{ employee.last_name_eng }}</p>
-<p>{{ employee.date_birth }}</p>
-<p>{{ employee.telephone }}</p>
-<p>{{ employee.position }}</p>
-<img src="https://storage.googleapis.com/media-bucket-thong-django-2/{{employee.picture.employee_image}}" >
-<p>Still service : {{ employee.still_service }}</p>
-
+<div style="border-bottom: 2px solid black;">
+    <p>{{ employee.rank }}</p>
+    <p>{{ employee.first_name_thai }}</p>
+    <p>{{ employee.last_name_thai }}</p>
+    <p>{{ employee.first_name_eng }}</p>
+    <p>{{ employee.last_name_eng }}</p>
+    <p>{{ employee.date_birth }}</p>
+    <p>{{ employee.telephone }}</p>
+    <p>{{ employee.position }}</p>
+    <img src="https://storage.googleapis.com/media-bucket-thong-django-2/{{employee.picture.employee_image}}" >
+    <p>Still service : {{ employee.still_service }}</p>
+</div>
+    
 <h2>Upload picture</h2>
 {% if messages %}
     {% for message in messages %}

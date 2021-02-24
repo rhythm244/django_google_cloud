@@ -9,11 +9,16 @@
         <title>601 One Stop Service</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <link href="{% static 'myapp/styles.css' %}" rel="stylesheet">
+        <script src="{% static 'myapp/script.js' %}"></script> 
+
     </head>
+
     <body>
-        <h1>601 SQDN</h1>
+        <h1 id="joinworld">601 SQDN</h1>
+        
         <div>
             {% if user.is_authenticated %}
+                <button class ="btn btn-primary" id=hello_button>Hello</button>
                 Signed in as <strong>{{ user.username }}</strong>.
             {% else %}
                 Not signed in.

@@ -30,6 +30,7 @@ def login_view(request):
         # Check if authentication successful
         if user is not None:
             login(request, user)
+            messages.success(request, "Log in Successed Let Go !")
             return HttpResponseRedirect(reverse("myapp:index"))
         else:
             return render(request, "myapp/login.html", {
