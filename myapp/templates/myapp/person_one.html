@@ -12,19 +12,35 @@
 </style>
 
 <div style="border-bottom: 2px solid black;">
-    <p>{{ employee.rank }}</p>
-    <p>{{ employee.first_name_thai }}</p>
-    <p>{{ employee.last_name_thai }}</p>
-    <p>{{ employee.first_name_eng }}</p>
-    <p>{{ employee.last_name_eng }}</p>
-    <p>{{ employee.date_birth }}</p>
-    <p>{{ employee.telephone }}</p>
-    <p>{{ employee.position }}</p>
-    <img src="https://storage.googleapis.com/media-bucket-thong-django-2/{{employee.picture.employee_image}}" >
-    <p>Still service : {{ employee.still_service }}</p>
+    <dl class=row>
+        <dt class="col-sm-3"><strong>ยศ ชื่อ - นามสกุล : </dt>
+        <dd class="col-sm-9"></strong>{{ employee.rank }} {{ employee.first_name_thai }} {{ employee.last_name_thai }}</dd>
+
+        <dt class="col-sm-3"><strong>First - Last name : </dt>
+        <dd class="col-sm-9"></strong>{{ employee.first_name_eng }} {{ employee.last_name_eng }}</dd>
+
+        <dt class="col-sm-3"><strong>ปี เดือน วันเกิด (ค.ศ.) : </strong></dt>
+        <dd class="col-sm-9">{{ employee.date_birth }}</dd>
+
+        <dt class="col-sm-3"><strong>เบอร์โทร : </strong></dt>
+        <dd class="col-sm-9">{{ employee.telephone }}</dd>
+
+        <dt class="col-sm-3"><strong>ตำแหน่ง : </strong></dt>
+        <dd class="col-sm-9">{{ employee.position.position }}</dd>
+
+        <dt class="col-sm-3"><strong>Photo : </strong></dt>
+        <dd class="col-sm-9"><img src="https://storage.googleapis.com/media-bucket-thong-django-2/{{employee.picture.employee_image}}" ></dd>
+
+        <dt class="col-sm-3"><strong>Still service : </strong></dt>
+        <dd class="col-sm-9">{{ employee.still_service }}</dd>
+
+    </dl>
 </div>
     
 <h2>Upload picture</h2>
+<figcaption class="blockquote-footer">
+   File not more than <cite title="Source Title">500 Kb !!!!</cite>
+</figcaption>
 {% if messages %}
     {% for message in messages %}
         <!-- ถ้ามี message เข้ามา ให้ดูว่าเป็น message.tags แบบไหน แล้วให้คลาสของ message เป็นแบบที่ตั้งไว้ใน

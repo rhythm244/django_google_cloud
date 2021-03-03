@@ -4,7 +4,7 @@ from .models import Employee, Division, Position, Rank, Airport, Flight, Picture
 # Register your models here.
 
 class EmployeeAdmin(admin.ModelAdmin):
-    list_display = ("id",'rank','first_name_thai','last_name_thai','position','date_birth', 'update')
+    list_display = ("id",'rank','first_name_thai','last_name_thai','position','afaps','date_birth', 'update')
 
 class DivisionAdmin(admin.ModelAdmin):
     list_display = ('id', 'department') 

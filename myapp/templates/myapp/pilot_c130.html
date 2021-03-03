@@ -16,31 +16,6 @@
     }
 </style>
 
-<table style="margin-bottom: 1rem;">
-
-    <tr>
-        {% for division in divisions %}
-        
-            {% if division.id > 5 %}
-            <th>
-                <a href="{% url 'myapp:person_division' division.id %}">{{ division.department }}</a>
-            </th>
-            {% endif %}
-        
-        {% endfor %}
-
-        {% for division in divisions %}
-        
-            {% if division.id < 6 %}
-            <th>
-                <a href="{% url 'myapp:person_division' division.id %}">{{ division.department }}</a>
-            </th>
-            {% endif %}
-        
-        {% endfor %}
-
-    </tr>
-</table>
 
 <table>
     <tr>

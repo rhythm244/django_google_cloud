@@ -24,6 +24,15 @@ li {
     padding: 10px;
 }
 
+.sidebar {
+    background-color: #f0f0f0;
+    height: auto;
+    padding: 20px;
+}
+
+.sidebar h2 {
+    margin-top: 5px;
+}
 
 
 

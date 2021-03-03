@@ -43,7 +43,7 @@ class Position(models.Model):
     position = models.CharField(max_length=50, default=None)
 
     def __str__(self):
-        return f"{self.department} {self.position}"
+        return f"{self.position}"
 
 class Rank(models.Model):
     class Meta():
@@ -86,7 +86,7 @@ class Employee(models.Model):
 
     line_id = models.CharField(max_length=20, blank=True, null=True)
     telephone = models.CharField(max_length=10, help_text='fill 10 number', blank=True, null=True)
-    email = models.EmailField(unique=True)
+    email = models.EmailField(unique=True, blank=True)
     picture = models.ForeignKey('Picture', on_delete=models.SET_NULL, related_name='employee_picture', blank=True, null=True)
 
     division = models.ForeignKey('Division', on_delete=models.CASCADE, related_name='employee_division', blank=True, null=True)

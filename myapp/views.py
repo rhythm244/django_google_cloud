@@ -60,6 +60,16 @@ def person(request):
     return render(request, "myapp/person.html", context)
 
 @login_required
+def pilot_c130(request):
+    """แสดงนักบิน C130 ที่ผ่านมาทุกคน """
+    employees = Employee.objects.all().order_by('afaps')
+  
+    context = {
+        'employees': employees, 
+    }
+    return render(request, "myapp/pilot_c130.html", context)
+
+@login_required
 def person_division(request, division_id):
     """ทำเพื่อให้ filter ฝ่ายของฝูง.601 """
     employees = Employee.objects.filter(division_id=division_id)

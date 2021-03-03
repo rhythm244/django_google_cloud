@@ -16,33 +16,72 @@
     <body>
         <h1 id="joinworld">601 SQDN</h1>
         
-        <div>
+        <div style="border-bottom: cadetblue 2px double; padding: 5px;">
             {% if user.is_authenticated %}
-                <button class ="btn btn-primary" id=hello_button>Hello</button>
+                <button class ="btn btn-secondary" id=hello_button>Hello</button>
                 Signed in as <strong>{{ user.username }}</strong>.
+                
+                <a class="btn btn-primary" href="{% url 'myapp:logout' %}">Log out</a>
+                
             {% else %}
                 Not signed in.
+                <a class="btn btn-primary" href="{% url 'myapp:login' %}">Log In</a>
             {% endif %}
         </div>
-        <ul class="nav">
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'myapp:index' %}">HOME</a>
-            </li>
+
+        <div class="row" style = "margin: 10px 3px;">
             {% if user.is_authenticated %}
-            <li>
-                <a class="nav-link" href="{% url 'myapp:person' %}">Person</a>
-            </li>
-            <li class="nav-item"> 
-                <a class="nav-link" href="{% url 'myapp:logout' %}">Log Out</a>
-            </li>
-            {% else %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'myapp:login' %}">Log In</a>
-                </li>
-            {% endif %}
-        </ul>
-        <hr>
-        {% block body %}
-        {% endblock %}
+            <div class="sidebar col-lg-2" style="border: 2px solid black;" >
+
+                    <div class="nav-link">
+                        <a href="{% url 'myapp:index' %}">HOME</a>
+                    </div>
+
+                    <div class="nav-link">
+                        <a href="{% url 'myapp:person' %}">Person</a>
+                    </div>
+                    <div class="nav-link">
+                        <a href="#">คลังความรู้</a>
+                    </div>
+                    
+                    <div class="nav-link">
+                        <a href="#">ข้อมูลเส้นทางบินในประเทศ</a>
+                    </div>
+                    
+                    <div class="nav-link">
+                        <a href="#">ข้อมูลเครื่องบิน</a>
+                    </div>
+                    
+                    <div class="nav-link">
+                        <a href="#">ใบจัดบิน</a>
+                    </div>
+
+                    <div class="nav-link">
+                        <a href="#">Lesson Learn</a>
+                    </div>
+                    
+                    <div class="nav-link">
+                        <a href="{% url 'myapp:pilot_c130' %}">ทำเนียบนักบิน C-130</a>
+                    </div>
+                    
+                    <div class="nav-link">
+                        <a href="#">ประวัติฝูงบิน</a>
+                    </div>
+                    
+                    <div class="nav-link">
+                        <a href="#">ภารกิจที่สำคัญในอดีต</a>
+                    </div>
+                
+                    
+                    {% else %}
+                        <div></div>
+                    {% endif %}
+                
+            </div>
+            
+            <div class="main col-lg-10">
+                {% block body %}
+                {% endblock %}
+            </div>
     </body>
 </html>
