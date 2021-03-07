@@ -10,7 +10,8 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <link href="{% static 'myapp/styles.css' %}" rel="stylesheet">
         <script src="{% static 'myapp/script.js' %}"></script> 
-
+        {% block head %}
+        {% endblock %}
     </head>
 
     <body>
@@ -33,44 +34,44 @@
             {% if user.is_authenticated %}
             <div class="sidebar col-lg-2" style="border: 2px solid black;" >
 
-                    <div class="nav-link">
+                    <div>
                         <a href="{% url 'myapp:index' %}">HOME</a>
                     </div>
 
-                    <div class="nav-link">
-                        <a href="{% url 'myapp:person' %}">Person</a>
+                    <div>
+                        <a href="{% url 'myapp:person' %}">ผู้คน601</a>
                     </div>
-                    <div class="nav-link">
+                    <!-- <div>
                         <a href="#">คลังความรู้</a>
                     </div>
                     
-                    <div class="nav-link">
+                    <div>
                         <a href="#">ข้อมูลเส้นทางบินในประเทศ</a>
                     </div>
                     
-                    <div class="nav-link">
+                    <div>
                         <a href="#">ข้อมูลเครื่องบิน</a>
                     </div>
                     
-                    <div class="nav-link">
+                    <div>
                         <a href="#">ใบจัดบิน</a>
                     </div>
 
-                    <div class="nav-link">
+                    <div>
                         <a href="#">Lesson Learn</a>
-                    </div>
+                    </div> -->
                     
-                    <div class="nav-link">
+                    <div>
                         <a href="{% url 'myapp:pilot_c130' %}">ทำเนียบนักบิน C-130</a>
                     </div>
                     
-                    <div class="nav-link">
+                    <!-- <div>
                         <a href="#">ประวัติฝูงบิน</a>
                     </div>
                     
-                    <div class="nav-link">
+                    <div>
                         <a href="#">ภารกิจที่สำคัญในอดีต</a>
-                    </div>
+                    </div> -->
                 
                     
                     {% else %}

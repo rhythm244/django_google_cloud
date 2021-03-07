@@ -1,14 +1,14 @@
 {% extends "myapp/layout.html" %}
 
+{% load static %}
+
+{% block head %}
+    <script src="{% static 'myapp/currency.js' %}"></script>
+{% endblock %}
+
 {% block body %}
 
-{% if user.is_authenticated %}
-    Welcome Sir Join us to see the wolrd.
-{% else %}
-    Welcome
-{% endif %}
-
-{% if messages %}
+    {% if messages %}
     {% for message in messages %}
         <!-- ถ้ามี message เข้ามา ให้ดูว่าเป็น message.tags แบบไหน แล้วให้คลาสของ message เป็นแบบที่ตั้งไว้ใน
         setting.py -->
@@ -16,8 +16,22 @@
             <div style="padding: 10px; margin: 5px;" class="{{message.tags}}" role="alert">{{ message }}</div>
         {% endif %}
     {% endfor %}
-{% endif %}
+    {% endif %}
 
-
-
+    {% if user.is_authenticated %}
+        <h3>Welcome Sir , C-130 8 days a week.</h3>
+        <h5 style="border-top: black solid 2px; margin: 5px auto; padding: 5px" >Convert (other currency to Thai bath)</h5>
+        <span id="allcurrency">Example currency : USD, EUR , JPY, AUD, SGD(สิงคโปร์), IDR(อินโด), MYR(มาเล),  etc. </span>
+        <form>
+            <input id="currency" placeholder="Currency" type="text">
+            <input type="submit" value="Convert to thai bath">
+        </form>
+        <div id="result1"></div>
+        <div id="result2"></div>
+        <div class="alert-danger" id="result3"></div>
+    {% else %}
+        Welcome
+    {% endif %}
+        
+    </div>
 {% endblock %}

@@ -22,25 +22,39 @@
         <th>ยศ</th>
         <th>ชื่อ</th>
         <th>สกุล</th>
-        <th>ปี เดือน วัน เกิด</th>
+        <!-- <th>ปี เดือน วัน เกิด</th> -->
         <th>เบอร์โทร</th>
         <th>ตำแหน่ง</th>
         <th>รุ่น</th>
+        <th>เลขลัคกี้</th>
         <th>รูปภาพ</th>
+        <th>Update</th>
     </tr>
 {% for employee in employees %}
     <tr>
         <td>{{ employee.rank }}</td>
-        <td>{{employee.first_name_thai}}</td>
-        <td>{{employee.last_name_thai}}</td>
-        <td>{{employee.date_birth}}</td>
-        <td>{{employee.telephone}}</td>
+        <td width = "80px">{{employee.first_name_thai}}</td>
+        <td width = "100px">{{employee.last_name_thai}}</td>
+        <!-- <td>{{employee.date_birth}}</td> -->
+        <td>{% if employee.telephone != None %}
+                {{ employee.telephone }} 
+            {% else %}
+                TBN
+        {% endif %}
+    </td>
         <td>{{employee.position.position}}</td>  
         <td> {{ employee.afaps }}</td> 
+        <td>{% if employee.lucky_number != None %}
+                Lucky {{ employee.lucky_number }} 
+                {% else %}
+                    TBN
+            {% endif %}
+        </td>
         <!-- <td>{{employee.picture.employee_image}}</td> -->
         <td><img src="https://storage.googleapis.com/media-bucket-thong-django-2/{{employee.picture.employee_image}}" ></td>
         <!-- <td><img src="{% static 'media/image/{{employee.picture.employee_image}}' %}" ></td> -->
-        <td><a href="{% url 'myapp:person_one' employee.id %}">more info</a></td>
+        <td width="50px">{{ employee.update }}</td> 
+        <td><a href="{% url 'myapp:person_one' employee.id %}">MORE INFO</a></td>
         
     </tr>
 

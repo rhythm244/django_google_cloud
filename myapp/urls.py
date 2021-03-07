@@ -15,6 +15,7 @@ urlpatterns = [
     path('person/<int:employee_id>', views.person_one, name='person_one'),
     path('person_division/<int:division_id>', views.person_division, name='person_division'),
     path('upload/<int:employee_id>', views.upload, name='upload'),
+    path('upload_employee/<int:employee_id>', views.upload_employee, name='upload_employee'),
 ]
 
 

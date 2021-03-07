@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.db import IntegrityError
 from django.urls import reverse
-from .form import PictureForm
+from .form import PictureForm, EmployeeForm
 from .models import *
 from django.contrib.auth.decorators import login_required
 
@@ -46,14 +46,15 @@ def logout_view(request):
 
 @login_required
 def person(request):
-    """แสดงคนของ ฝูง.601 ทั้งหมด """
-    employees = Employee.objects.all()
+    """ส่งแค่ division ไปเพื่อใช้ในการกด ของ user เอา เพราะถ้าส่งไปหมดจะ load ช้าเกิน """
+    
+    # employees = Employee.objects.order_by('afaps')
     divisions = Division.objects.all()
 
     form = PictureForm()
   
     context = {
-        'employees': employees, 
+        # 'employees': employees, 
         'divisions': divisions,
         'form': form,
     }
@@ -62,7 +63,7 @@ def person(request):
 @login_required
 def pilot_c130(request):
     """แสดงนักบิน C130 ที่ผ่านมาทุกคน """
-    employees = Employee.objects.all().order_by('afaps')
+    employees = Employee.objects.filter(is_pilot=True).order_by('afaps','lucky_number')
   
     context = {
         'employees': employees, 
@@ -87,10 +88,12 @@ def person_division(request, division_id):
 def person_one(request, employee_id):
     employee = Employee.objects.get(pk=employee_id)
     form = PictureForm()
+    form_employee = EmployeeForm()
 
     context = {
         'employee': employee,
         'form': form,
+        'form_employee': form_employee, 
     }
     return render(request, 'myapp/person_one.html', context)
 
@@ -117,6 +120,31 @@ def upload(request, employee_id):
                 messages.success(request, "Upload Success")
         else:
             messages.error(request, "File not more than 500 Kb")
+
+        return HttpResponseRedirect(reverse("myapp:person_one", args=(employee_id,)))
+    else: 
+        form = PictureForm()
+        context = {
+            'form': form,
+        }
+        return render(request, 'myapp/index.html', context)
+
+@login_required
+def upload_employee(request, employee_id):
+    if request.method == 'POST':
+
+        employee = Employee.objects.filter(pk=employee_id).first()
+
+        form = EmployeeForm(request.POST, instance=employee)
+        
+        if form.is_valid():
+
+            form.save()
+            # employee.id = employee_id
+            # employee.save()          
+            messages.success(request, "Edit Success")
+        else:
+            messages.error(request, "Error")
 
         return HttpResponseRedirect(reverse("myapp:person_one", args=(employee_id,)))
     else: 

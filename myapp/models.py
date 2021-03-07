@@ -56,6 +56,7 @@ class Rank(models.Model):
         return f"{self.airforce_rank}"
 
 def validate_image(image):
+    """ ทำการ valid รูปภาพที่ user จะโหลดให้ไม่เกิน 500 Kb"""
     file_size = image.file.size
     limit_kb = 500
     if file_size > limit_kb * 1024:
@@ -82,7 +83,7 @@ class Employee(models.Model):
     last_name_eng = models.CharField(max_length=64, blank=True, null=True)
     first_name_thai = models.CharField(max_length=64, blank=True, null=True)
     last_name_thai = models.CharField(max_length=64, blank=True, null=True)
-    date_birth = models.DateField(default=None)
+    date_birth = models.DateField(default=None, null=True)
 
     line_id = models.CharField(max_length=20, blank=True, null=True)
     telephone = models.CharField(max_length=10, help_text='fill 10 number', blank=True, null=True)
@@ -93,12 +94,14 @@ class Employee(models.Model):
     rank = models.ForeignKey('Rank', on_delete=models.CASCADE, related_name='rank', blank=True, null=True)
     position = models.ForeignKey('Position', on_delete=models.CASCADE, related_name='employee_position', blank=True, null=True)
     lucky_number = models.DecimalField(max_digits=4,decimal_places=0, blank=True, null=True)
-    afaps = models.IntegerField(default=None)
+    afaps = models.IntegerField(default=None, null=True)
 
     passport = models.CharField(max_length=9, default=None, blank=True, null=True)
     visa = models.CharField(max_length=14, default=None, blank=True, null=True)
 
     still_service = models.BooleanField(default=True)
+    is_pilot = models.BooleanField(default=False, null=True)
+
     create_at = models.DateTimeField(auto_now_add=True, null=True)
     update = models.DateTimeField(auto_now=True, null=True)
 

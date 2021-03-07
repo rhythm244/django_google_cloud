@@ -11,6 +11,12 @@ class PictureForm(forms.ModelForm):
         model = Picture
         fields = ('employee_image',)
 
+class EmployeeForm(forms.ModelForm):
+    class Meta:
+
+        model = Employee
+        fields = ('telephone','position','still_service')
+
 
 # class ListingForm(forms.ModelForm): #จะเขียนว่า class CreateList(ModelForm) เฉยๆก็ได้
 #     class Meta:

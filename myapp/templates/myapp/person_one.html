@@ -11,7 +11,7 @@
     }
 </style>
 
-<div style="border-bottom: 2px solid black;">
+<div>
     <dl class=row>
         <dt class="col-sm-3"><strong>ยศ ชื่อ - นามสกุล : </dt>
         <dd class="col-sm-9"></strong>{{ employee.rank }} {{ employee.first_name_thai }} {{ employee.last_name_thai }}</dd>
@@ -35,25 +35,36 @@
         <dd class="col-sm-9">{{ employee.still_service }}</dd>
 
     </dl>
+    {% if messages %}
+            {% for message in messages %}
+                <!-- ถ้ามี message เข้ามา ให้ดูว่าเป็น message.tags แบบไหน แล้วให้คลาสของ message เป็นแบบที่ตั้งไว้ใน
+                setting.py -->
+                {% if message.tags %}
+                    <div style="padding: 10px; margin: 5px;" class="{{message.tags}}" role="alert">{{ message }}</div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+</div>
+
+<!--function การ EDIT ข้อมูลของ Employee-->
+<div style="border-bottom: black solid 2px; border-top: black solid 2px; padding: 5px;">
+    <h2>Edit telephone and position</h2>
+    <form action="{% url 'myapp:upload_employee' employee.id %}" method="post" >
+        {% csrf_token %}
+        {{ form_employee.as_p }}
+        <input class="btn btn-primary" type="submit" value="Edit telephone and position">
+    </form>
 </div>
     
 <h2>Upload picture</h2>
 <figcaption class="blockquote-footer">
    File not more than <cite title="Source Title">500 Kb !!!!</cite>
 </figcaption>
-{% if messages %}
-    {% for message in messages %}
-        <!-- ถ้ามี message เข้ามา ให้ดูว่าเป็น message.tags แบบไหน แล้วให้คลาสของ message เป็นแบบที่ตั้งไว้ใน
-        setting.py -->
-        {% if message.tags %}
-            <div style="padding: 10px; margin: 5px;" class="{{message.tags}}" role="alert">{{ message }}</div>
-        {% endif %}
-    {% endfor %}
-{% endif %}
+
 <form action="{% url 'myapp:upload' employee.id %}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
-    <input class="btn btn-primary" type="submit" value="save">
+    <input class="btn btn-primary" type="submit" value="Upload photo">
 </form>
 
 
