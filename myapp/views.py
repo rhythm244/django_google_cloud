@@ -135,13 +135,28 @@ def upload_employee(request, employee_id):
 
         employee = Employee.objects.filter(pk=employee_id).first()
 
+        #จัดเตรียมข้อมูลเอาไว้ใช้ด้านล่าง ไม่รู้ทำไมใช้ employee. เลยไม่ได้ เลยต้องใส่ตัวแปรเพิ่ม
+        telephone_already = employee.telephone
+        position_already = employee.position
+        position_other_already = employee.position_other
+        
         form = EmployeeForm(request.POST, instance=employee)
         
         if form.is_valid():
+            f = form.save(commit=False)
+            f.employee_id = employee_id #ต้องมีบรรทัดนี้ เพราะถ้าไม่ใส่มันจะไม่รู้ว่าเป็นของ pk ไหน
 
-            form.save()
-            # employee.id = employee_id
-            # employee.save()          
+            #ถ้ามีข้อมูลเก่าอยู่แล้ว ให้นำข้อมูลเก่ามาใส่ ถ้า user ใส่ None มาใน Form
+            if f.telephone == None:
+                f.telephone = telephone_already
+            if f.position == None:
+                f.position = position_already
+
+            # hide ไว้ เพราะถ้าไม่ใส่คือไม่มีอยู่แล้ว
+            # if f.position_other == None:
+            #     f.position_other = position_other_already
+
+            f.save()        
             messages.success(request, "Edit Success")
         else:
             messages.error(request, "Error")

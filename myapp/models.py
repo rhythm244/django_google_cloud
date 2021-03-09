@@ -93,6 +93,7 @@ class Employee(models.Model):
 
     division = models.ForeignKey('Division', on_delete=models.CASCADE, related_name='employee_division', blank=True, null=True)
     position = models.ForeignKey('Position', on_delete=models.CASCADE, related_name='employee_position', blank=True, null=True)
+    position_other = models.CharField(max_length=200, blank=True, null=True, default=None)
     lucky_number = models.DecimalField(max_digits=4,decimal_places=0, blank=True, null=True)
     afaps = models.IntegerField(default=None, null=True)
 

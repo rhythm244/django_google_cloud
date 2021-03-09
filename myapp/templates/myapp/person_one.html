@@ -26,7 +26,7 @@
         <dd class="col-sm-9">{{ employee.telephone }}</dd>
 
         <dt class="col-sm-3"><strong>ตำแหน่ง : </strong></dt>
-        <dd class="col-sm-9">{{ employee.position.position }}</dd>
+        <dd class="col-sm-9">{{employee.position.position}} {% if employee.position_other != None %} /{{employee.position_other}} {% else %} {% endif %}</dd>
 
         <dt class="col-sm-3"><strong>Photo : </strong></dt>
         <dd class="col-sm-9"><img src="https://storage.googleapis.com/media-bucket-thong-django-2/{{employee.picture.employee_image}}" ></dd>

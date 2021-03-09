@@ -15,7 +15,30 @@ class EmployeeForm(forms.ModelForm):
     class Meta:
 
         model = Employee
-        fields = ('telephone','position','still_service')
+        fields = ('telephone','position','position_other','still_service')
+
+        labels = {
+            "position_other": "ตำแหน่งอื่นๆ",
+        }
+
+        widgets = {
+            'telephone': forms.TextInput(attrs={
+                'class': 'form-control',
+                # 'size': '40',
+                'placeholder': 'เบอร์โทรศัพท์ 10 ตัว ไม่ต้องขีด ไม่ต้องเว้นครับ',
+            }),
+            'position': forms.Select(attrs={
+                'class': 'form-control',
+                # 'size': '40',
+                'placeholder': '',
+            }),
+            'position_other': forms.TextInput(attrs={
+                'class': 'form-control',
+                # 'size': '40',
+                'placeholder': 'ใส่ตำแหน่งย่อนะครับ :)',
+            }),
+            
+        }
 
 
 # class ListingForm(forms.ModelForm): #จะเขียนว่า class CreateList(ModelForm) เฉยๆก็ได้

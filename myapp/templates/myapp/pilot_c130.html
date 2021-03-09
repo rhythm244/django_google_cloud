@@ -24,7 +24,7 @@
         <th>สกุล</th>
         <!-- <th>ปี เดือน วัน เกิด</th> -->
         <th>เบอร์โทร</th>
-        <th>ตำแหน่ง/สถานะ</th>
+        <th>สถานะ/ตำแหน่ง</th>
         <th>รุ่น</th>
         <th>เลขลัคกี้</th>
         <th>รูปภาพ</th>
@@ -42,8 +42,14 @@
                 TBN
         {% endif %}
     </td>
-        <td>{{employee.position.position}}</td>  
-        <td> {{ employee.afaps }}</td> 
+        <!-- แสดงตำแหน่งของนักบิน C130 แต่ถ้าไม่มีตำแหน่งอื่นๆ ที่ธงเพิ่ม models เข้าไปตอนหลัง ก็ไม่ต้องแสดงอะไร 
+             ที่ต้องเพิ่มเพราะตำแหน่งของ ทอ. หรืออื่นๆ มีเยอะมาก ใครอยากใส่อะไรก็ใส่ลงไป -->
+        <td>{{employee.position.position}} {% if employee.position_other != None %} /{{employee.position_other}} {% else %} {% endif %}</td>  
+        <td> {% if employee.afaps != 0 %}
+            {{ employee.afaps }} 
+        {% else %}
+            -
+    {% endif %}
         <td>{% if employee.lucky_number != None %}
                 Lucky {{ employee.lucky_number }} 
                 {% else %}
