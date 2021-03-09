@@ -79,19 +79,19 @@ class Employee(models.Model):
     class Meta():
         ordering = ['id']
 
+    rank = models.ForeignKey('Rank', on_delete=models.CASCADE, related_name='rank', blank=True, null=True)
     first_name_eng = models.CharField(max_length=64, blank=True, null=True)
     last_name_eng = models.CharField(max_length=64, blank=True, null=True)
     first_name_thai = models.CharField(max_length=64, blank=True, null=True)
     last_name_thai = models.CharField(max_length=64, blank=True, null=True)
-    date_birth = models.DateField(default=None, null=True)
+    date_birth = models.DateField(default=None, null=True, blank=True)
 
     line_id = models.CharField(max_length=20, blank=True, null=True)
     telephone = models.CharField(max_length=10, help_text='fill 10 number', blank=True, null=True)
-    email = models.EmailField(unique=True, blank=True)
+    email = models.EmailField(unique=True, blank=True, null=True)
     picture = models.ForeignKey('Picture', on_delete=models.SET_NULL, related_name='employee_picture', blank=True, null=True)
 
     division = models.ForeignKey('Division', on_delete=models.CASCADE, related_name='employee_division', blank=True, null=True)
-    rank = models.ForeignKey('Rank', on_delete=models.CASCADE, related_name='rank', blank=True, null=True)
     position = models.ForeignKey('Position', on_delete=models.CASCADE, related_name='employee_position', blank=True, null=True)
     lucky_number = models.DecimalField(max_digits=4,decimal_places=0, blank=True, null=True)
     afaps = models.IntegerField(default=None, null=True)
