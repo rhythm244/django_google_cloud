@@ -37,27 +37,57 @@ document.addEventListener('DOMContentLoaded', function() {
 }
 });
 
-// document.addEventListener('DOMContentLoaded', function() {
-        //     //defalut เป็น ยูโร
-        //     fetch('https://api.exchangeratesapi.io/latest')
-        //     .then(response => response.json())
-        //     .then(data => {
-        //         console.log(data)
-        //         const rate_thai = data.rates.THB
-        //         // const update = data.date
-        //         let date = new Date(data.date);
-        //         document.querySelector('#rate_EUR').innerHTML = `1 EUR = ${rate_thai.toFixed(3)} Bath (update at ${date})`
-        //     })
-        // })
 
-        // document.addEventListener('DOMContentLoaded', function() {
-        //     fetch('https://api.exchangeratesapi.io/latest?base=USD')
-        //     .then(response => response.json())
-        //     .then(data => {
-        //         const rate_thai = data.rates.THB
-        //         // const update = data.date
-        //         let date = new Date(data.date);
-        //         document.querySelector('#rate_USD').innerHTML = `1 USD = ${rate_thai.toFixed(3)} Bath (update at ${date})`
-        //     })
-        // })
-        //-----------------------------------------------------------------------------------------------------------------------------
+document.addEventListener('DOMContentLoaded', function() 
+        {
+            fetch('https://api.checkwx.com/metar/vtbd,vtbu,vtcc,vtpp,vtsb', 
+            {
+                headers: {
+                    "X-API-Key": "29c7f5d572ed49019d1d5bddcf",
+                },
+                
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data.data[0])
+                for (x in data.data.reverse()) {
+                    document.querySelector("#metra").innerHTML += `${data.data[x]} <br>`;
+                  }
+            })
+                
+        })
+
+document.addEventListener('DOMContentLoaded', function() 
+        {
+            fetch('https://api.checkwx.com/taf/vtbd,vtbu,vtcc,vtpp,vtsb', 
+            {
+                headers: {
+                    "X-API-Key": "29c7f5d572ed49019d1d5bddcf",
+                },
+                
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data.data[0])
+                for (x in data.data.reverse()) {
+                    document.querySelector("#taf").innerHTML += `${data.data[x]} <br>`;
+                  }
+            })
+                
+        })
+
+
+
+        // then(data => data.forEach((element) => {console.log(element);}))
+        //document.querySelector('#weather').innerHTML = `${test}`
+
+        // function populate(thong_list){
+        //     // for (k in thong_list) 
+        //     // {
+        //     //     console.log(k[data])
+        //     //     // let li = document.createElement("li");
+        //     //     // let node = document.createTextNode('data');
+        //     //     // li.appendChild(node);
+        //     //     // document.querySelector('#weather').appendChild(li);
+        //     // }
+        // }

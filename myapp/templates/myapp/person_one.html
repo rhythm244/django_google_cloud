@@ -48,11 +48,11 @@
 
 <!--function การ EDIT ข้อมูลของ Employee-->
 <div style="border-bottom: black solid 2px; border-top: black solid 2px; padding: 5px;">
-    <h2>Edit telephone and position</h2>
+    <h2>Update ข้อมูล</h2>
     <form action="{% url 'myapp:upload_employee' employee.id %}" method="post" >
         {% csrf_token %}
         {{ form_employee.as_p }}
-        <input class="btn btn-primary" type="submit" value="Edit telephone and position">
+        <input class="btn btn-primary" type="submit" value="save edit data">
     </form>
 </div>
     

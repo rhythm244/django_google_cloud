@@ -37,6 +37,18 @@ document.addEventListener('DOMContentLoaded', function() {
 }
 });
 
+document.addEventListener('DOMContentLoaded', function() {
+            fetch('https://api.checkwx.com/metar/vtbd', 
+            {
+                headers: {"X-API-Key": "29c7f5d572ed49019d1d5bddcf"}
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+            })
+        })
+
+        // then(data => data.forEach((element) => {console.log(element);}))
 // document.addEventListener('DOMContentLoaded', function() {
         //     //defalut เป็น ยูโร
         //     fetch('https://api.exchangeratesapi.io/latest')

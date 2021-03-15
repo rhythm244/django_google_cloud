@@ -137,6 +137,11 @@ def upload_employee(request, employee_id):
 
         #จัดเตรียมข้อมูลเอาไว้ใช้ด้านล่าง ไม่รู้ทำไมใช้ employee. เลยไม่ได้ เลยต้องใส่ตัวแปรเพิ่ม
         telephone_already = employee.telephone
+        rank_already = employee.rank
+        firstnamethai_already = employee.first_name_thai
+        lastnamethai_already = employee.last_name_thai
+        firstnameeng_already = employee.first_name_eng
+        lastnameeng_already = employee.last_name_eng
         position_already = employee.position
         position_other_already = employee.position_other
         
@@ -147,6 +152,16 @@ def upload_employee(request, employee_id):
             f.employee_id = employee_id #ต้องมีบรรทัดนี้ เพราะถ้าไม่ใส่มันจะไม่รู้ว่าเป็นของ pk ไหน
 
             #ถ้ามีข้อมูลเก่าอยู่แล้ว ให้นำข้อมูลเก่ามาใส่ ถ้า user ใส่ None มาใน Form
+            if f.rank == None:
+                f.rank = rank_already
+            if f.first_name_thai == None:
+                f.first_name_thai = firstnamethai_already
+            if f.last_name_thai == None:
+                f.last_name_thai = lastnamethai_already
+            if f.first_name_eng == None:
+                f.first_name_eng = firstnameeng_already
+            if f.last_name_eng == None:
+                f.last_name_eng = lastnameeng_already
             if f.telephone == None:
                 f.telephone = telephone_already
             if f.position == None:

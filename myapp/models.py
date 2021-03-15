@@ -84,7 +84,7 @@ class Employee(models.Model):
     last_name_eng = models.CharField(max_length=64, blank=True, null=True)
     first_name_thai = models.CharField(max_length=64, blank=True, null=True)
     last_name_thai = models.CharField(max_length=64, blank=True, null=True)
-    date_birth = models.DateField(default=None, null=True, blank=True)
+    date_birth = models.DateField(default=None, null=True, blank=True, help_text='ปี ค.ศ. / เดือน / วัน (ตัวอย่าง 1990-09-01)')
 
     line_id = models.CharField(max_length=20, blank=True, null=True)
     telephone = models.CharField(max_length=10, help_text='fill 10 number', blank=True, null=True)

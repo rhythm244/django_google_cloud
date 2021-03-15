@@ -15,26 +15,51 @@ class EmployeeForm(forms.ModelForm):
     class Meta:
 
         model = Employee
-        fields = ('telephone','position','position_other','still_service')
+        fields = ('rank','first_name_thai','last_name_thai','first_name_eng','last_name_eng','telephone','position','position_other','still_service')
 
         labels = {
+            
+            "rank": "ยศ",
+            "first_name_thai": "ชื่อ",
+            "last_name_thai": "นามสกุล",
+            "first_name_eng": "Firstname",
+            "last_name_eng": "Lastname",
+            "telephone": "เบอร์",
+            "position": "ตำแหน่ง",
             "position_other": "ตำแหน่งอื่นๆ",
         }
 
         widgets = {
+            'rank': forms.Select(attrs={
+                'class': 'form-control',
+                'placeholder': 'ยศ',
+            }),
+            'first_name_thai': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': '',
+            }),
+            'last_name_thai': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': '',
+            }),
+            'first_name_eng': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': '',
+            }),
+            'last_name_eng': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': '',
+            }),
             'telephone': forms.TextInput(attrs={
                 'class': 'form-control',
-                # 'size': '40',
                 'placeholder': 'เบอร์โทรศัพท์ 10 ตัว ไม่ต้องขีด ไม่ต้องเว้นครับ',
             }),
             'position': forms.Select(attrs={
                 'class': 'form-control',
-                # 'size': '40',
                 'placeholder': '',
             }),
             'position_other': forms.TextInput(attrs={
                 'class': 'form-control',
-                # 'size': '40',
                 'placeholder': 'ใส่ตำแหน่งย่อนะครับ :)',
             }),
             
@@ -71,6 +96,7 @@ class EmployeeForm(forms.ModelForm):
 #                 'class': 'form-control',
 #                 'placeholder': 'post a comment',
 #                 'rows': 5,
+#                 'size': '40',
 #                 'cols': 5,
 
 #             }),
