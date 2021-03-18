@@ -34,7 +34,19 @@
         <h3 style="margin-top: 10px;">ข่าวอากาศ</h3>
         <div id="metra"></div>
 
-        <div id="taf" style="margin-top:20px;"></div>
+        <form id='taf_submit'>
+            <input id="taf" placeholder="vtbd,vtbu,vtcc" type="text">
+            <input type="submit" value="TAF">
+        </form>
+
+        <h3>TAF</h3>
+        <div id='taf_display'></div>
+
+        <h3>METAR</h3>
+        <div id='metar_display'></div>
+
+        <a href="http://www.sattmet.tmd.go.th/satmet/mergesat.html">sattmet.tmd</a>
+
 
         
     {% else %}

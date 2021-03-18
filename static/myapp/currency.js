@@ -37,39 +37,140 @@ document.addEventListener('DOMContentLoaded', function() {
 }
 });
 
-document.addEventListener('DOMContentLoaded', function() {
-            fetch('https://api.checkwx.com/metar/vtbd', 
-            {
-                headers: {"X-API-Key": "29c7f5d572ed49019d1d5bddcf"}
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log(data)
-            })
-        })
 
-        // then(data => data.forEach((element) => {console.log(element);}))
+// document.addEventListener('DOMContentLoaded', function() 
+//         {
+//             fetch('https://api.checkwx.com/metar/vtbd,vtbu,vtcc,vtpp,vtsb', 
+//             {
+//                 headers: {
+//                     "X-API-Key": "29c7f5d572ed49019d1d5bddcf",
+//                 },
+                
+//             })
+//             .then(response => response.json())
+//             .then(data => {
+//                 console.log(data.data[0])
+//                 for (x in data.data.reverse()) {
+//                     document.querySelector("#metra").innerHTML += `${data.data[x]} <br>`;
+//                   }
+//             })
+            
+//             return false;
+//         })
+
+// document.addEventListener('DOMContentLoaded', function() 
+//         {
+//             fetch('https://api.checkwx.com/taf/vtbd,vtbu,vtcc,vtpp,vtsb', 
+//             {
+//                 headers: {
+//                     "X-API-Key": "29c7f5d572ed49019d1d5bddcf",
+//                 },
+                
+//             })
+//             .then(response => response.json())
+//             .then(data => {
+//                 console.log(data.data[0])
+//                 for (x in data.data.reverse()) {
+//                     document.querySelector("#taf").innerHTML += `${data.data[x]} <br>`;
+//                   }
+//             })
+                
+//         })
+
+
 // document.addEventListener('DOMContentLoaded', function() {
-        //     //defalut เป็น ยูโร
-        //     fetch('https://api.exchangeratesapi.io/latest')
-        //     .then(response => response.json())
-        //     .then(data => {
-        //         console.log(data)
-        //         const rate_thai = data.rates.THB
-        //         // const update = data.date
-        //         let date = new Date(data.date);
-        //         document.querySelector('#rate_EUR').innerHTML = `1 EUR = ${rate_thai.toFixed(3)} Bath (update at ${date})`
-        //     })
-        // })
+//     document.querySelector('#taf_submit').onsubmit = function() {
+    
+//     var airport = document.querySelector('#taf').value;
+//     // Send a GET request to the URL
+//     fetch(`https://api.checkwx.com/taf/${airport}`, 
+//             {
+//                 headers: {
+//                     "X-API-Key": "29c7f5d572ed49019d1d5bddcf",
+//                 },
+                
+//             })
+//     .then(response => response.json())
+//     .then(data => {
+//         console.log(data)
+//         for (x in data.data.reverse()) {
+//             console.log(`Thsi is airport user choose : ${airport}`)
+//             let clean_data = data.data[x]
+//             let patt = /BECMG|TEMPO/g;
+//             let res = patt.test(clean_data);
+//             var result = clean_data.match(patt);
 
-        // document.addEventListener('DOMContentLoaded', function() {
-        //     fetch('https://api.exchangeratesapi.io/latest?base=USD')
-        //     .then(response => response.json())
-        //     .then(data => {
-        //         const rate_thai = data.rates.THB
-        //         // const update = data.date
-        //         let date = new Date(data.date);
-        //         document.querySelector('#rate_USD').innerHTML = `1 USD = ${rate_thai.toFixed(3)} Bath (update at ${date})`
-        //     })
-        // })
-        //-----------------------------------------------------------------------------------------------------------------------------
+//             if (result != null)
+//             {
+//                 let cleant = clean_data.split(/BECMG|TEMPO/g).filter(Boolean).join(`<br> ${result[x]}`);
+//                 console.log(res)
+//                 console.log(`This is word match RE ${result}`)
+//                 console.log(`It is : ${cleant}`)
+//                 document.querySelector("#taf_display").innerHTML += `${cleant}`;
+//             }
+//             else 
+//             {
+//                 document.querySelector("#taf_display").innerHTML += `<br> ${clean_data} `;       
+//             }
+//         }
+//     })
+//     // Catch any errors and log them to the console
+//     .catch(error => {
+//         console.log('Error:', error);
+//     });
+
+//     document.querySelector('#metra_display').innerHTML = 'test2'
+
+//     return false;
+// }
+// });
+
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelector('#taf_submit').onsubmit = function() {
+    
+    var airport = document.querySelector('#taf').value;
+    var airport_ary = airport.split(",");
+    // Send a GET request to the URL
+    fetch(`https://api.checkwx.com/taf/${airport}`,
+            {
+                headers: {
+                    "X-API-Key": "29c7f5d572ed49019d1d5bddcf",
+                },
+                
+            })
+    .then(response => response.json())
+    .then(data => {
+        for (let x in data.data)
+        {
+            document.querySelector("#taf_display").innerHTML += `${data.data[x]} <br>`;
+        }
+    })
+    // Catch any errors and log them to the console
+    .catch(error => {
+        console.log('Error:', error);
+    });
+
+    fetch(`https://api.checkwx.com/metar/${airport}`,
+            {
+                headers: {
+                    "X-API-Key": "29c7f5d572ed49019d1d5bddcf",
+                },
+                
+            })
+    .then(response => response.json())
+    .then(data => {
+        //ถ้าจะเพิ่มฟังก์ชั่นในอนาคต ก็เอาข้อมูลใส่ตัวแปล แล้วค่อยไปแสดงผลนอกฟังก์ชั่นทีหลังละกัน
+        for (let x in data.data)
+        {
+            document.querySelector("#metar_display").innerHTML += `${data.data[x]} <br>`;
+        }
+    })
+    // Catch any errors and log them to the console
+    .catch(error => {
+        console.log('Error:', error);
+    });
+
+    return false;
+}
+});
+
