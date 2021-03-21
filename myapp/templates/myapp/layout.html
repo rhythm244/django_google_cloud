@@ -14,25 +14,37 @@
         {% endblock %}
     </head>
 
-    <body>
-        <h1 id="joinworld">601 SQDN</h1>
-        
-        <div style="border-bottom: cadetblue 2px double; padding: 5px;">
-            {% if user.is_authenticated %}
-                <button class ="btn btn-secondary" id=hello_button>Hello</button>
-                Signed in as <strong>{{ user.username }}</strong>.
-                
-                <a class="btn btn-primary" href="{% url 'myapp:logout' %}">Log out</a>
-                
-            {% else %}
-                Not signed in.
-                <a class="btn btn-primary" href="{% url 'myapp:login' %}">Log In</a>
-            {% endif %}
+    <header>
+        <div class="row">
+            <div class="col-4">
+                <div class= "navbar justify-content-start">
+                    <li><img class ="logo" src="https://storage.googleapis.com/media-bucket-thong-django-2/cover/LOGO_c130.png" alt=""></li>
+                    <li><h1 id="joinworld">601 SQDN</h1></li>
+                </div>
+            </div>
+            
+            <div class="col-8">
+                <div class="navbar navbar-expand-lg navbar-light justify-content-end">
+                    
+                    {% if user.is_authenticated %}
+                    <li class="sign">Signed in as <strong>{{ user.username }}</strong>.</li>
+                    
+                    <li><a class="btn btn-primary" href="{% url 'myapp:logout' %}">Log out</a></li>
+                    
+                    {% else %}
+                    Not signed in.
+                    <li><a class="btn btn-primary" href="{% url 'myapp:login' %}">Log in</a></li>
+                    {% endif %}
+                </div>
+            </div>
         </div>
+    </header>
 
-        <div class="row" style = "margin: 10px 3px;">
+    <body>
+        <!-- <img src="{% static 'myapp/bg_c130.jpg' %}" alt=""> --> 
+        <div class="row" >
             {% if user.is_authenticated %}
-            <div class="sidebar col-lg-2" style="border: 2px solid black;" >
+            <div class="sidebar col-lg-2"" >
 
                     <div>
                         <a href="{% url 'myapp:index' %}">HOME</a>
@@ -85,5 +97,7 @@
                 {% block body %}
                 {% endblock %}
             </div>
+        </div>
+    
     </body>
 </html>

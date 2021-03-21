@@ -1,15 +1,27 @@
 * {
     margin:0;
     padding: 0;
-}
-
-body {
-    padding: 10px;
-    line-height: 25px;
-}
-
-li {
     list-style: none;
+}
+
+header {
+    background-color: #5dcc66;
+}
+
+/* .cover {
+    background: url("https://storage.googleapis.com/media-bucket-thong-django-2/cover/bg_c130.jpg") 50%;
+    height: min-content;
+} */
+
+.logo {
+    height: 70px;
+    width: 100px;
+}
+
+#joinworld {
+    font-family: sans-serif;
+    font-size: xx-large;
+    font-weight: 700;
 }
 
 
