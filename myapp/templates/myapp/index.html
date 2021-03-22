@@ -33,22 +33,33 @@
 
         <h3 style="margin-top: 10px;">ข่าวอากาศ</h3>
         <div id="metra"></div>
-
+        <!-- ----------------------------------------------------------------------------------- -->
+        <h3 style="margin-top: 1rem;">TAF</h3>
+        
         <form id='taf_submit'>
-            <input id="taf" placeholder="vtbd,vtbu,vtcc" type="text">
+            <input id="taf" placeholder="vtbd,vtbu,vtcc,etc." type="text">
             <input type="submit" value="TAF">
         </form>
-
-        <h3>TAF</h3>
+        
         <div id='taf_display'></div>
-
-        <h3>METAR</h3>
+        <!-- ----------------------------------------------------------------------------------- -->
+        
+        <h3 style="margin-top: 1rem;">METAR</h3>
+        
+        <form id='metar_submit'>
+            <input id="metar" placeholder="vtbd,vtbu,vtcc,etc." type="text">
+            <input type="submit" value="METAR">
+        </form>
+        
         <div id='metar_display'></div>
+        <!-- ----------------------------------------------------------------------------------- -->
+        
 
         <li><a target="_blank" href="http://www.sattmet.tmd.go.th/satmet/mergesat.html">sattmet.tmd</a></li>
 
         <li><a target="_blank" href="http://www.weather.rtaf.mi.th/dashboard/taf.html">TAF RTAF</a></li>
         <li><a target="_blank" href="http://www.weather.rtaf.mi.th/dashboard/metar.html">METAR RTAF</a></li>
+
         
     {% else %}
         Welcome

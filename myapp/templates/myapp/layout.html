@@ -18,7 +18,11 @@
         <div class="row">
             <div class="col-4">
                 <div class= "navbar justify-content-start">
-                    <li><img class ="logo" src="https://storage.googleapis.com/media-bucket-thong-django-2/cover/LOGO_c130.png" alt=""></li>
+                    <li>
+                        <a href="{% url 'myapp:index' %}">
+                            <img class ="logo" src="https://storage.googleapis.com/media-bucket-thong-django-2/cover/LOGO_c130.png" alt="">
+                        </a>
+                    </li>
                     <li><h1 id="joinworld">601 SQDN</h1></li>
                 </div>
             </div>
