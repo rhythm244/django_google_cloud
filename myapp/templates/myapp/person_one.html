@@ -14,13 +14,13 @@
 <div>
     <dl class=row>
         <dt class="col-sm-3"><strong>ยศ ชื่อ - นามสกุล : </dt>
-        <dd class="col-sm-9"></strong>{{ employee.rank }} {{ employee.first_name_thai }} {{ employee.last_name_thai }}</dd>
+        <dd class="col-sm-9"></strong>{{ employee.rank }}{{ employee.first_name_thai }} {{ employee.last_name_thai }}</dd>
 
         <dt class="col-sm-3"><strong>First - Last name : </dt>
         <dd class="col-sm-9"></strong>{{ employee.first_name_eng }} {{ employee.last_name_eng }}</dd>
 
-        <dt class="col-sm-3"><strong>ปี เดือน วันเกิด (ค.ศ.) : </strong></dt>
-        <dd class="col-sm-9">{{ employee.date_birth }}</dd>
+        <dt class="col-sm-3"><strong>วัน เดือน ปี (ค.ศ.) : </strong></dt>
+        <dd class="col-sm-9">{{ employee.date_birth|date:"d M Y" }}</dd>
 
         <dt class="col-sm-3"><strong>เบอร์โทร : </strong></dt>
         <dd class="col-sm-9">{{ employee.telephone }}</dd>

@@ -10,7 +10,7 @@ from django.utils.translation import gettext_lazy as _
 #     pass
 
 class Airport(models.Model):
-    icao_code = models.CharField(max_length=4, null=False, blank=False) #valid upper case ENG alphabet
+    icao_code = models.CharField(max_length=4, null=False, blank=False, unique=True) #valid upper case ENG alphabet
     city = models.CharField(max_length=30, null=False, blank=False)
     country = models.CharField(max_length=30, null=False, blank=False)
     runway_length = models.IntegerField(null=False)
@@ -77,7 +77,7 @@ class Picture(models.Model):
 class Employee(models.Model):
     
     class Meta():
-        ordering = ['id']
+        ordering = ['first_name_thai']
 
     rank = models.ForeignKey('Rank', on_delete=models.CASCADE, related_name='rank', blank=True, null=True)
     first_name_eng = models.CharField(max_length=64, blank=True, null=True)
@@ -107,4 +107,25 @@ class Employee(models.Model):
     update = models.DateTimeField(auto_now=True, null=True)
 
     def __str__(self):
-        return f"{self.first_name_thai} {self.division} {self.position}"
+        return f"{self.first_name_thai}  {self.last_name_thai}"
+
+
+
+class Lessonlearn(models.Model):
+    class Meta():
+        ordering = ['id']
+
+    MISSON_CHOICES = ( 
+    ("1", "Domestic"), 
+    ("2", "International"), 
+    )
+
+    employee = models.ForeignKey('Employee', on_delete=models.CASCADE, default=None, null=False, related_name='employee_Lessonlearn')
+    airport = models.ForeignKey('Airport', on_delete=models.CASCADE, default=None, null=False, related_name='airport_Lessonlearn')
+    title = models.CharField(max_length=300, blank=True, default=None)
+    lesson = models.TextField(blank=False)
+    mission = models.CharField(max_length=20 ,choices = MISSON_CHOICES, null=False,default=None)
+    date_fly = models.DateTimeField(null=True)
+    create_at = models.DateTimeField(auto_now_add=True, null=True)
+    update = models.DateTimeField(auto_now=True, null=True)
+    

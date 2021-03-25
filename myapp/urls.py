@@ -16,6 +16,8 @@ urlpatterns = [
     path('person_division/<int:division_id>', views.person_division, name='person_division'),
     path('upload/<int:employee_id>', views.upload, name='upload'),
     path('upload_employee/<int:employee_id>', views.upload_employee, name='upload_employee'),
+    path('lessonlearn', views.lessonlearn, name='lessonlearn'),
+    path('upload_lessonlearn', views.upload_lessonlearn, name='upload_lessonlearn'),
 ]
 
 

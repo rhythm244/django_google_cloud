@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.db import IntegrityError
 from django.urls import reverse
-from .form import PictureForm, EmployeeForm
+from .form import PictureForm, EmployeeForm, LessonlearnForm
 from .models import *
 from django.contrib.auth.decorators import login_required
 
@@ -183,3 +183,18 @@ def upload_employee(request, employee_id):
             'form': form,
         }
         return render(request, 'myapp/index.html', context)
+
+@login_required
+def lessonlearn(request):
+    if request.method == 'GET':
+        form = LessonlearnForm()
+        context = {
+            'form': form,
+        }
+        return render(request, 'myapp/lessonlearn.html',context)
+
+@login_required
+def upload_lessonlearn(request):
+    if request.method == 'POST':
+        return HttpResponseRedirect(reverse("myapp:index"))
+        

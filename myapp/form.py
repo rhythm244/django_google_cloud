@@ -65,6 +65,52 @@ class EmployeeForm(forms.ModelForm):
             
         }
 
+class LessonlearnForm(forms.ModelForm):
+    class Meta:
+
+        model = Lessonlearn
+        fields = ('title','lesson', 'mission','date_fly', 'employee')
+
+        labels = {
+            
+            "title": "หัวข้อ",
+            "lesson": "Lesson learn",
+            "mission": "Domestic/inter",
+            "date_fly": "วันที่บิน (วัน/เดือน/ปี ค.ศ.)",
+            "airport": "สนามบิน", 
+            "employee": "ผู้เขียน",
+        }
+
+        widgets = {
+            'title': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'หัวข้อเรื่อง',
+            }),
+            'lesson': forms.Textarea(attrs={
+                'class': 'form-control',
+                'placeholder': '',
+            }),
+            'mission': forms.Select(attrs={
+                'class': 'form-control',
+                'placeholder': 'ในประเทศ / ต่างประเทศ',
+            }),
+            'date_fly': forms.DateInput(format=('%m/%d/%Y') ,attrs={
+                'class':'form-control', 'placeholder':'วัน/เดือน/ปี ค.ศ.', 'type':'date'}),
+            
+            'airport': forms.Select(attrs={
+                'class': 'form-control',
+                'placeholder': 'สนามบิน',
+            }),
+            'employee': forms.Select(attrs={
+                'class': 'form-control',
+                'placeholder': 'ผู้เขียน',
+            }),
+        }
+        
+        
+
+
+
 
 # class ListingForm(forms.ModelForm): #จะเขียนว่า class CreateList(ModelForm) เฉยๆก็ได้
 #     class Meta:

@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Employee, Division, Position, Rank, Airport, Flight, Picture
+from .models import Employee, Division, Position, Rank, Airport, Flight, Picture, Lessonlearn
+
 
 # Register your models here.
 
@@ -21,6 +22,9 @@ class FlightAdmin(admin.ModelAdmin):
 class PictureAdmin(admin.ModelAdmin):
     list_display = ('id', 'employee', 'employee_image')
 
+class LessonlearnAdmin(admin.ModelAdmin):
+    list_display = ('id', 'title', 'date_fly','update')
+
 
 admin.site.register(Division, DivisionAdmin)
 admin.site.register(Position, PositionAdmin)
@@ -29,4 +33,5 @@ admin.site.register(Airport, AirportAdmin)
 admin.site.register(Flight, FlightAdmin)
 admin.site.register(Picture, PictureAdmin)
 admin.site.register(Employee, EmployeeAdmin)
+admin.site.register(Lessonlearn, LessonlearnAdmin)
 
