@@ -1,0 +1,32 @@
+{% extends "myapp/layout.html" %}
+
+{% block body %}
+
+<h2>Lessonlearn Information</h2>
+
+<div>
+    <!-- <dl class=row>
+        <dt class="col-sm-3"><strong>ยศ ชื่อ - นามสกุล : </dt>
+        <dd class="col-sm-9"></strong>{{ employee.rank }}{{ employee.first_name_thai }} {{ employee.last_name_thai }}</dd>
+
+        <dt class="col-sm-3"><strong>First - Last name : </dt>
+        <dd class="col-sm-9"></strong>{{ employee.first_name_eng }} {{ employee.last_name_eng }}</dd>
+
+        <dt class="col-sm-3"><strong>วัน เดือน ปี (ค.ศ.) : </strong></dt>
+        <dd class="col-sm-9">{{ employee.date_birth|date:"d M Y" }}</dd>
+
+        <dt class="col-sm-3"><strong>เบอร์โทร : </strong></dt>
+        <dd class="col-sm-9">{{ employee.telephone }}</dd>
+
+    </dl> -->
+
+    {% for lesson in lessons %}
+        <li>{{ lesson.title }}</li>
+        <li>{{ lesson.date_fly }}</li>
+        <li>{{ lesson.lesson }}</li>
+        <li>{{ lesson.airport }}</li>
+    {% endfor %}
+    
+</div>
+
+{% endblock %}

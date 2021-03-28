@@ -2,12 +2,41 @@
 
 {% block body %}
 
+<style>
+    table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  padding: 5px;
+}
+    td img {
+        width: 100px;
+        height: 100px;
+    }
+</style>
+
 <h2>Lesson Learn</h2>
 
-<form action="{% url 'myapp:upload_lessonlearn' %}" method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input class="btn btn-primary" type="submit" value="Upload lessonlearn">
-</form>
+<div>
+    <a href="{% url 'myapp:lessonlearn_form' %}">Create Lessonlearn Domestic</a>
+</div>
+
+<table>
+    <tr>
+        <th>วัน เดือน ปี</th>
+        <th>ชื่อเรื่อง</th>
+        <th>ผู้เขียน</th>
+        <th>สนามบิน</th>
+        <th>รายละเอียด</th>
+        
+    </tr>
+{% for lesson in lessons %}
+    <tr>
+        <td>{{ lesson.date_fly|date:"d M Y" }} </td>
+        <td>{{ lesson.title }} </td>
+        <td>{{ lesson.employee.rank }}{{ lesson.employee }}</td> 
+        <td>{{ lesson.airport.icao_code }} {{ lesson.airport.city }}</td>
+        <td><a href="{% url 'myapp:lessonlearn_info' lesson.id %}">รายละเอียด</a></td>
+    </tr>
+{% endfor %}
 
 {% endblock %}

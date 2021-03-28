@@ -187,14 +187,35 @@ def upload_employee(request, employee_id):
 @login_required
 def lessonlearn(request):
     if request.method == 'GET':
-        form = LessonlearnForm()
+        lesson = Lessonlearn.objects.all().order_by('-date_fly')
         context = {
-            'form': form,
+            'lessons': lesson,
         }
         return render(request, 'myapp/lessonlearn.html',context)
 
 @login_required
-def upload_lessonlearn(request):
-    if request.method == 'POST':
-        return HttpResponseRedirect(reverse("myapp:index"))
+def lessonlearn_form(request):
+    if request.method == 'GET':
+        form = LessonlearnForm()
+        context = {
+            'form': form,
+        }
+        return render(request, 'myapp/lessonlearn_form.html',context)
+
+    elif request.method == 'POST':
+        form = LessonlearnForm(request.POST)
+        if form.is_valid():
+            form.save()
+        return HttpResponseRedirect(reverse("myapp:lessonlearn"))
+
+@login_required
+def lessonlearn_info(request, id):
+    lessonlearn = Lessonlearn.objects.filter(pk=id)
+
+    context = {
+        'lessons': lessonlearn,
+    }
+    
+    return render(request, 'myapp/lessonlearn_one.html',context)
+    
         

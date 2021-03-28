@@ -1,0 +1,15 @@
+{% extends "myapp/layout.html" %}
+
+{% block body %}
+
+<h2>Lesson Learn</h2>
+
+
+
+<form action="{% url 'myapp:lessonlearn_form' %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input class="btn btn-primary" type="submit" value="Upload lessonlearn">
+</form>
+
+{% endblock %}

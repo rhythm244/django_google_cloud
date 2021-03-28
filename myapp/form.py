@@ -69,13 +69,12 @@ class LessonlearnForm(forms.ModelForm):
     class Meta:
 
         model = Lessonlearn
-        fields = ('title','lesson', 'mission','date_fly', 'employee')
+        fields = ('title','lesson','date_fly','airport','employee')
 
         labels = {
             
             "title": "หัวข้อ",
             "lesson": "Lesson learn",
-            "mission": "Domestic/inter",
             "date_fly": "วันที่บิน (วัน/เดือน/ปี ค.ศ.)",
             "airport": "สนามบิน", 
             "employee": "ผู้เขียน",
@@ -106,6 +105,19 @@ class LessonlearnForm(forms.ModelForm):
                 'placeholder': 'ผู้เขียน',
             }),
         }
+        
+    # def __init__(self, *args, **kwargs):
+    #     super().__init__(*args, **kwargs)
+    #     self.fields['airport'].queryset = Airport.objects.none()
+
+    #     if 'mission' in self.data:
+    #         try:
+    #             mission_id = int(self.data.get('mission'))
+    #             self.fields['airport'].queryset = City.objects.filter(mission_id=mission_id).order_by('airport')
+    #         except (ValueError, TypeError):
+    #             pass  # invalid input from the client; ignore and fallback to empty City queryset
+    #     elif self.instance.pk:
+    #         self.fields['airport'].queryset = self.instance.mission.airport_set.order_by('name')
         
         
 

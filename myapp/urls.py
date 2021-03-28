@@ -17,7 +17,9 @@ urlpatterns = [
     path('upload/<int:employee_id>', views.upload, name='upload'),
     path('upload_employee/<int:employee_id>', views.upload_employee, name='upload_employee'),
     path('lessonlearn', views.lessonlearn, name='lessonlearn'),
-    path('upload_lessonlearn', views.upload_lessonlearn, name='upload_lessonlearn'),
+    path('lessonlearn_form', views.lessonlearn_form, name='lessonlearn_form'),
+    path('lessonlearn_info/<int:id>',views.lessonlearn_info, name='lessonlearn_info'),
+    # path('upload_lessonlearn', views.upload_lessonlearn, name='upload_lessonlearn'),
 ]
 
 

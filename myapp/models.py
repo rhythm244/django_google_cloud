@@ -19,7 +19,7 @@ class Airport(models.Model):
     update = models.DateTimeField(auto_now=True, null=True)
 
     def __str__(self):
-        return f"{self.icao_code} {self.city} ({self.country} {self.update})"
+        return f"{self.icao_code} {self.city} ({self.country})"
 
 class Flight(models.Model):
     
