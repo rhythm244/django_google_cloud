@@ -63,8 +63,8 @@ def person(request):
 @login_required
 def pilot_c130(request):
     """แสดงนักบิน C130 ที่ผ่านมาทุกคน """
-    employees = Employee.objects.filter(is_pilot=True).order_by('lucky_number')
-  
+    # employees = Employee.objects.filter(is_pilot=True).order_by('lucky_number')
+    employees = []
     context = {
         'employees': employees, 
     }
