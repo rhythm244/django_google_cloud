@@ -59,7 +59,7 @@
         <!-- <td>{{employee.picture.employee_image}}</td> -->
         <td><img src="https://storage.googleapis.com/media-bucket-thong-django-2/{{employee.picture.employee_image}}" ></td>
         <!-- <td><img src="{% static 'media/image/{{employee.picture.employee_image}}' %}" ></td> -->
-        <td width="50px">{{ employee.update|date:"d M Y H i s" }}</td> 
+        <td width="50px">{{ employee.update|date:"d M Y" }}</td> 
         <td><a href="{% url 'myapp:person_one' employee.id %}">MORE INFO</a></td>
         
     </tr>

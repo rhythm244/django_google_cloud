@@ -21,10 +21,10 @@
     </dl> -->
 
     {% for lesson in lessons %}
-        <li>{{ lesson.title }}</li>
-        <li>{{ lesson.date_fly }}</li>
-        <li>{{ lesson.lesson }}</li>
-        <li>{{ lesson.airport }}</li>
+        <li>เรื่อง : {{ lesson.title }}</li>
+        <li>วันที่บิน :{{ lesson.date_fly|date:"d M Y" }}</li>
+        <li>เนื้อหา : {{ lesson.lesson }}</li>
+        <li>สนามบิน : {{ lesson.airport }}</li>
     {% endfor %}
     
 </div>

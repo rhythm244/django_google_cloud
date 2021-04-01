@@ -124,7 +124,7 @@ class Lessonlearn(models.Model):
     airport = models.ForeignKey('Airport', on_delete=models.CASCADE, default=None, null=False, related_name='airport_Lessonlearn')
     title = models.CharField(max_length=300, blank=True, default=None)
     lesson = models.TextField(blank=False)
-    mission = models.CharField(max_length=20 ,choices = MISSON_CHOICES, null=False,default=None)
+    mission = models.CharField(max_length=20 ,choices = MISSON_CHOICES, null=False,default='Domestic')
     date_fly = models.DateTimeField(null=True)
     create_at = models.DateTimeField(auto_now_add=True, null=True)
     update = models.DateTimeField(auto_now=True, null=True)

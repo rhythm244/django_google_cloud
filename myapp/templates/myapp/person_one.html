@@ -47,25 +47,27 @@
 </div>
 
 <!--function การ EDIT ข้อมูลของ Employee-->
-<div style="border-bottom: black solid 2px; border-top: black solid 2px; padding: 5px;">
-    <h2>Update ข้อมูล</h2>
-    <form action="{% url 'myapp:upload_employee' employee.id %}" method="post" >
+<div class="edit-view">
+    <div style="border-bottom: black solid 2px; border-top: black solid 2px; padding: 5px;">
+        <h2>Update ข้อมูล</h2>
+        <form action="{% url 'myapp:upload_employee' employee.id %}" method="post" >
+            {% csrf_token %}
+            {{ form_employee.as_p }}
+            <input class="btn btn-primary" type="submit" value="save edit data">
+        </form>
+    </div>
+    
+    <h2>Upload picture</h2>
+    <figcaption class="blockquote-footer">
+        File not more than <cite title="Source Title">500 Kb !!!!</cite>
+    </figcaption>
+    
+    <form action="{% url 'myapp:upload' employee.id %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ form_employee.as_p }}
-        <input class="btn btn-primary" type="submit" value="save edit data">
+        {{ form.as_p }}
+        <input class="btn btn-primary" type="submit" value="Upload photo">
     </form>
 </div>
     
-<h2>Upload picture</h2>
-<figcaption class="blockquote-footer">
-   File not more than <cite title="Source Title">500 Kb !!!!</cite>
-</figcaption>
-
-<form action="{% url 'myapp:upload' employee.id %}" method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input class="btn btn-primary" type="submit" value="Upload photo">
-</form>
-
 
 {% endblock %}
