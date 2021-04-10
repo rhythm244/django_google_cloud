@@ -3,12 +3,16 @@ from django.contrib.auth.models import AbstractUser
 from django.utils import timezone
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
+import json
+from django.core.serializers.json import DjangoJSONEncoder
+from django.db.models.fields.files import ImageFieldFile
 
 # Create your models here.
 
 # class User(AbstractUser):
 #     pass
 
+#-------------------------------------------------------------------------------------------------------------------------
 class Airport(models.Model):
     icao_code = models.CharField(max_length=4, null=False, blank=False, unique=True) #valid upper case ENG alphabet
     city = models.CharField(max_length=30, null=False, blank=False)
@@ -21,12 +25,14 @@ class Airport(models.Model):
     def __str__(self):
         return f"{self.icao_code} {self.city} ({self.country})"
 
+#-------------------------------------------------------------------------------------------------------------------------
 class Flight(models.Model):
     
     origin = models.ForeignKey('Airport', on_delete=models.CASCADE, related_name="departures")
     destination = models.ForeignKey('Airport', on_delete=models.CASCADE, related_name="arivals")
     duration = models.IntegerField(help_text='duration in minute')
 
+#-------------------------------------------------------------------------------------------------------------------------
 class Division(models.Model):
     class Meta():
         ordering = ['id']
@@ -35,6 +41,7 @@ class Division(models.Model):
     def __str__(self):
         return f"{self.department}"
 
+#-------------------------------------------------------------------------------------------------------------------------
 class Position(models.Model):
     class Meta():
         ordering = ['id']
@@ -45,16 +52,29 @@ class Position(models.Model):
     def __str__(self):
         return f"{self.position}"
 
+#-------------------------------------------------------------------------------------------------------------------------
+class RankManager(models.Manager):
+    def get_by_natural_key(self, airforce_rank):
+        return self.get(airforce_rank=airforce_rank)
+
 class Rank(models.Model):
+
     class Meta():
-        
         ordering = ['id']
+        unique_together = [['airforce_rank']]
     
     airforce_rank = models.CharField(max_length=20, null=False, blank=False)
+
+    objects = RankManager()
+
+    def natural_key(self):
+        return (self.airforce_rank)
 
     def __str__(self):
         return f"{self.airforce_rank}"
 
+
+#-------------------------------------------------------------------------------------------------------------------------
 def validate_image(image):
     """ ทำการ valid รูปภาพที่ user จะโหลดให้ไม่เกิน 500 Kb"""
     file_size = image.file.size
@@ -64,15 +84,37 @@ def validate_image(image):
             _('%(image)s is not more than 500 Kb'),
             params={'image': image},
         )
+#-------------------------------------------------------------------------------------------------------------------------
+class ExtendedEncoder(DjangoJSONEncoder):
+    """ต้อง เพิ่ม class นี้เพราะไฟล์รูปภาพไม่สามารถแปลงเป็น JSON ตรงๆได้เลย"""
+    def default(self, o):
+        if isinstance(o, ImageFieldFile):
+            return str(o)
+        else:
+            return super().default(o)
+
+class PictureManager(models.Manager):
+    def get_by_natural_key(self, employee_image):
+        return self.get(employee_image=employee_image)
+
 
 class Picture(models.Model):
     class Meta():
         ordering = ['id']
+        unique_together = [['employee_image']]
+
     employee = models.ForeignKey('Employee', on_delete=models.CASCADE, default=None, null=False, related_name='employee_picture')
     employee_image = models.ImageField('Image', upload_to='image/', validators=[validate_image])
 
+    objects = PictureManager()
+
+    def natural_key(self):
+        return (self.employee_image)
+
     def __str__(self):
-        return f"{self.employee.rank} {self.employee.first_name_thai} {self.employee_image}"
+        return f"{self.employee_image}"
+
+#-------------------------------------------------------------------------------------------------------------------------
 
 class Employee(models.Model):
     
@@ -108,6 +150,33 @@ class Employee(models.Model):
 
     def __str__(self):
         return f"{self.first_name_thai}  {self.last_name_thai}"
+    
+    # def serialize(self):
+    #     # print(self.rank.airforce_rank)
+    #     return {
+    #         "pk": self.pk,
+    #         "rank": self.rank.airforce_rank,
+    #         "first_name_eng": self.first_name_eng,
+    #         "last_name_eng": self.last_name_eng,
+    #         "first_name_thai": self.first_name_thai,
+    #         "last_name_thai": self.last_name_thai,
+    #         "date_birth": self.date_birth,
+    #         "line_id": self.line_id,
+    #         "telephone": self.telephone,
+    #         "email": self.email,
+    #         "picture": f'{self.picture}',
+    #         "division": f'{self.division}',
+    #         "position": f'{self.position}',
+    #         "position_other": self.position_other,
+    #         "lucky_number": self.lucky_number,
+    #         "afaps": self.afaps,
+    #         "passport": self.passport,
+    #         "visa": self.visa,
+    #         "still_service": self.still_service,
+    #         "is_pilot": self.is_pilot,
+    #         "create_at": self.create_at,
+    #         "update": self.update.strftime("%b %d %Y, %I:%M %p"),
+    #     }
 
 
 

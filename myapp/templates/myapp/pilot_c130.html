@@ -10,62 +10,74 @@
   border-collapse: collapse;
   padding: 5px;
 }
-    td img {
+    img {
         width: 100px;
         height: 100px;
     }
 </style>
 
+<h2>Choose Lucky Number</h2>
+<button class="btn btn-sm btn-outline-primary" id="one">1-50</button>
+<button class="btn btn-sm btn-outline-primary" id="two">51-100</button>
+<button class="btn btn-sm btn-outline-primary" id="three">101-150</button>
+<button class="btn btn-sm btn-outline-primary" id="four">151-200</button>
+<button class="btn btn-sm btn-outline-primary" id="five">201-250</button>
+<button class="btn btn-sm btn-outline-primary" id="six">251-300</button>
+<button class="btn btn-sm btn-outline-primary" id="seven">301-350</button>
 
 <table>
-    <tr>
+    <!-- <tr>
         <th>ยศ</th>
         <th>ชื่อ</th>
         <th>สกุล</th>
-        <!-- <th>ปี เดือน วัน เกิด</th> -->
         <th>เบอร์โทร</th>
         <th>สถานะ/ตำแหน่ง</th>
         <th>รุ่น</th>
         <th>เลขลัคกี้</th>
         <th>รูปภาพ</th>
         <th>Update</th>
-    </tr>
-{% for employee in employees %}
-    <tr>
-        <td>{{ employee.rank }}</td>
-        <td width = "80px">{{employee.first_name_thai}}</td>
-        <td width = "100px">{{employee.last_name_thai}}</td>
-        <!-- <td>{{employee.date_birth}}</td> -->
-        <td>{% if employee.telephone != None %}
+    </tr> -->
+    <div id="load"></div>
+    <div id="pilot130_view">
+        {% for employee in employees %}
+        <tr>
+            <td>{{ employee.rank }}</td>
+            <td width = "80px">{{employee.first_name_thai}}</td>
+            <td width = "100px">{{employee.last_name_thai}}</td>
+            <!-- <td>{{employee.date_birth}}</td> -->
+            <td>{% if employee.telephone != None %}
                 {{ employee.telephone }} 
-            {% else %}
-                TBN
-        {% endif %}
-    </td>
-        <!-- แสดงตำแหน่งของนักบิน C130 แต่ถ้าไม่มีตำแหน่งอื่นๆ ที่ธงเพิ่ม models เข้าไปตอนหลัง ก็ไม่ต้องแสดงอะไร 
-             ที่ต้องเพิ่มเพราะตำแหน่งของ ทอ. หรืออื่นๆ มีเยอะมาก ใครอยากใส่อะไรก็ใส่ลงไป -->
-        <td>{{employee.position.position}} {% if employee.position_other != None %} /{{employee.position_other}} {% else %} {% endif %}</td>  
-        <td> {% if employee.afaps != 0 %}
-            {{ employee.afaps }} 
-        {% else %}
-            -
-    {% endif %}
-        <td>{% if employee.lucky_number != None %}
-                Lucky {{ employee.lucky_number }} 
                 {% else %}
-                    TBN
-            {% endif %}
-        </td>
-        <!-- <td>{{employee.picture.employee_image}}</td> -->
-        <td><img src="https://storage.googleapis.com/media-bucket-thong-django-2/{{employee.picture.employee_image}}" ></td>
-        <!-- <td><img src="{% static 'media/image/{{employee.picture.employee_image}}' %}" ></td> -->
-        <td width="50px">{{ employee.update|date:"d M Y" }}</td> 
-        <td><a href="{% url 'myapp:person_one' employee.id %}">MORE INFO</a></td>
-        
-    </tr>
-
-{% endfor %}
+                TBN
+                {% endif %}
+            </td>
+            <!-- แสดงตำแหน่งของนักบิน C130 แต่ถ้าไม่มีตำแหน่งอื่นๆ ที่ธงเพิ่ม models เข้าไปตอนหลัง ก็ไม่ต้องแสดงอะไร 
+                ที่ต้องเพิ่มเพราะตำแหน่งของ ทอ. หรืออื่นๆ มีเยอะมาก ใครอยากใส่อะไรก็ใส่ลงไป -->
+                <td>{{employee.position.position}} {% if employee.position_other != None %} /{{employee.position_other}} {% else %} {% endif %}</td>  
+                <td> {% if employee.afaps != 0 %}
+                    {{ employee.afaps }} 
+                    {% else %}
+                    -
+                    {% endif %}
+                    <td>{% if employee.lucky_number != None %}
+                        Lucky {{ employee.lucky_number }} 
+                        {% else %}
+                        TBN
+                        {% endif %}
+                    </td>
+                    <!-- <td>{{employee.picture.employee_image}}</td> -->
+                    <td><img src="https://storage.googleapis.com/media-bucket-thong-django-2/{{employee.picture.employee_image}}" ></td>
+                    <!-- <td><img src="{% static 'media/image/{{employee.picture.employee_image}}' %}" ></td> -->
+                    <td width="50px">{{ employee.update|date:"d M Y" }}</td> 
+                    <td><a href="{% url 'myapp:person_one' employee.id %}">MORE INFO</a></td>
+                </tr>
+        {% endfor %}
+    </div>
 </table>
 
 
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'myapp/js/pilot_c130.js' %}"></script>
 {% endblock %}

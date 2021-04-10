@@ -8,6 +8,9 @@ from django.urls import reverse
 from .form import PictureForm, EmployeeForm, LessonlearnForm
 from .models import *
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+from django.core import serializers
+
 
 # Create your views here.
 
@@ -69,6 +72,42 @@ def pilot_c130(request):
         'employees': employees, 
     }
     return render(request, "myapp/pilot_c130.html", context)
+
+@login_required
+def pilot_c130_page(request, page):
+    if request.method == "POST":
+        print("hello")
+        page_num = []
+
+        if page == 'one':
+            employees = Employee.objects.filter(is_pilot=True).order_by('lucky_number')[:50]
+
+        elif page == 'two':
+            employees = Employee.objects.filter(is_pilot=True).order_by('lucky_number')[50:100]
+
+        elif page == 'three':
+            employees = Employee.objects.filter(is_pilot=True).order_by('lucky_number')[100:150]
+
+        elif page == 'four':
+            employees = Employee.objects.filter(is_pilot=True).order_by('lucky_number')[151:200]
+
+        elif page == 'five':
+            employees = Employee.objects.filter(is_pilot=True).order_by('lucky_number')[201:250]
+
+        elif page == 'six':
+            employees = Employee.objects.filter(is_pilot=True).order_by('lucky_number')[251:300]
+
+        else:
+            employees = Employee.objects.filter(is_pilot=True).order_by('lucky_number')[301:350]
+
+
+        #serialize employee object
+        serialized_obj = serializers.serialize('json', employees,use_natural_foreign_keys=True, use_natural_primary_keys=True
+        ,fields = ('rank', 'first_name_thai', 'last_name_thai', 'lucky_number', 'afaps', 'telephone', 'picture'), cls=ExtendedEncoder)
+
+        # return JsonResponse([employ.serialize() for employ in employees], safe=False)
+        return JsonResponse(serialized_obj, safe=False)
+        # return render(request, "myapp/pilot_c130.html", context)
 
 @login_required
 def person_division(request, division_id):

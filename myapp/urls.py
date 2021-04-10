@@ -11,7 +11,7 @@ urlpatterns = [
     path("login", views.login_view, name="login"),
     path("logout", views.logout_view, name="logout"),
     path('person', views.person, name='person'),
-    path('pilot_c130', views.pilot_c130, name='pilot_c130'),
+    path('pilot_c130/', views.pilot_c130, name='pilot_c130'),
     path('person/<int:employee_id>', views.person_one, name='person_one'),
     path('person_division/<int:division_id>', views.person_division, name='person_division'),
     path('upload/<int:employee_id>', views.upload, name='upload'),
@@ -20,8 +20,14 @@ urlpatterns = [
     path('lessonlearn_form', views.lessonlearn_form, name='lessonlearn_form'),
     path('lessonlearn_info/<int:id>',views.lessonlearn_info, name='lessonlearn_info'),
     # path('upload_lessonlearn', views.upload_lessonlearn, name='upload_lessonlearn'),
-]
+
+    #API javascript
+    path('pilot_c130/<str:page>', views.pilot_c130_page, name='pilot_c130_page'),
+    
+] 
 
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+print(f'This is : {settings.MEDIA_URL}')

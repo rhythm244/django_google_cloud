@@ -225,4 +225,6 @@ GS_BUCKET_NAME = gs_bucket_name
 MEDIA_ROOT = "media/"
 UPLOAD_ROOT = 'media/uploads/'
 MEDIA_URL = 'https://storage.googleapis.com/{}/'.format(GS_BUCKET_NAME)
+# print(MEDIA_ROOT)
+# print(UPLOAD_ROOT)
 
