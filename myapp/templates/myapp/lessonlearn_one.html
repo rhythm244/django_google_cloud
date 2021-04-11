@@ -4,29 +4,31 @@
 
 <h2>Lessonlearn Information</h2>
 
-<div>
-    <!-- <dl class=row>
-        <dt class="col-sm-3"><strong>ยศ ชื่อ - นามสกุล : </dt>
-        <dd class="col-sm-9"></strong>{{ employee.rank }}{{ employee.first_name_thai }} {{ employee.last_name_thai }}</dd>
-
-        <dt class="col-sm-3"><strong>First - Last name : </dt>
-        <dd class="col-sm-9"></strong>{{ employee.first_name_eng }} {{ employee.last_name_eng }}</dd>
-
-        <dt class="col-sm-3"><strong>วัน เดือน ปี (ค.ศ.) : </strong></dt>
-        <dd class="col-sm-9">{{ employee.date_birth|date:"d M Y" }}</dd>
-
-        <dt class="col-sm-3"><strong>เบอร์โทร : </strong></dt>
-        <dd class="col-sm-9">{{ employee.telephone }}</dd>
-
-    </dl> -->
-
-    {% for lesson in lessons %}
-        <li>เรื่อง : {{ lesson.title }}</li>
-        <li>วันที่บิน :{{ lesson.date_fly|date:"d M Y" }}</li>
-        <li>เนื้อหา : {{ lesson.lesson }}</li>
-        <li>สนามบิน : {{ lesson.airport }}</li>
-    {% endfor %}
-    
-</div>
+{% for lesson in lessons %}
+    <div class="card text-dark bg-light mb-3" style="max-width: 55rem;">
+        <div class="card-header">วันที่ {{ lesson.date_fly|date:"d M Y" }}</div>
+        <div class="card-body">
+        <h5 class="card-title">ชื่อเรื่อง : {{ lesson.title }}</h5>
+        <h5 class="card-title">สนามบิน : {{ lesson.airport }}</h5>
+        <p class="card-text">{{ lesson.lesson }}</p>
+        </div>
+    </div>
+{% endfor %}
 
 {% endblock %}
+
+<!-- <div class="lesson-item">
+    <div><strong>เรื่อง : </div>
+    <div></strong>{{ lesson.title }}</div>
+</div>
+<div class="lesson-item">
+    <div><strong>วันที่บิน : </div>
+    <div></strong>{{ lesson.date_fly|date:"d M Y" }}</div>
+</div>
+<div class="lesson-item">
+    <div><strong>เนื้อหา : </div>
+    <div></strong>{{ lesson.lesson }}</div>
+</div>
+<div class="lesson-item">
+    <div><strong>สนามบิน : </div>
+    <div></strong>{{ lesson.airport }}</div> -->

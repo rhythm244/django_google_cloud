@@ -75,31 +75,28 @@ def pilot_c130(request):
 
 @login_required
 def pilot_c130_page(request, page):
-    if request.method == "POST":
-        print("hello")
-        page_num = []
 
+    if request.method == "POST":
         if page == 'one':
-            employees = Employee.objects.filter(is_pilot=True).order_by('lucky_number')[:50]
+            employees = Employee.objects.filter(is_pilot=True, lucky_number__gte=0, lucky_number__lte=50).order_by('lucky_number')
 
         elif page == 'two':
-            employees = Employee.objects.filter(is_pilot=True).order_by('lucky_number')[50:100]
+            employees = Employee.objects.filter(is_pilot=True, lucky_number__gte=51, lucky_number__lte=100).order_by('lucky_number')
 
         elif page == 'three':
-            employees = Employee.objects.filter(is_pilot=True).order_by('lucky_number')[100:150]
+            employees = Employee.objects.filter(is_pilot=True, lucky_number__gte=101, lucky_number__lte=150).order_by('lucky_number')
 
         elif page == 'four':
-            employees = Employee.objects.filter(is_pilot=True).order_by('lucky_number')[151:200]
+            employees = Employee.objects.filter(is_pilot=True, lucky_number__gte=151, lucky_number__lte=200).order_by('lucky_number')
 
         elif page == 'five':
-            employees = Employee.objects.filter(is_pilot=True).order_by('lucky_number')[201:250]
+            employees = Employee.objects.filter(is_pilot=True, lucky_number__gte=201, lucky_number__lte=250).order_by('lucky_number')
 
         elif page == 'six':
-            employees = Employee.objects.filter(is_pilot=True).order_by('lucky_number')[251:300]
+            employees = Employee.objects.filter(is_pilot=True, lucky_number__gte=251, lucky_number__lte=300).order_by('lucky_number')
 
         else:
-            employees = Employee.objects.filter(is_pilot=True).order_by('lucky_number')[301:350]
-
+            employees = Employee.objects.filter(is_pilot=True, lucky_number__gte=301, lucky_number__lte=350).order_by('lucky_number')
 
         #serialize employee object
         serialized_obj = serializers.serialize('json', employees,use_natural_foreign_keys=True, use_natural_primary_keys=True

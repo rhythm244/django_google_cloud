@@ -44,8 +44,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = seckey_key
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = False
-DEBUG = True
+DEBUG = False
+# DEBUG = True
 
 # SECURITY WARNING: App Engine's security features ensure that it is safe to
 # have ALLOWED_HOSTS = ['*'] when the app is deployed. If you deploy a Django
@@ -214,7 +214,6 @@ GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
 GS_FILE_OVERWRITE = False
 GS_BLOB_CHUNK_SIZE = 2097152 # 1024 * 1024 B * 2 = 2 MB (limit file 2 MB)
 DEFAULT_FILE_STORAGE= 'storages.backends.gcloud.GoogleCloudStorage'
-# print(DEFAULT_FILE_STORAGE)
 
 gs_project_id = os.environ.get('GS_PROJECT_ID')
 gs_bucket_name = os.environ.get('GS_BUCKET_NAME')
@@ -225,6 +224,4 @@ GS_BUCKET_NAME = gs_bucket_name
 MEDIA_ROOT = "media/"
 UPLOAD_ROOT = 'media/uploads/'
 MEDIA_URL = 'https://storage.googleapis.com/{}/'.format(GS_BUCKET_NAME)
-# print(MEDIA_ROOT)
-# print(UPLOAD_ROOT)
 

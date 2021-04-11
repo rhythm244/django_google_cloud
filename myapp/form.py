@@ -88,6 +88,7 @@ class LessonlearnForm(forms.ModelForm):
             'lesson': forms.Textarea(attrs={
                 'class': 'form-control',
                 'placeholder': '',
+                'col': 30,
             }),
             'mission': forms.Select(attrs={
                 'class': 'form-control',

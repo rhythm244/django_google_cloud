@@ -65,6 +65,56 @@ header {
     font-weight: 500;
 }
 
+.pilotc130_box {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    border: 1px blue solid;
+}
+
+.container-thong {
+    width: 1000px;
+    width: 100%
+}
+
+.leson-item {
+    display: grid;
+    grid-template-columns: fit-content(900px);
+    border: solid 1px blueviolet;
+    width: 100%
+}
+
+
+
+.lesson-item {
+    border: 1px blue solid;
+}
+
+.loader {
+    margin: 20px;
+    padding: 10px;
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    animation: spin 2s linear infinite;
+    border-top: 16px solid blue;
+    border-right: 16px solid green;
+    border-bottom: 16px solid red;
+    border-left: 16px solid pink;
+      
+  }
+  
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    50% { transform: rotate(90deg); }
+    100% { transform: rotate(720deg); }
+  }
+
+
+
+
 
 
 

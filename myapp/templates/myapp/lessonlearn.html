@@ -2,7 +2,7 @@
 
 {% block body %}
 
-<style>
+<!-- <style>
     table, th, td {
   border: 1px solid black;
   border-collapse: collapse;
@@ -12,7 +12,7 @@
         width: 100px;
         height: 100px;
     }
-</style>
+</style> -->
 
 <h2>Lesson Learn</h2>
 
@@ -20,8 +20,8 @@
     <a href="{% url 'myapp:lessonlearn_form' %}">Create Lessonlearn Domestic</a>
 </div>
 
-<table>
-    <tr>
+<table class="table table-bordered table-striped">
+    <tr class="table-primary">
         <th>วัน เดือน ปี</th>
         <th>ชื่อเรื่อง</th>
         <th>ผู้เขียน</th>
