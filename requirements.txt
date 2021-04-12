@@ -49,5 +49,4 @@ toml==0.10.2
 urllib3==1.26.4
 virtualenv==20.4.3
 virtualenv-clone==0.5.4
-virtualenvwrapper==4.8.4
 wrapt==1.12.1

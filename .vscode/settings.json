@@ -1,3 +1,4 @@
 {
-    "activestate.promptRuntimeCreation": false
+    "activestate.promptRuntimeCreation": false,
+    "python.pythonPath": "d:\\thong\\Coding\\python\\django_google_cloud\\env\\Scripts\\python.exe"
 }

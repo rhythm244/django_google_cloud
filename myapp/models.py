@@ -13,6 +13,10 @@ from django.db.models.fields.files import ImageFieldFile
 #     pass
 
 #-------------------------------------------------------------------------------------------------------------------------
+class AirportManager(models.Manager):
+    def get_by_natural_key(self, icao_code):
+        return self.get(airforce_rank=icao_code)
+
 class Airport(models.Model):
     icao_code = models.CharField(max_length=4, null=False, blank=False, unique=True) #valid upper case ENG alphabet
     city = models.CharField(max_length=30, null=False, blank=False)
@@ -21,6 +25,14 @@ class Airport(models.Model):
     runway_direction = models.CharField(max_length=30,  null=False, blank=False)
     create_at = models.DateTimeField(auto_now_add=True, null=True)
     update = models.DateTimeField(auto_now=True, null=True)
+
+    objects = AirportManager()
+
+    def natural_key(self):
+        return (self.icao_code)
+
+    # def name(self):
+    #     return f'{self.icao_code}'
 
     def __str__(self):
         return f"{self.icao_code} {self.city} ({self.country})"
@@ -116,6 +128,10 @@ class Picture(models.Model):
 
 #-------------------------------------------------------------------------------------------------------------------------
 
+class EmployeeManager(models.Manager):
+    def get_by_natural_key(self, first_name_thai, last_name_thai):
+        return self.get(first_name_thai=first_name_thai, last_name_thai=last_name_thai)
+
 class Employee(models.Model):
     
     class Meta():
@@ -147,6 +163,11 @@ class Employee(models.Model):
 
     create_at = models.DateTimeField(auto_now_add=True, null=True)
     update = models.DateTimeField(auto_now=True, null=True)
+
+    objects = EmployeeManager()
+
+    def natural_key(self):
+        return (self.first_name_thai + " " + self.last_name_thai)
 
     def __str__(self):
         return f"{self.first_name_thai}  {self.last_name_thai}"
@@ -189,12 +210,12 @@ class Lessonlearn(models.Model):
     ("2", "International"), 
     )
 
+    date_fly = models.DateTimeField(null=True)
+    title = models.CharField(max_length=100, blank=True, default=None)
     employee = models.ForeignKey('Employee', on_delete=models.CASCADE, default=None, null=False, related_name='employee_Lessonlearn')
     airport = models.ForeignKey('Airport', on_delete=models.CASCADE, default=None, null=False, related_name='airport_Lessonlearn')
-    title = models.CharField(max_length=300, blank=True, default=None)
     lesson = models.TextField(blank=False)
     mission = models.CharField(max_length=20 ,choices = MISSON_CHOICES, null=False,default='Domestic')
-    date_fly = models.DateTimeField(null=True)
     create_at = models.DateTimeField(auto_now_add=True, null=True)
     update = models.DateTimeField(auto_now=True, null=True)
     

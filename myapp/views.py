@@ -222,12 +222,25 @@ def upload_employee(request, employee_id):
 
 @login_required
 def lessonlearn(request):
+
     if request.method == 'GET':
         lesson = Lessonlearn.objects.all().order_by('-date_fly')
+        airport_filter = Airport.objects.values('id','icao_code')
         context = {
             'lessons': lesson,
+            'airport_filter': airport_filter,
         }
         return render(request, 'myapp/lessonlearn.html',context)
+
+@login_required
+def lessonlearn_filter(request, airport_id):
+    if request.method == 'POST':
+        lesson = Lessonlearn.objects.filter(airport_id=int(airport_id))
+        serialized_obj = serializers.serialize('json', lesson,
+                                                use_natural_foreign_keys=True, use_natural_primary_keys=True
+                                                ,fields = ('date_fly', 'title', 'employee', 'airport'))
+
+        return JsonResponse(serialized_obj, safe=False)
 
 @login_required
 def lessonlearn_form(request):

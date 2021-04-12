@@ -23,6 +23,7 @@ urlpatterns = [
 
     #API javascript
     path('pilot_c130/<str:page>', views.pilot_c130_page, name='pilot_c130_page'),
+    path('lessonlearn_filter/<int:airport_id>', views.lessonlearn_filter, name='lessonlearn_filter'),
     
 ] 
 
@@ -30,4 +31,4 @@ urlpatterns = [
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-print(f'This is : {settings.MEDIA_URL}')
+# print(f'This is : {settings.MEDIA_URL}')
