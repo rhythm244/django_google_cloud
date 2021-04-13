@@ -44,8 +44,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = seckey_key
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = False
-DEBUG = True
+DEBUG = False
+# DEBUG = True
 
 # SECURITY WARNING: App Engine's security features ensure that it is safe to
 # have ALLOWED_HOSTS = ['*'] when the app is deployed. If you deploy a Django
@@ -202,7 +202,7 @@ USE_TZ = True
 
 STATIC_ROOT = 'static'
 STATIC_URL = '/static/'
-
+ 
 # MEDIA_URL = '/media/'
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 

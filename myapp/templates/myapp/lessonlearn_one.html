@@ -7,10 +7,11 @@
 {% for lesson in lessons %}
     <div class="card text-dark bg-light mb-3" style="max-width: 55rem;">
         <div class="card-header">วันที่ {{ lesson.date_fly|date:"d M Y" }}</div>
-        <div class="card-body">
-        <h5 class="card-title">ชื่อเรื่อง : {{ lesson.title }}</h5>
-        <h5 class="card-title">สนามบิน : {{ lesson.airport }}</h5>
-        <p class="card-text">{{ lesson.lesson }}</p>
+            <div class="card-body">
+                <h5 class="card-title">ชื่อเรื่อง : {{ lesson.title }}</h5>
+                <h5 class="card-title">สนามบิน : {{ lesson.airport }}</h5>
+                <p class="card-text">{{ lesson.lesson }}</p>
+            </div>
         </div>
     </div>
 {% endfor %}

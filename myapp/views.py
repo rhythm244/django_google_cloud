@@ -240,6 +240,17 @@ def lessonlearn_filter(request, airport_id):
                                                 use_natural_foreign_keys=True, use_natural_primary_keys=True
                                                 ,fields = ('date_fly', 'title', 'employee', 'airport'))
 
+
+        return JsonResponse(serialized_obj, safe=False)
+
+@login_required
+def lessonlearn_filter_one(request, pk):
+    if request.method == 'POST':
+        lesson = Lessonlearn.objects.filter(pk=pk)
+        serialized_obj = serializers.serialize('json', lesson,
+                                                use_natural_foreign_keys=True, use_natural_primary_keys=True
+                                                ,fields = ('date_fly', 'title', 'employee', 'airport', 'lesson'))
+
         return JsonResponse(serialized_obj, safe=False)
 
 @login_required
