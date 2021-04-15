@@ -99,7 +99,7 @@ def pilot_c130_page(request, page):
             employees = Employee.objects.filter(is_pilot=True, lucky_number__gte=301, lucky_number__lte=350).order_by('lucky_number')
 
         #serialize employee object
-        serialized_obj = serializers.serialize('json', employees,use_natural_foreign_keys=True, use_natural_primary_keys=True
+        serialized_obj = serializers.serialize('json', employees,use_natural_foreign_keys=True, use_natural_primary_keys=False
         ,fields = ('rank', 'first_name_thai', 'last_name_thai', 'lucky_number', 'afaps', 'telephone', 'picture'), cls=ExtendedEncoder)
 
         # return JsonResponse([employ.serialize() for employ in employees], safe=False)
@@ -120,18 +120,50 @@ def person_division(request, division_id):
     }
     return render(request, "myapp/person.html", context)
 
+# <dt class="col-sm-3"><strong>ยศ ชื่อ - นามสกุล : </dt>
+#         <dd class="col-sm-9"></strong>{{ employee.rank }}{{ employee.first_name_thai }} {{ employee.last_name_thai }}</dd>
+
+#         <dt class="col-sm-3"><strong>First - Last name : </dt>
+#         <dd class="col-sm-9"></strong>{{ employee.first_name_eng }} {{ employee.last_name_eng }}</dd>
+
+#         <dt class="col-sm-3"><strong>วัน เดือน ปี (ค.ศ.) : </strong></dt>
+#         <dd class="col-sm-9">{{ employee.date_birth|date:"d M Y" }}</dd>
+
+#         <dt class="col-sm-3"><strong>เบอร์โทร : </strong></dt>
+#         <dd class="col-sm-9">{{ employee.telephone }}</dd>
+
+#         <dt class="col-sm-3"><strong>ตำแหน่ง : </strong></dt>
+#         <dd class="col-sm-9">{{employee.position.position}} {% if employee.position_other != None %} /{{employee.position_other}} {% else %} {% endif %}</dd>
+
+#         <dt class="col-sm-3"><strong>Photo : </strong></dt>
+#         <dd class="col-sm-9"><img src="https://storage.googleapis.com/media-bucket-thong-django-2/{{employee.picture.employee_image}}" ></dd>
+
+#         <dt class="col-sm-3"><strong>Still service : </strong></dt>
+#         <dd class="col-sm-9">{{ employee.still_service }}</dd>
+
 @login_required
 def person_one(request, employee_id):
-    employee = Employee.objects.get(pk=employee_id)
-    form = PictureForm()
-    form_employee = EmployeeForm()
+    if request.method == 'POST':
+        employees = Employee.objects.filter(pk=employee_id)
 
-    context = {
-        'employee': employee,
-        'form': form,
-        'form_employee': form_employee, 
-    }
-    return render(request, 'myapp/person_one.html', context)
+        serialized_obj = serializers.serialize('json', employees,use_natural_foreign_keys=True, use_natural_primary_keys=False
+        , cls=ExtendedEncoder)
+
+        # return JsonResponse([employ.serialize() for employ in employees], safe=False)
+        return JsonResponse(serialized_obj, safe=False)
+        # return render(request, "myapp/pilot_c130.html", context)
+
+    else:
+        employee = Employee.objects.get(pk=employee_id)
+        form = PictureForm()
+        form_employee = EmployeeForm()
+
+        context = {
+            'employee': employee,
+            'form': form,
+            'form_employee': form_employee, 
+        }
+        return render(request, 'myapp/person_one.html', context)
 
 @login_required
 def upload(request, employee_id):

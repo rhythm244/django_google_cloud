@@ -118,7 +118,7 @@ cloud_sql_proxy.exe.exe
 media/
 credential.json
 static/
-myapp/static
+myapp/static/myapp/js/currency.js
 
 # Spyder project settings
 .spyderproject
