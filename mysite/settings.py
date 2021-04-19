@@ -57,8 +57,10 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
-    'myapp',
     'corsheaders',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'myapp',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -66,6 +68,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+         'rest_framework.authentication.TokenAuthentication',
+    ]
+}
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -230,11 +238,18 @@ MEDIA_ROOT = "media/"
 UPLOAD_ROOT = 'media/uploads/'
 MEDIA_URL = 'https://storage.googleapis.com/{}/'.format(GS_BUCKET_NAME)
 
+# CORS_ALLOWED_ORIGINS = [
+#     "https://media-bucket-thong-django-2.storage.googleapis.com", 
+#     "http://127.0.0.1:8000"
+# ]
+
+# ALLOWED_HOSTS=['*']
+
+# CSRF_COOKIE_NAME = "csrftoken"
+
+CSRF_COOKIE_SECURE = True
+CORS_ALLOW_ALL_ORIGINS = False
 CORS_ALLOWED_ORIGINS = [
-    "https://media-bucket-thong-django-2.storage.googleapis.com", 
-    "http://127.0.0.1:8000"
+    "http://localhost:3000",
 ]
 
-ALLOWED_HOSTS=['*']
-
-CORS_ORIGIN_ALLOW_ALL = True

@@ -154,6 +154,7 @@ class Employee(models.Model):
     position_other = models.CharField(max_length=200, blank=True, null=True, default=None)
     lucky_number = models.DecimalField(max_digits=4,decimal_places=0, blank=True, null=True)
     afaps = models.IntegerField(default=None, null=True)
+    image = models.ImageField('Image', upload_to='image/', default=None, validators=[validate_image])
 
     passport = models.CharField(max_length=9, default=None, blank=True, null=True)
     visa = models.CharField(max_length=14, default=None, blank=True, null=True)
@@ -171,33 +172,6 @@ class Employee(models.Model):
 
     def __str__(self):
         return f"{self.first_name_thai}  {self.last_name_thai}"
-    
-    # def serialize(self):
-    #     # print(self.rank.airforce_rank)
-    #     return {
-    #         "pk": self.pk,
-    #         "rank": self.rank.airforce_rank,
-    #         "first_name_eng": self.first_name_eng,
-    #         "last_name_eng": self.last_name_eng,
-    #         "first_name_thai": self.first_name_thai,
-    #         "last_name_thai": self.last_name_thai,
-    #         "date_birth": self.date_birth,
-    #         "line_id": self.line_id,
-    #         "telephone": self.telephone,
-    #         "email": self.email,
-    #         "picture": f'{self.picture}',
-    #         "division": f'{self.division}',
-    #         "position": f'{self.position}',
-    #         "position_other": self.position_other,
-    #         "lucky_number": self.lucky_number,
-    #         "afaps": self.afaps,
-    #         "passport": self.passport,
-    #         "visa": self.visa,
-    #         "still_service": self.still_service,
-    #         "is_pilot": self.is_pilot,
-    #         "create_at": self.create_at,
-    #         "update": self.update.strftime("%b %d %Y, %I:%M %p"),
-    #     }
 
 
 
@@ -211,7 +185,7 @@ class Lessonlearn(models.Model):
     )
 
     date_fly = models.DateTimeField(null=True)
-    title = models.CharField(max_length=100, blank=True, default=None)
+    title = models.CharField(max_length=100, blank=True, default=None, null=True)
     employee = models.ForeignKey('Employee', on_delete=models.CASCADE, default=None, null=False, related_name='employee_Lessonlearn')
     airport = models.ForeignKey('Airport', on_delete=models.CASCADE, default=None, null=False, related_name='airport_Lessonlearn')
     lesson = models.TextField(blank=False)

@@ -1,8 +1,7 @@
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
-from . import views
-
+from . import views, view_api
 
 app_name = 'myapp'
 
@@ -25,6 +24,9 @@ urlpatterns = [
     path('pilot_c130/<str:page>', views.pilot_c130_page, name='pilot_c130_page'),
     path('lessonlearn_filter/<int:airport_id>', views.lessonlearn_filter, name='lessonlearn_filter'),
     path('lessonlearn_filter_one/<int:pk>', views.lessonlearn_filter_one, name='lessonlearn_filter_one'),
+
+    #API for react
+    path('api/employees/', view_api.api_employees, name="api_employees"),
     
 ] 
 

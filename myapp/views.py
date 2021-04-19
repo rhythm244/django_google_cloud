@@ -1,15 +1,20 @@
-from django.http import HttpResponse, HttpResponseRedirect # noqa: 401
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse# noqa: 401
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.db import IntegrityError
-from django.urls import reverse
 from .form import PictureForm, EmployeeForm, LessonlearnForm
 from .models import *
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
 from django.core import serializers
+from django.views.decorators.csrf import ensure_csrf_cookie
+
+# from .serializers import EmployeeSerializer
+# from rest_framework.decorators import api_view, permission_classes, authentication_classes
+# from rest_framework.response import Response
+# from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+# from rest_framework.permissions import IsAuthenticated
 
 
 # Create your views here.
@@ -120,26 +125,6 @@ def person_division(request, division_id):
     }
     return render(request, "myapp/person.html", context)
 
-# <dt class="col-sm-3"><strong>ยศ ชื่อ - นามสกุล : </dt>
-#         <dd class="col-sm-9"></strong>{{ employee.rank }}{{ employee.first_name_thai }} {{ employee.last_name_thai }}</dd>
-
-#         <dt class="col-sm-3"><strong>First - Last name : </dt>
-#         <dd class="col-sm-9"></strong>{{ employee.first_name_eng }} {{ employee.last_name_eng }}</dd>
-
-#         <dt class="col-sm-3"><strong>วัน เดือน ปี (ค.ศ.) : </strong></dt>
-#         <dd class="col-sm-9">{{ employee.date_birth|date:"d M Y" }}</dd>
-
-#         <dt class="col-sm-3"><strong>เบอร์โทร : </strong></dt>
-#         <dd class="col-sm-9">{{ employee.telephone }}</dd>
-
-#         <dt class="col-sm-3"><strong>ตำแหน่ง : </strong></dt>
-#         <dd class="col-sm-9">{{employee.position.position}} {% if employee.position_other != None %} /{{employee.position_other}} {% else %} {% endif %}</dd>
-
-#         <dt class="col-sm-3"><strong>Photo : </strong></dt>
-#         <dd class="col-sm-9"><img src="https://storage.googleapis.com/media-bucket-thong-django-2/{{employee.picture.employee_image}}" ></dd>
-
-#         <dt class="col-sm-3"><strong>Still service : </strong></dt>
-#         <dd class="col-sm-9">{{ employee.still_service }}</dd>
 
 @login_required
 def person_one(request, employee_id):
@@ -165,6 +150,7 @@ def person_one(request, employee_id):
         }
         return render(request, 'myapp/person_one.html', context)
 
+#Upload Function นี้ยังเป็นใช้ ForignKey ของ Model Picture อยู่
 @login_required
 def upload(request, employee_id):
     if request.method == 'POST':
@@ -310,4 +296,4 @@ def lessonlearn_info(request, id):
     
     return render(request, 'myapp/lessonlearn_one.html',context)
     
-        
+#---------------------------------------------------------------------------------------------------------------------------------
