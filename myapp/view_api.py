@@ -7,7 +7,7 @@ from .models import Employee
 from django.http import JsonResponse
 from django.core import serializers
 
-
+#use Token for authorize
 @api_view(['GET', 'PUT'])
 # @authentication_classes([SessionAuthentication, BasicAuthentication])
 #บรรทัดบนคือ ถ้าใส่แล้วถ้ามี session มันจะไม่ขออีกที แต่ต้องอ่าน DOC อีกเยอะคร่าวๆใส่ Token ทุกครั้งไปจบ

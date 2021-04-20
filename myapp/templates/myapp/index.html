@@ -19,7 +19,7 @@
     {% endif %}
 
     {% if user.is_authenticated %}
-        <h3>Welcome Sir , C-130 8 days a week.</h3>
+        <h3 style="font-family: cursive; font-size: 42px; font-weight: 800;">Welcome Sir , C-130 8 days a week.</h3>
         <!-- <h5 style="border-top: black solid 2px; margin: 5px auto; padding: 5px" >Convert (other currency to Thai bath)</h5>
         <span id="allcurrency">Example currency : USD, EUR , JPY, AUD, SGD(สิงคโปร์), IDR(อินโด), MYR(มาเล),  etc. </span>
         <form>
@@ -37,9 +37,9 @@
         <!-- ----------------------------------------------------------------------------------- -->
         <h3 style="margin-top: 1rem;">TAF</h3>
         
-        <form id='taf_submit'>
-            <input id="taf" placeholder="vtbd,vtbu,vtcc,etc." type="text">
-            <input type="submit" value="TAF">
+        <form id='taf_submit' class="form-group">
+            <input class="form-control" id="taf" placeholder="vtbd,vtbu,vtcc,etc." type="text">
+            <button type="submit" class="btn btn-secondary">Request TAF</button>
         </form>
         
         <div id='taf_display'></div>
@@ -47,9 +47,9 @@
         
         <h3 style="margin-top: 1rem;">METAR</h3>
         
-        <form id='metar_submit'>
-            <input id="metar" placeholder="vtbd,vtbu,vtcc,etc." type="text">
-            <input type="submit" value="METAR">
+        <form id='metar_submit' class="form-group" >
+            <input class="form-control" id="metar" placeholder="vtbd,vtbu,vtcc,etc." type="text">
+            <button type="submit" class="btn btn-secondary">Request METAR</button>
         </form>
         
         <div id='metar_display'></div>

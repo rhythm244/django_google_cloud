@@ -44,8 +44,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = seckey_key
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = False
-DEBUG = True
+DEBUG = False
+# DEBUG = True
 
 # SECURITY WARNING: App Engine's security features ensure that it is safe to
 # have ALLOWED_HOSTS = ['*'] when the app is deployed. If you deploy a Django
@@ -69,11 +69,19 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
+#Rest frame work
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
          'rest_framework.authentication.TokenAuthentication',
     ]
 }
+
+CSRF_COOKIE_SECURE = True
+CORS_ALLOW_ALL_ORIGINS = False
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+]
+#End Rest frame work
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -243,13 +251,5 @@ MEDIA_URL = 'https://storage.googleapis.com/{}/'.format(GS_BUCKET_NAME)
 #     "http://127.0.0.1:8000"
 # ]
 
-# ALLOWED_HOSTS=['*']
 
-# CSRF_COOKIE_NAME = "csrftoken"
-
-CSRF_COOKIE_SECURE = True
-CORS_ALLOW_ALL_ORIGINS = False
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-]
 

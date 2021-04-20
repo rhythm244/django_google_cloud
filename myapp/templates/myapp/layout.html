@@ -10,8 +10,6 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <link href="{% static 'myapp/styles.css' %}" rel="stylesheet">
         <!-- learn javascript from CS50 and test in project -->
-        {% block script %}
-        {% endblock %}
     </head>
     
     <header>
@@ -44,7 +42,7 @@
 
     <body>
         <!-- <img src="{% static 'myapp/bg_c130.jpg' %}" alt=""> --> 
-        <div class="row" >
+        <div class="row" style="min-height: 600px;">
             {% if user.is_authenticated %}
             <div class="sidebar col-lg-2 col-md-12 text-sm-center text-lg-left">
 
@@ -55,22 +53,6 @@
                     <div>
                         <a href="{% url 'myapp:person' %}">ข้าราชการ601</a>
                     </div>
-                    <!-- <div>
-                        <a href="#">คลังความรู้</a>
-                    </div>
-                    
-                    <div>
-                        <a href="#">ข้อมูลเส้นทางบินในประเทศ</a>
-                    </div>
-                    
-                    <div>
-                        <a href="#">ข้อมูลเครื่องบิน</a>
-                    </div>
-                    
-                    <div>
-                        <a href="#">ใบจัดบิน</a>
-                    </div>
-                    -->
                     
                     <div>
                         <a href="{% url 'myapp:lessonlearn' %}">Lesson Learn</a>
@@ -79,16 +61,7 @@
                     <div>
                         <a href="{% url 'myapp:pilot_c130' %}">ทำเนียบนักบิน C-130</a>
                     </div>
-                    
-                    <!-- <div>
-                        <a href="#">ประวัติฝูงบิน</a>
-                    </div>
-                    
-                    <div>
-                        <a href="#">ภารกิจที่สำคัญในอดีต</a>
-                    </div> -->
-                
-                    
+
                     {% else %}
                         <div></div>
                     {% endif %}
@@ -98,8 +71,21 @@
             <div class="main col-lg-10">
                 {% block body %}
                 {% endblock %}
+                
             </div>
+            
         </div>
+        
+        
+        <footer>
+            <div class="footer-text">contact me : https://github.com/rhythm244</div>
+            
+        </footer>
     
+        {% block script %}
+        {% endblock %}
     </body>
+    
+    
+    
 </html>

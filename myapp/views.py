@@ -8,14 +8,7 @@ from .form import PictureForm, EmployeeForm, LessonlearnForm
 from .models import *
 from django.contrib.auth.decorators import login_required
 from django.core import serializers
-from django.views.decorators.csrf import ensure_csrf_cookie
-
-# from .serializers import EmployeeSerializer
-# from rest_framework.decorators import api_view, permission_classes, authentication_classes
-# from rest_framework.response import Response
-# from rest_framework.authentication import SessionAuthentication, BasicAuthentication
-# from rest_framework.permissions import IsAuthenticated
-
+# from django.views.decorators.csrf import ensure_csrf_cookie
 
 # Create your views here.
 
@@ -125,7 +118,6 @@ def person_division(request, division_id):
     }
     return render(request, "myapp/person.html", context)
 
-
 @login_required
 def person_one(request, employee_id):
     if request.method == 'POST':
@@ -138,7 +130,7 @@ def person_one(request, employee_id):
         return JsonResponse(serialized_obj, safe=False)
         # return render(request, "myapp/pilot_c130.html", context)
 
-    else:
+    elif request.method == 'GET':
         employee = Employee.objects.get(pk=employee_id)
         form = PictureForm()
         form_employee = EmployeeForm()
@@ -250,6 +242,7 @@ def lessonlearn(request):
         }
         return render(request, 'myapp/lessonlearn.html',context)
 
+#--------------------- API javascript ----------------------------------------------------------------------------------------------
 @login_required
 def lessonlearn_filter(request, airport_id):
     if request.method == 'POST':
@@ -263,7 +256,7 @@ def lessonlearn_filter(request, airport_id):
 
 @login_required
 def lessonlearn_filter_one(request, pk):
-    if request.method == 'POST':
+    if request.method == 'GET':
         lesson = Lessonlearn.objects.filter(pk=pk)
         serialized_obj = serializers.serialize('json', lesson,
                                                 use_natural_foreign_keys=True, use_natural_primary_keys=True
