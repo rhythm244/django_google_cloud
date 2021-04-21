@@ -9,13 +9,13 @@
 {% block body %}
 
     {% if messages %}
-    {% for message in messages %}
-        <!-- ถ้ามี message เข้ามา ให้ดูว่าเป็น message.tags แบบไหน แล้วให้คลาสของ message เป็นแบบที่ตั้งไว้ใน
-        setting.py -->
-        {% if message.tags %}
-            <div style="padding: 10px; margin: 5px;" class="{{message.tags}}" role="alert">{{ message }}</div>
-        {% endif %}
-    {% endfor %}
+        {% for message in messages %}
+            <!-- ถ้ามี message เข้ามา ให้ดูว่าเป็น message.tags แบบไหน แล้วให้คลาสของ message เป็นแบบที่ตั้งไว้ใน
+            setting.py -->
+            {% if message.tags %}
+                <div style="padding: 10px; margin: 5px;" class="{{message.tags}}" role="alert">{{ message }}</div>
+            {% endif %}
+        {% endfor %}
     {% endif %}
 
     {% if user.is_authenticated %}
@@ -55,15 +55,17 @@
         <div id='metar_display'></div>
         <!-- ----------------------------------------------------------------------------------- -->
         
-
-        <li><a target="_blank" href="http://www.sattmet.tmd.go.th/satmet/mergesat.html">sattmet.tmd</a></li>
-
-        <li><a target="_blank" href="http://www.weather.rtaf.mi.th/dashboard/taf.html">TAF RTAF</a></li>
-        <li><a target="_blank" href="http://www.weather.rtaf.mi.th/dashboard/metar.html">METAR RTAF</a></li>
+        <div class="link-other">
+            <a id="list-a" target="_blank" href="http://www.weather.rtaf.mi.th/dashboard/taf.html"><li class="list-group-item list-group-item-action">TAF RTAF</li></a>
+            <a id="list-a" target="_blank" href="http://www.weather.rtaf.mi.th/dashboard/metar.html"><li class="list-group-item list-group-item-action">METAR RTAF</li></a>
+            <a id="list-a" target="_blank" href="http://www.sattmet.tmd.go.th/satmet/mergesat.html"><li class="list-group-item list-group-item-action">SATTMET</li></a>
+            <a id="list-a" target="_blank" href="http://notamweb.aviation-civile.gouv.fr/"><li class="list-group-item list-group-item-action">Notam Web</li></a>
+        </div>
+        
 
         
     {% else %}
-        Welcome
+        Welcome ....if not have user and password contact admin
     {% endif %}
         
     </div>

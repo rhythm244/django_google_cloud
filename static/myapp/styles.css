@@ -9,10 +9,36 @@ header {
     background-color: #2b6430;
 }
 
+footer {
+    height: 2em;
+    position: relative;
+    z-index: 1;
+    background-color: #006699;
+    
+}
+
+.footer-text {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 5px;
+    font-size: 16px;
+    font-weight: 200;
+    color: #fff;
+}
+
+
 /* .cover {
     background: url("https://storage.googleapis.com/media-bucket-thong-django-2/cover/bg_c130.jpg") 50%;
     height: min-content;
 } */
+
+td{
+    width: 120px;
+    height: 10px;
+    word-wrap: break-word;
+    min-width: 150px;
+    max-width: 30px;
+}
 
 .logo {
     height: 70px;
@@ -26,13 +52,15 @@ header {
     font-weight: 700;
 }
 
-#taf_display li {
-    border: solid black 2px;
-    margin: 10px 5px;
-}
 #metar_display li {
     border: solid black 2px;
     margin: 10px 5px;
+}
+
+.link-other a li{
+    font-size : 18px;
+    font-weight: 800;
+    color:rgb(26, 126, 121);
 }
 
 .sign {
