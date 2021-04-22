@@ -75,25 +75,27 @@ def pilot_c130(request):
 def pilot_c130_page(request, page):
 
     if request.method == "POST":
-        if page == 'one':
+        employees = []
+        
+        if page == 1:
             employees = Employee.objects.filter(is_pilot=True, lucky_number__gte=0, lucky_number__lte=50).order_by('lucky_number')
 
-        elif page == 'two':
+        elif page == 2:
             employees = Employee.objects.filter(is_pilot=True, lucky_number__gte=51, lucky_number__lte=100).order_by('lucky_number')
 
-        elif page == 'three':
+        elif page == 3:
             employees = Employee.objects.filter(is_pilot=True, lucky_number__gte=101, lucky_number__lte=150).order_by('lucky_number')
 
-        elif page == 'four':
+        elif page == 4:
             employees = Employee.objects.filter(is_pilot=True, lucky_number__gte=151, lucky_number__lte=200).order_by('lucky_number')
 
-        elif page == 'five':
+        elif page == 5:
             employees = Employee.objects.filter(is_pilot=True, lucky_number__gte=201, lucky_number__lte=250).order_by('lucky_number')
 
-        elif page == 'six':
+        elif page == 6:
             employees = Employee.objects.filter(is_pilot=True, lucky_number__gte=251, lucky_number__lte=300).order_by('lucky_number')
 
-        else:
+        elif page == 7:
             employees = Employee.objects.filter(is_pilot=True, lucky_number__gte=301, lucky_number__lte=350).order_by('lucky_number')
 
         #serialize employee object

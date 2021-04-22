@@ -21,7 +21,7 @@ urlpatterns = [
     # path('upload_lessonlearn', views.upload_lessonlearn, name='upload_lessonlearn'),
 
     #API javascript
-    path('pilot_c130/<str:page>', views.pilot_c130_page, name='pilot_c130_page'),
+    path('pilot_c130/<int:page>', views.pilot_c130_page, name='pilot_c130_page'),
     path('lessonlearn_filter/<int:airport_id>', views.lessonlearn_filter, name='lessonlearn_filter'),
     path('lessonlearn_filter_one/<int:pk>', views.lessonlearn_filter_one, name='lessonlearn_filter_one'),
 

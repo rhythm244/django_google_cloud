@@ -8,16 +8,19 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
     <script src="{% static 'myapp/js/lesson.js' %}"></script>
-{% endblock %}
-
-{% block body %}
-
+    {% endblock %}
+    
+    {% block body %}
+    
     <h2>Lesson Learn</h2>
-
+    
+    
     <div>
         <a href="{% url 'myapp:lessonlearn_form' %}">Create Lessonlearn Domestic</a>
     </div>
-
+    
+    <div id="load"></div>
+    
     <div id="lesson_view">
         <table class="table table-bordered table-striped">
             <tr class="table-primary">
@@ -51,8 +54,7 @@
         {% endfor %}
         </table>
 
-        <div id='lessonlearn_one'>
-            
+
         </div>
     </div>
     
