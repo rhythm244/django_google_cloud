@@ -26,6 +26,7 @@ urlpatterns = [
     path('lessonlearn_filter_one/<int:pk>', views.lessonlearn_filter_one, name='lessonlearn_filter_one'),
 
     #API for react
+    path('login_react', view_api.login_react, name='login_react'),
     path('api/employees/', view_api.api_employees, name="api_employees"),
     
 ] 

@@ -12,9 +12,10 @@
     
     {% block body %}
     
-    <h2>Lesson Learn</h2>
-    
-    
+    <div>
+        <h2><a href="{% url 'myapp:lessonlearn' %}">Lesson Learn</a></h2>
+    </div> 
+
     <div>
         <a href="{% url 'myapp:lessonlearn_form' %}">Create Lessonlearn Domestic</a>
     </div>

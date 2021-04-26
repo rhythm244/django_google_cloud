@@ -4,6 +4,7 @@
 
 {% block script %}
     <script src="{% static 'myapp/js/currency.js' %}" defer></script>
+    <script type="text/babel" src="{% static 'myapp/js/react.js' %}" ></script>
 {% endblock %}
 
 {% block body %}
@@ -29,6 +30,8 @@
         
         <div id="result1"></div>
         <div id="result2"></div> -->
+
+        <div id="app"></div>
 
         <div class="alert-danger" id="result3"></div>
 

@@ -159,8 +159,8 @@ class Employee(models.Model):
     passport = models.CharField(max_length=9, default=None, blank=True, null=True)
     visa = models.CharField(max_length=14, default=None, blank=True, null=True)
 
-    still_service = models.BooleanField(default=True)
-    is_pilot = models.BooleanField(default=False, null=True)
+    still_service = models.BooleanField(default=False)
+    is_pilot = models.BooleanField(default=True, null=True)
 
     create_at = models.DateTimeField(auto_now_add=True, null=True)
     update = models.DateTimeField(auto_now=True, null=True)
