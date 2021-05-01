@@ -1,16 +1,20 @@
-from django.http import HttpResponse, HttpResponseRedirect, JsonResponse# noqa: 401
-from django.shortcuts import get_object_or_404, render, redirect
-from django.urls import reverse
-from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from django.db import IntegrityError
-from .form import PictureForm, EmployeeForm, LessonlearnForm
-from .models import *
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.core import serializers
+from django.db import IntegrityError
+from django.http import (HttpResponse, HttpResponseRedirect,  # noqa: 401
+                         JsonResponse)
+from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse
+
+from .form import EmployeeForm, LessonlearnForm, PictureForm
+from .models import *
+
 # from django.views.decorators.csrf import ensure_csrf_cookie
 
 # Create your views here.
+
 
 def index(request):
     if request.method == "GET":
@@ -20,7 +24,8 @@ def index(request):
         }
         return render(request, "myapp/index.html", context)
 
-def login_view(request):  
+
+def login_view(request):
     if request.method == "POST":
 
         # Attempt to sign user in
@@ -45,21 +50,23 @@ def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse("myapp:index"))
 
+
 @login_required
 def person(request):
     """ส่งแค่ division ไปเพื่อใช้ในการกด ของ user เอา เพราะถ้าส่งไปหมดจะ load ช้าเกิน """
-    
+
     # employees = Employee.objects.order_by('afaps')
     divisions = Division.objects.all()
 
     form = PictureForm()
-  
+
     context = {
-        # 'employees': employees, 
+        # 'employees': employees,
         'divisions': divisions,
         'form': form,
     }
     return render(request, "myapp/person.html", context)
+
 
 @login_required
 def pilot_c130(request):
@@ -67,44 +74,53 @@ def pilot_c130(request):
     # employees = Employee.objects.filter(is_pilot=True).order_by('lucky_number')
     employees = []
     context = {
-        'employees': employees, 
+        'employees': employees,
     }
     return render(request, "myapp/pilot_c130.html", context)
+
 
 @login_required
 def pilot_c130_page(request, page):
 
     if request.method == "POST":
         employees = []
-        
+
         if page == 1:
-            employees = Employee.objects.filter(is_pilot=True, lucky_number__gte=0, lucky_number__lte=50).order_by('lucky_number')
+            employees = Employee.objects.filter(
+                is_pilot=True, lucky_number__gte=0, lucky_number__lte=50).order_by('lucky_number')
 
         elif page == 2:
-            employees = Employee.objects.filter(is_pilot=True, lucky_number__gte=51, lucky_number__lte=100).order_by('lucky_number')
+            employees = Employee.objects.filter(
+                is_pilot=True, lucky_number__gte=51, lucky_number__lte=100).order_by('lucky_number')
 
         elif page == 3:
-            employees = Employee.objects.filter(is_pilot=True, lucky_number__gte=101, lucky_number__lte=150).order_by('lucky_number')
+            employees = Employee.objects.filter(
+                is_pilot=True, lucky_number__gte=101, lucky_number__lte=150).order_by('lucky_number')
 
         elif page == 4:
-            employees = Employee.objects.filter(is_pilot=True, lucky_number__gte=151, lucky_number__lte=200).order_by('lucky_number')
+            employees = Employee.objects.filter(
+                is_pilot=True, lucky_number__gte=151, lucky_number__lte=200).order_by('lucky_number')
 
         elif page == 5:
-            employees = Employee.objects.filter(is_pilot=True, lucky_number__gte=201, lucky_number__lte=250).order_by('lucky_number')
+            employees = Employee.objects.filter(
+                is_pilot=True, lucky_number__gte=201, lucky_number__lte=250).order_by('lucky_number')
 
         elif page == 6:
-            employees = Employee.objects.filter(is_pilot=True, lucky_number__gte=251, lucky_number__lte=300).order_by('lucky_number')
+            employees = Employee.objects.filter(
+                is_pilot=True, lucky_number__gte=251, lucky_number__lte=300).order_by('lucky_number')
 
         elif page == 7:
-            employees = Employee.objects.filter(is_pilot=True, lucky_number__gte=301, lucky_number__lte=350).order_by('lucky_number')
+            employees = Employee.objects.filter(
+                is_pilot=True, lucky_number__gte=301, lucky_number__lte=350).order_by('lucky_number')
 
-        #serialize employee object
-        serialized_obj = serializers.serialize('json', employees,use_natural_foreign_keys=True, use_natural_primary_keys=False
-        ,fields = ('rank', 'first_name_thai', 'last_name_thai', 'lucky_number', 'afaps', 'telephone', 'picture'), cls=ExtendedEncoder)
+        # serialize employee object
+        serialized_obj = serializers.serialize('json', employees, use_natural_foreign_keys=True, use_natural_primary_keys=False, fields=(
+            'rank', 'first_name_thai', 'last_name_thai', 'lucky_number', 'afaps', 'telephone', 'picture'), cls=ExtendedEncoder)
 
         # return JsonResponse([employ.serialize() for employ in employees], safe=False)
         return JsonResponse(serialized_obj, safe=False)
         # return render(request, "myapp/pilot_c130.html", context)
+
 
 @login_required
 def person_division(request, division_id):
@@ -112,21 +128,22 @@ def person_division(request, division_id):
     employees = Employee.objects.filter(division_id=division_id)
     divisions = Division.objects.all()
     form = PictureForm()
-  
+
     context = {
-        'employees': employees, 
+        'employees': employees,
         'divisions': divisions,
         'form': form,
     }
     return render(request, "myapp/person.html", context)
+
 
 @login_required
 def person_one(request, employee_id):
     if request.method == 'POST':
         employees = Employee.objects.filter(pk=employee_id)
 
-        serialized_obj = serializers.serialize('json', employees,use_natural_foreign_keys=True, use_natural_primary_keys=False
-        , cls=ExtendedEncoder)
+        serialized_obj = serializers.serialize(
+            'json', employees, use_natural_foreign_keys=True, use_natural_primary_keys=False, cls=ExtendedEncoder)
 
         # return JsonResponse([employ.serialize() for employ in employees], safe=False)
         return JsonResponse(serialized_obj, safe=False)
@@ -140,11 +157,13 @@ def person_one(request, employee_id):
         context = {
             'employee': employee,
             'form': form,
-            'form_employee': form_employee, 
+            'form_employee': form_employee,
         }
         return render(request, 'myapp/person_one.html', context)
 
-#Upload Function นี้ยังเป็นใช้ ForignKey ของ Model Picture อยู่
+# Upload Function นี้ยังเป็นใช้ ForignKey ของ Model Picture อยู่
+
+
 @login_required
 def upload(request, employee_id):
     if request.method == 'POST':
@@ -154,9 +173,10 @@ def upload(request, employee_id):
             f.employee_id = employee_id
             # pic_em = f.pk
             f.save()
-            
-            #ลบรูปอื่นออกให้หมด ยกเว้นรูปล่าสุด
-            Picture.objects.filter(employee_id=employee_id , id__lt=int(f.id)).delete()
+
+            # ลบรูปอื่นออกให้หมด ยกเว้นรูปล่าสุด
+            Picture.objects.filter(
+                employee_id=employee_id, id__lt=int(f.id)).delete()
 
             employee = Employee.objects.filter(pk=employee_id)
             employee_picture = form.cleaned_data['employee_image']
@@ -164,18 +184,19 @@ def upload(request, employee_id):
             for item in employee:
                 item.picture = f
                 item.id = employee_id
-                item.save()          
+                item.save()
                 messages.success(request, "Upload Success")
         else:
             messages.error(request, "File not more than 500 Kb")
 
         return HttpResponseRedirect(reverse("myapp:person_one", args=(employee_id,)))
-    else: 
+    else:
         form = PictureForm()
         context = {
             'form': form,
         }
         return render(request, 'myapp/index.html', context)
+
 
 @login_required
 def upload_employee(request, employee_id):
@@ -183,7 +204,7 @@ def upload_employee(request, employee_id):
 
         employee = Employee.objects.filter(pk=employee_id).first()
 
-        #จัดเตรียมข้อมูลเอาไว้ใช้ด้านล่าง ไม่รู้ทำไมใช้ employee. เลยไม่ได้ เลยต้องใส่ตัวแปรเพิ่ม
+        # จัดเตรียมข้อมูลเอาไว้ใช้ด้านล่าง ไม่รู้ทำไมใช้ employee. เลยไม่ได้ เลยต้องใส่ตัวแปรเพิ่ม
         telephone_already = employee.telephone
         rank_already = employee.rank
         firstnamethai_already = employee.first_name_thai
@@ -192,14 +213,15 @@ def upload_employee(request, employee_id):
         lastnameeng_already = employee.last_name_eng
         position_already = employee.position
         position_other_already = employee.position_other
-        
+
         form = EmployeeForm(request.POST, instance=employee)
-        
+
         if form.is_valid():
             f = form.save(commit=False)
-            f.employee_id = employee_id #ต้องมีบรรทัดนี้ เพราะถ้าไม่ใส่มันจะไม่รู้ว่าเป็นของ pk ไหน
+            # ต้องมีบรรทัดนี้ เพราะถ้าไม่ใส่มันจะไม่รู้ว่าเป็นของ pk ไหน
+            f.employee_id = employee_id
 
-            #ถ้ามีข้อมูลเก่าอยู่แล้ว ให้นำข้อมูลเก่ามาใส่ ถ้า user ใส่ None มาใน Form
+            # ถ้ามีข้อมูลเก่าอยู่แล้ว ให้นำข้อมูลเก่ามาใส่ ถ้า user ใส่ None มาใน Form
             if f.rank == None:
                 f.rank = rank_already
             if f.first_name_thai == None:
@@ -219,52 +241,54 @@ def upload_employee(request, employee_id):
             # if f.position_other == None:
             #     f.position_other = position_other_already
 
-            f.save()        
+            f.save()
             messages.success(request, "Edit Success")
         else:
             messages.error(request, "Error")
 
         return HttpResponseRedirect(reverse("myapp:person_one", args=(employee_id,)))
-    else: 
+    else:
         form = PictureForm()
         context = {
             'form': form,
         }
         return render(request, 'myapp/index.html', context)
 
+
 @login_required
 def lessonlearn(request):
 
     if request.method == 'GET':
         lesson = Lessonlearn.objects.all().order_by('-date_fly')
-        airport_filter = Airport.objects.values('id','icao_code')
+        airport_filter = Airport.objects.values('id', 'icao_code')
         context = {
             'lessons': lesson,
             'airport_filter': airport_filter,
         }
-        return render(request, 'myapp/lessonlearn.html',context)
+        return render(request, 'myapp/lessonlearn.html', context)
 
-#--------------------- API javascript ----------------------------------------------------------------------------------------------
+
+# --------------------- API javascript ----------------------------------------------------------------------------------------------
+
 @login_required
 def lessonlearn_filter(request, airport_id):
     if request.method == 'POST':
         lesson = Lessonlearn.objects.filter(airport_id=int(airport_id))
         serialized_obj = serializers.serialize('json', lesson,
-                                                use_natural_foreign_keys=True, use_natural_primary_keys=True
-                                                ,fields = ('date_fly', 'title', 'employee', 'airport'))
-
+                                               use_natural_foreign_keys=True, use_natural_primary_keys=True, fields=('date_fly', 'title', 'employee', 'airport'))
 
         return JsonResponse(serialized_obj, safe=False)
+
 
 @login_required
 def lessonlearn_filter_one(request, pk):
     if request.method == 'GET':
         lesson = Lessonlearn.objects.filter(pk=pk)
         serialized_obj = serializers.serialize('json', lesson,
-                                                use_natural_foreign_keys=True, use_natural_primary_keys=True
-                                                ,fields = ('date_fly', 'title', 'employee', 'airport', 'lesson'))
+                                               use_natural_foreign_keys=True, use_natural_primary_keys=True, fields=('date_fly', 'title', 'employee', 'airport', 'lesson'))
 
         return JsonResponse(serialized_obj, safe=False)
+
 
 @login_required
 def lessonlearn_form(request):
@@ -273,13 +297,14 @@ def lessonlearn_form(request):
         context = {
             'form': form,
         }
-        return render(request, 'myapp/lessonlearn_form.html',context)
+        return render(request, 'myapp/lessonlearn_form.html', context)
 
     elif request.method == 'POST':
         form = LessonlearnForm(request.POST)
         if form.is_valid():
             form.save()
         return HttpResponseRedirect(reverse("myapp:lessonlearn"))
+
 
 @login_required
 def lessonlearn_info(request, id):
@@ -288,7 +313,16 @@ def lessonlearn_info(request, id):
     context = {
         'lessons': lessonlearn,
     }
-    
-    return render(request, 'myapp/lessonlearn_one.html',context)
-    
-#---------------------------------------------------------------------------------------------------------------------------------
+
+    return render(request, 'myapp/lessonlearn_one.html', context)
+
+@login_required
+def airport(request):
+    airports = Airport.objects.all().order_by('icao_code')
+
+    context = {
+        'airport' : airports,
+    }
+
+    return render(request, 'myapp/airport.html', context)
+# ---------------------------------------------------------------------------------------------------------------------------------

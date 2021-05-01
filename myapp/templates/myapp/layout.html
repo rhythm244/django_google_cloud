@@ -5,6 +5,8 @@
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        {% block head %}
+        {% endblock %}
         <!-- <title>{% block title %}Auctions{% endblock %}</title> -->
         <!-- Load React. -->
         <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
@@ -18,76 +20,83 @@
         <!-- learn javascript from CS50 and test in project -->
     </head>
     
-    <header>
-        <div class="row">
-            <div class="col-lg-1 text-lg-left text-sm-center">
-                <a href="{% url 'myapp:index' %}">
-                    <img class ="logo" src="https://storage.googleapis.com/media-bucket-thong-django-2/cover/LOGO_c130.png" alt="">
-                </a> 
-            </div>
-            
-            <div class="col-lg-5 text-lg-left text-sm-center">
-                <h1 id="joinworld">601 SQDN</h1>
+    <header class='container-fluid'>
+        
+            <div class="row">
+                <div id="logo" class="col-xs-12 col-sm-8 text-sm-center">
+                    
+                    <a href="{% url 'myapp:index' %}">
+                        <img class ="logo" src="https://storage.googleapis.com/media-bucket-thong-django-2/cover/LOGO_c130.png" alt="">
+                    </a> 
+                
+                    <h1 id="joinworld">601 SQDN</h1>
+                    
+                </div>
 
+                <div id="authen" class="col-xs-12 col-sm-4 text-sm-center">
+                        
+                        {% if user.is_authenticated %}
+                        <li class="sign">Signed in as <strong>{{ user.username }}</strong>.</li>
+                        
+                        <li><a class="btn btn-primary" href="{% url 'myapp:logout' %}">Log out</a></li>
+                        
+                        {% else %}
+                        Not signed in.
+                        <li><a class="btn btn-primary" href="{% url 'myapp:login' %}">Log in</a></li>
+                        {% endif %}
+                </div>
             </div>
-
-            <div class="col-lg-6 text-lg-right text-sm-center">
-                    
-                    {% if user.is_authenticated %}
-                    <li class="sign">Signed in as <strong>{{ user.username }}</strong>.</li>
-                    
-                    <li><a class="btn btn-primary" href="{% url 'myapp:logout' %}">Log out</a></li>
-                    
-                    {% else %}
-                    Not signed in.
-                    <li><a class="btn btn-primary" href="{% url 'myapp:login' %}">Log in</a></li>
-                    {% endif %}
-            </div>
-        </div>
+        
     </header>
 
     <body>
+    <div style="min-height:600px">
         <!-- <img src="{% static 'myapp/bg_c130.jpg' %}" alt=""> --> 
-        <div class="row" style="min-height: 600px;">
-            {% if user.is_authenticated %}
-            <div class="sidebar col-lg-2 col-md-12 text-sm-center text-lg-left">
+        <div class="container-fluid">
+            <div class="row" >
+                {% if user.is_authenticated %}
+                <div class="sidebar col-xs-12 col-md-2">
 
-                    <div>
-                        <a href="{% url 'myapp:index' %}">HOME</a>
-                    </div>
+                        <div>
+                            <a href="{% url 'myapp:index' %}">HOME</a>
+                        </div>
 
-                    <div>
-                        <a href="{% url 'myapp:person' %}">ข้าราชการ601</a>
-                    </div>
+                        <div>
+                            <a href="{% url 'myapp:person' %}">ข้าราชการ601</a>
+                        </div>
+                        
+                        <div>
+                            <a href="{% url 'myapp:lessonlearn' %}">Lesson Learn</a>
+                        </div> 
+                        
+                        <div>
+                            <a href="{% url 'myapp:pilot_c130' %}">ทำเนียบนักบิน C-130</a>
+                        </div>
+                        <div>
+                            <a href="{% url 'myapp:airport' %}">Airport</a>
+                        </div>
+                </div>
+                {% endif %}
+
+                <div class="main col-xs-12 col-md-10">
+                    {% block body %}
+                    {% endblock %}
                     
-                    <div>
-                        <a href="{% url 'myapp:lessonlearn' %}">Lesson Learn</a>
-                    </div> 
-                    
-                    <div>
-                        <a href="{% url 'myapp:pilot_c130' %}">ทำเนียบนักบิน C-130</a>
-                    </div>
-            </div>
-            {% endif %}
-                
-            
-            <div class="main col-lg-10">
-                {% block body %}
-                {% endblock %}
+                </div>
                 
             </div>
-            
         </div>
         
-        
-        <footer>
-            <a href="https://github.com/rhythm244"><div class="footer-text">contact me : https://github.com/rhythm244</div></a>
-            
-        </footer>
+    
     
         {% block script %}
         {% endblock %}
+    </div>
 
+        <footer class="container-fluid">
+            <a href="https://github.com/rhythm244"><div class="footer-text">contact me : https://github.com/rhythm244</div></a>
+            
+        </footer>
         
     </body>
 

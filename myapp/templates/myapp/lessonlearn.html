@@ -2,6 +2,24 @@
 
 {% load static %}
 
+{% block head %}
+<style>
+    img {
+        width: 100px;
+        height: 100px;
+    }
+
+    td{
+        width: 120px;
+        height: 10px;
+        word-wrap: break-word;
+        {% comment %} min-width: 100px;  {% endcomment %}
+        max-width: 150px;
+}
+</style>
+{% endblock %}
+
+
 {% block script %}
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
@@ -24,6 +42,7 @@
     
     <div id="lesson_view">
         <table class="table table-bordered table-striped">
+        <tbody>
             <tr class="table-primary">
                 <th>วัน เดือน ปี</th>
                 <th>ชื่อเรื่อง</th>
@@ -37,7 +56,7 @@
                         </button>
                         <div class="dropdown-menu">
                         {% for airport in airport_filter %}
-                        <button id="dropdown-airport" class="dropdown-item" data-airport="{{airport.id}}">{{airport.icao_code}}</button>
+                            <button id="dropdown-airport" class="dropdown-item" data-airport="{{airport.id}}">{{airport.icao_code}}</button>
                         {% endfor %}
                         </div>
                     </div>
@@ -45,7 +64,7 @@
                 <th>รายละเอียด</th>        
             </tr>
         {% for lesson in lessons %}
-            <tr>
+            <tr >
                 <td>{{ lesson.date_fly|date:"d M Y" }} </td>
                 <td>{{ lesson.title }} </td>
                 <td>{{ lesson.employee.rank }}{{ lesson.employee }}</td> 
@@ -53,6 +72,9 @@
                 <td><a href="{% url 'myapp:lessonlearn_info' lesson.id %}">รายละเอียด</a></td>
             </tr>
         {% endfor %}
+
+        
+        </tbody>
         </table>
 
 

@@ -10,10 +10,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
+from google.oauth2 import service_account
 import os
-from django.contrib.messages import constants as message_constants
 from datetime import timedelta
+
 from django.conf import settings
+from django.contrib.messages import constants as message_constants
 
 MESSAGE_TAGS = {
     message_constants.DEBUG: 'debug',
@@ -44,8 +46,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = seckey_key
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = False
-DEBUG = True
+DEBUG = False
+# DEBUG = True
 
 # SECURITY WARNING: App Engine's security features ensure that it is safe to
 # have ALLOWED_HOSTS = ['*'] when the app is deployed. If you deploy a Django
@@ -61,6 +63,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'myapp',
+    'rest_framework_simplejwt.token_blacklist',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -69,29 +72,31 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
-#Rest frame work
+# Rest frame work
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
         # 'rest_framework.authentication.BasicAuthentication',
         # 'rest_framework.authentication.SessionAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-        
+
     ],
-     'DEFAULT_PERMISSION_CLASSES': [
+    'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',
     ]
 }
 
-# CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
 ]
-#End Rest frame work
+# End Rest frame work
+# mysite middleware คือที่เราเขียน overide เอาไว้ แต่เอาออกไปแล้วเลยต้อง comment ออกด้วย
 
 MIDDLEWARE = [
-    'mysite.middleware.open_access_middleware',
+    # 'mysite.middleware.open_access_middleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
@@ -108,7 +113,7 @@ ROOT_URLCONF = 'mysite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        #test integrate django with react
+        # test integrate django with react
         'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -121,7 +126,7 @@ TEMPLATES = [
 
             # 'libraries':{
             #             'media':  'myapp.templatetags.media',
- 
+
             # }
         },
     },
@@ -137,6 +142,7 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # See https://docs.djangoproject.com/en/2.1/ref/databases/#mysql-db-api-drivers
 # for more information
 import pymysql  # noqa: 402
+
 pymysql.version_info = (1, 4, 6, 'final', 0)  # change mysqlclient version
 pymysql.install_as_MySQLdb()
 
@@ -164,14 +170,14 @@ else:
         'default': {
             'ENGINE': 'django.db.backends.mysql',
             'HOST': '127.0.0.1',
-            'PORT': '3306',
+            'PORT': '3307',
             'NAME': db_name,
-            'USER': db_user,
+            'USER': "root",
             'PASSWORD': db_password,
         }
     }
-    ## set for connect mysql on local mechine
-    # DATABASES = { 
+    # set for connect mysql on local mechine
+    # DATABASES = {
     #     'default': {
     #         'ENGINE': 'django.db.backends.mysql',
     #         'HOST': '127.0.0.1',
@@ -231,18 +237,17 @@ USE_TZ = True
 STATIC_ROOT = 'static'
 STATIC_URL = '/static/'
 
- 
+
 # MEDIA_URL = '/media/'
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-from google.oauth2 import service_account
 
 GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
     os.path.join(BASE_DIR, 'credential.json')
 )
 GS_FILE_OVERWRITE = False
-GS_BLOB_CHUNK_SIZE = 2097152 # 1024 * 1024 B * 2 = 2 MB (limit file 2 MB)
-DEFAULT_FILE_STORAGE= 'storages.backends.gcloud.GoogleCloudStorage'
+GS_BLOB_CHUNK_SIZE = 2097152  # 1024 * 1024 B * 2 = 2 MB (limit file 2 MB)
+DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
 
 gs_project_id = os.environ.get('GS_PROJECT_ID')
 gs_bucket_name = os.environ.get('GS_BUCKET_NAME')
@@ -254,17 +259,11 @@ MEDIA_ROOT = "media/"
 UPLOAD_ROOT = 'media/uploads/'
 MEDIA_URL = 'https://storage.googleapis.com/{}/'.format(GS_BUCKET_NAME)
 
-# CORS_ALLOWED_ORIGINS = [
-#     "https://media-bucket-thong-django-2.storage.googleapis.com", 
-#     "http://127.0.0.1:8000"
-# ]
-
-
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
-    'ROTATE_REFRESH_TOKENS': False,
+    'ROTATE_REFRESH_TOKENS': True,
     'BLACKLIST_AFTER_ROTATION': True,
     'UPDATE_LAST_LOGIN': False,
 
@@ -274,7 +273,7 @@ SIMPLE_JWT = {
     'AUDIENCE': None,
     'ISSUER': None,
 
-    'AUTH_HEADER_TYPES': ('Bearer','JWT'),
+    'AUTH_HEADER_TYPES': ('Bearer', 'JWT'),
     'AUTH_HEADER_NAME': 'HTTP_AUTHORIZATION',
     'USER_ID_FIELD': 'id',
     'USER_ID_CLAIM': 'user_id',
@@ -288,6 +287,3 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 }
-
-
-

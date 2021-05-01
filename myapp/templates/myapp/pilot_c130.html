@@ -1,8 +1,12 @@
 {% extends "myapp/layout.html" %}
 {% load static %}
 
-{% block body %}
 
+{% block script %}
+<script type="text/javascript" src="{% static 'myapp/js/pilot_c130.js' %}"></script>
+{% endblock %}
+
+{% block body %}
 
 <style>
     /* table, th, td {
@@ -26,6 +30,7 @@
 <button class="btn btn-sm btn-outline-primary" id="btn-filter" data-pilot=7>301-350</button>
 
 <div id="load"></div>
+
 <table>
 
     <div id="pilot130_view">
@@ -65,8 +70,5 @@
             </div>
 </table>
             
-            {% endblock %}
-            
-            {% block script %}
-            <script type="text/javascript" src="{% static 'myapp/js/pilot_c130.js' %}"></script>
-            {% endblock %}
+{% endblock %}
+

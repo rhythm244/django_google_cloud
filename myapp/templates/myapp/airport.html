@@ -1,0 +1,16 @@
+{% extends "myapp/layout.html" %} {% load static %} {% block body %}
+
+<div id="airport_view">
+  {% for airport in airport %}
+  <ul>
+    <p>
+      <li>{{ airport.icao_code }}</li>
+      <li>{{ airport.city }}</li>
+      <li>{{ airport.runway_length }}</li>
+      <li>{{ airport.runway_direction }}</li>
+    </p>
+  </ul>
+  {% endfor %}
+</div>
+
+{% endblock %}
