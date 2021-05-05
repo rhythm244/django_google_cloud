@@ -10,9 +10,9 @@ app_name = 'myapp'
 
 urlpatterns = [
     path('', views.index, name='index'),
+    path('preflight', views.preflight, name="preflight"),
     path("login", views.login_view, name="login"),
     path("logout", views.logout_view, name="logout"),
-    path('person', views.person, name='person'),
     path('pilot_c130/', views.pilot_c130, name='pilot_c130'),
     path('person/<int:employee_id>', views.person_one, name='person_one'),
     path('person_division/<int:division_id>', views.person_division, name='person_division'),
@@ -43,3 +43,5 @@ if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # print(f'This is : {settings.MEDIA_URL}')
+
+    

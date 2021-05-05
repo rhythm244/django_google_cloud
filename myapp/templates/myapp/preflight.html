@@ -1,0 +1,67 @@
+{% extends "myapp/layout.html" %}
+
+{% load static %}
+
+{% block script %}
+    <script src="{% static 'myapp/js/currency.js' %}" defer></script>
+    {% comment %} <script type="text/babel" src="{% static 'myapp/js/react.js' %}" ></script> {% endcomment %}
+{% endblock %}
+
+{% block body %}
+   
+    <div id="app"></div>
+
+    <div class="alert-danger" id="result3"></div>
+
+    <div class="jumbotron jumbotron-fluid mt-2">
+    <div class="container">
+        <h1 class="display-5">ข่าวอากาศ</h1>
+        <div class="link-other">
+        <a id="list-a" target="_blank" href="http://www.weather.rtaf.mi.th/dashboard/taf.html"><li class="list-group-item list-group-item-action">TAF RTAF</li></a>
+        <a id="list-a" target="_blank" href="http://www.weather.rtaf.mi.th/dashboard/metar.html"><li class="list-group-item list-group-item-action">METAR RTAF</li></a>
+        <a id="list-a" target="_blank" href="http://www.sattmet.tmd.go.th/satmet/mergesat.html"><li class="list-group-item list-group-item-action">SATTMET</li></a>
+        </div>
+
+        <hr class="my-4">
+
+        <div id="metra"></div>
+            <figcaption class="blockquote-footer">
+                Data from => <cite title="Source Title">https://checkwxapi.com/</cite>
+            </figcaption>
+            <!-- ----------------------------------------------------------------------------------- -->
+            <h3 style="margin-top: 1rem;">TAF</h3>
+            
+            <form id='taf_submit' class="form-group">
+                <input class="form-control" id="taf" placeholder="vtbd,vtbu,vtcc,etc." type="text" required>
+                <button type="submit" class="btn btn-secondary">Request TAF</button>
+            </form>
+            
+            <div id='taf_display'></div>
+            <!-- ----------------------------------------------------------------------------------- -->
+            
+            <h3 style="margin-top: 1rem;">METAR</h3>
+            
+            <form id='metar_submit' class="form-group" >
+                <input class="form-control" id="metar" placeholder="vtbd,vtbu,vtcc,etc." type="text" required>
+                <button type="submit" class="btn btn-secondary">Request METAR</button>
+            </form>
+            
+            <div id='metar_display'></div>
+    </div>
+    </div>
+
+    <hr class="my-4">
+    <!-- ----------------------------------------------------------------------------------- -->
+    <div class="jumbotron jumbotron-fluid mt-2">
+        <div class="container">
+            <h1 class="display-5">Notam</h1>
+            <p class="lead">Other source.</p>
+            <div class="link-other">
+            <a id="list-a" target="_blank" href="http://notamweb.aviation-civile.gouv.fr/"><li class="list-group-item list-group-item-action">Notam Web</li></a>
+            </div>
+            
+        </div>
+    </div>
+    
+
+{% endblock %}

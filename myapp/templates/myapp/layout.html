@@ -50,48 +50,57 @@
     </header>
 
     <body>
-    <div style="min-height:600px">
-        <!-- <img src="{% static 'myapp/bg_c130.jpg' %}" alt=""> --> 
-        <div class="container-fluid">
-            <div class="row" >
-                {% if user.is_authenticated %}
-                <div class="sidebar col-xs-12 col-md-2">
+        <div style="min-height:600px">
+            <!-- <img src="{% static 'myapp/bg_c130.jpg' %}" alt=""> --> 
+            <div class="container-fluid">
+                <div class="row" >
+                    {% if user.is_authenticated %}
+                        <div class="sidebar col-xs-12 col-md-2">
 
-                        <div>
-                            <a href="{% url 'myapp:index' %}">HOME</a>
+                            <div>
+                                <a href="{% url 'myapp:index' %}">HOME</a>
+                            </div>
+
+                            <div>
+                                <a href="{% url 'myapp:preflight' %}">Preflight</a>
+                            </div>
+
+                            {% comment %} <div>
+                                <a href="{% url 'myapp:person' %}">ข้าราชการ601</a>
+                            </div> {% endcomment %}
+                            
+                            <div>
+                                <a href="{% url 'myapp:lessonlearn' %}">Lesson Learn</a>
+                            </div> 
+                            
+                            <div>
+                                <a href="{% url 'myapp:pilot_c130' %}">ทำเนียบนักบิน C-130</a>
+                            </div>
+                            <div>
+                                <a href="{% url 'myapp:airport' %}">Airport</a>
+                            </div>
                         </div>
 
-                        <div>
-                            <a href="{% url 'myapp:person' %}">ข้าราชการ601</a>
+                        <div class="main col-xs-12 col-md-10">
+                            {% block body %}
+                            {% endblock %}
                         </div>
-                        
-                        <div>
-                            <a href="{% url 'myapp:lessonlearn' %}">Lesson Learn</a>
-                        </div> 
-                        
-                        <div>
-                            <a href="{% url 'myapp:pilot_c130' %}">ทำเนียบนักบิน C-130</a>
+
+                    {% else %}
+                        <div class="main col-xs12 col-md-12">
+                            {% block login %}
+                            {% endblock %}
                         </div>
-                        <div>
-                            <a href="{% url 'myapp:airport' %}">Airport</a>
-                        </div>
+                    {% endif %}
+
                 </div>
-                {% endif %}
-
-                <div class="main col-xs-12 col-md-10">
-                    {% block body %}
-                    {% endblock %}
-                    
-                </div>
-                
             </div>
-        </div>
+            
         
-    
-    
-        {% block script %}
-        {% endblock %}
-    </div>
+        
+            {% block script %}
+            {% endblock %}
+        </div>
 
         <footer class="container-fluid">
             <a href="https://github.com/rhythm244"><div class="footer-text">contact me : https://github.com/rhythm244</div></a>

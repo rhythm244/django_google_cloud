@@ -148,3 +148,30 @@ def logout_react(request):
         # return Response({"hey": email})
         return response
 
+@login_required
+def person(request):
+    """ส่งแค่ division ไปเพื่อใช้ในการกด ของ user เอา เพราะถ้าส่งไปหมดจะ load ช้าเกิน """
+
+    # employees = Employee.objects.order_by('afaps')
+    divisions = Division.objects.all()
+
+    form = PictureForm()
+
+    context = {
+        # 'employees': employees,
+        'divisions': divisions,
+        'form': form,
+    }
+    return render(request, "myapp/person.html", context)
+
+
+# path('person', views.person, name='person'),
+@login_required
+def pilot_c130(request):
+    """แสดงนักบิน C130 ที่ผ่านมาทุกคน """
+    # employees = Employee.objects.filter(is_pilot=True).order_by('lucky_number')
+    employees = []
+    context = {
+        'employees': employees,
+    }
+    return render(request, "myapp/pilot_c130.html", context)

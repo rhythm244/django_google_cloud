@@ -24,6 +24,9 @@ def index(request):
         }
         return render(request, "myapp/index.html", context)
 
+def preflight(request):
+    if request.method == "GET":
+        return render(request, "myapp/preflight.html")
 
 def login_view(request):
     if request.method == "POST":
@@ -50,24 +53,6 @@ def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse("myapp:index"))
 
-
-@login_required
-def person(request):
-    """ส่งแค่ division ไปเพื่อใช้ในการกด ของ user เอา เพราะถ้าส่งไปหมดจะ load ช้าเกิน """
-
-    # employees = Employee.objects.order_by('afaps')
-    divisions = Division.objects.all()
-
-    form = PictureForm()
-
-    context = {
-        # 'employees': employees,
-        'divisions': divisions,
-        'form': form,
-    }
-    return render(request, "myapp/person.html", context)
-
-
 @login_required
 def pilot_c130(request):
     """แสดงนักบิน C130 ที่ผ่านมาทุกคน """
@@ -77,7 +62,6 @@ def pilot_c130(request):
         'employees': employees,
     }
     return render(request, "myapp/pilot_c130.html", context)
-
 
 @login_required
 def pilot_c130_page(request, page):

@@ -2,11 +2,6 @@
 
 {% load static %}
 
-{% block script %}
-    <script src="{% static 'myapp/js/currency.js' %}" defer></script>
-    {% comment %} <script type="text/babel" src="{% static 'myapp/js/react.js' %}" ></script> {% endcomment %}
-{% endblock %}
-
 {% block body %}
 
     {% if messages %}
@@ -18,58 +13,7 @@
             {% endif %}
         {% endfor %}
     {% endif %}
+        
+     <h3 style="font-family: cursive; font-size: 42px; font-weight: 800;">Welcome Sir , C-130 8 days a week.</h3>
 
-    {% if user.is_authenticated %}
-        <h3 style="font-family: cursive; font-size: 42px; font-weight: 800;">Welcome Sir , C-130 8 days a week.</h3>
-        <!-- <h5 style="border-top: black solid 2px; margin: 5px auto; padding: 5px" >Convert (other currency to Thai bath)</h5>
-        <span id="allcurrency">Example currency : USD, EUR , JPY, AUD, SGD(สิงคโปร์), IDR(อินโด), MYR(มาเล),  etc. </span>
-        <form>
-            <input id="currency" placeholder="Currency" type="text">
-            <input type="submit" value="Convert to thai bath">
-        </form>
-        
-        <div id="result1"></div>
-        <div id="result2"></div> -->
-
-        <div id="app"></div>
-
-        <div class="alert-danger" id="result3"></div>
-
-        <h3 style="margin-top: 10px;">ข่าวอากาศ</h3>
-        <div id="metra"></div>
-        <!-- ----------------------------------------------------------------------------------- -->
-        <h3 style="margin-top: 1rem;">TAF</h3>
-        
-        <form id='taf_submit' class="form-group">
-            <input class="form-control" id="taf" placeholder="vtbd,vtbu,vtcc,etc." type="text">
-            <button type="submit" class="btn btn-secondary">Request TAF</button>
-        </form>
-        
-        <div id='taf_display'></div>
-        <!-- ----------------------------------------------------------------------------------- -->
-        
-        <h3 style="margin-top: 1rem;">METAR</h3>
-        
-        <form id='metar_submit' class="form-group" >
-            <input class="form-control" id="metar" placeholder="vtbd,vtbu,vtcc,etc." type="text">
-            <button type="submit" class="btn btn-secondary">Request METAR</button>
-        </form>
-        
-        <div id='metar_display'></div>
-        <!-- ----------------------------------------------------------------------------------- -->
-        
-        <div class="link-other">
-            <a id="list-a" target="_blank" href="http://www.weather.rtaf.mi.th/dashboard/taf.html"><li class="list-group-item list-group-item-action">TAF RTAF</li></a>
-            <a id="list-a" target="_blank" href="http://www.weather.rtaf.mi.th/dashboard/metar.html"><li class="list-group-item list-group-item-action">METAR RTAF</li></a>
-            <a id="list-a" target="_blank" href="http://www.sattmet.tmd.go.th/satmet/mergesat.html"><li class="list-group-item list-group-item-action">SATTMET</li></a>
-            <a id="list-a" target="_blank" href="http://notamweb.aviation-civile.gouv.fr/"><li class="list-group-item list-group-item-action">Notam Web</li></a>
-        </div>
-        
-
-        
-    {% else %}
-        Welcome ....if not have user and password contact admin
-    {% endif %}
-        
-    </div>
 {% endblock %}
