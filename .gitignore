@@ -121,6 +121,8 @@ cloud_sql_proxy.exe.exe
 media/
 credential.json
 
+/static/myapp
+
 
 # Spyder project settings
 .spyderproject

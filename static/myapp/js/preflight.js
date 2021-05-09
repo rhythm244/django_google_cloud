@@ -1,38 +1,48 @@
-
-
 document.addEventListener('DOMContentLoaded', function() {
-    document.querySelector('#taf_submit').onsubmit = function() {
     
-    const airport = document.querySelector('#taf').value;
-    const taf_display = document.querySelector("#taf_display")
-    taf_display.innerHTML = '';
+    fetch(`/weather_key`,)
+        .then(response => response.json())
+        .then(data => {
+            onRefrech(data.weather_key)
+        })
+        // Catch any errors and log them to the console
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    
+    function onRefrech(WEATHER_KEY){
+            document.querySelector('#taf_submit').onsubmit = function() {
+            
+            const airport = document.querySelector('#taf').value;
+            const taf_display = document.querySelector("#taf_display")
+            taf_display.innerHTML = '';
 
-    
-    
-    loading(taf_display);
+            loading(taf_display);
 
-    let re = /[^A-Za-z]/g; //split ด้วยทุกตัวที่ไม่ใช้ตัวอักษรภาษาอังกฤษ
-    let airport_re = re[Symbol.split](airport);
-    
-    var url = `https://api.checkwx.com/taf/${airport_re}`
-    fetch(url,
-    {
-        headers: {
-            "X-API-Key": "29c7f5d572ed49019d1d5bddcf",
+            let re = /[^A-Za-z]/g; //split ด้วยทุกตัวที่ไม่ใช้ตัวอักษรภาษาอังกฤษ
+            let airport_re = re[Symbol.split](airport);
+            
+            var url = `https://api.checkwx.com/taf/${airport_re}`
+            fetch(url,
+            {
+                headers: {
+                    "X-API-Key": WEATHER_KEY,
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                listOfTaf(data.data);
+            })
+            // Catch any errors and log them to the console
+            .catch(error => {
+                console.error('Error:', error);
+            });
+
+            return false;
         }
-    })
-    .then(response => response.json())
-    .then(data => {
-        listOfTaf(data.data);
-    })
-    // Catch any errors and log them to the console
-    .catch(error => {
-        console.error('Error:', error);
-    });
-
-    return false;
-}
+    }
 });
+
 
 //รับค่า data.data เข้ามาในฟังก์ชั่น listOfTaf
 function listOfTaf(taf)
@@ -76,36 +86,49 @@ function listOfTaf(taf)
     }
 
     document.addEventListener('DOMContentLoaded', function() {
-        document.querySelector('#metar_submit').onsubmit = function() {
-        
-        const airport = document.querySelector('#metar').value;
-        const metar_display = document.querySelector("#metar_display")
-        metar_display.innerHTML = '';
-        loading(metar_display);
 
-        let re = /[^A-Za-z0-9/]/g; //split ด้วยทุกตัวที่ไม่ใช้ตัวอักษรภาษาอังกฤษ
-        let airport_re = re[Symbol.split](airport);
-
-        var url_metar = `https://api.checkwx.com/metar/${airport_re}`
-        
-        const option = {
-            headers: {
-                "X-API-Key": "29c7f5d572ed49019d1d5bddcf",
-            }
-        }
-
-        fetch(url_metar, option)
+        fetch(`/weather_key`,)
         .then(response => response.json())
         .then(data => {
-            metar_display.innerHTML = listOfMetar(data.data);
+            onRefrechMetar(data.weather_key)
         })
         // Catch any errors and log them to the console
         .catch(error => {
             console.error('Error:', error);
         });
-    
-        return false;
-    }
+
+        function onRefrechMetar(WEATHER_KEY){
+                document.querySelector('#metar_submit').onsubmit = function() {
+                
+                const airport = document.querySelector('#metar').value;
+                const metar_display = document.querySelector("#metar_display")
+                metar_display.innerHTML = '';
+                loading(metar_display);
+
+                let re = /[^A-Za-z0-9/]/g; //split ด้วยทุกตัวที่ไม่ใช้ตัวอักษรภาษาอังกฤษ
+                let airport_re = re[Symbol.split](airport);
+
+                var url_metar = `https://api.checkwx.com/metar/${airport_re}`
+                
+                const option = {
+                    headers: {
+                        "X-API-Key": WEATHER_KEY,
+                    }
+                }
+
+                fetch(url_metar, option)
+                .then(response => response.json())
+                .then(data => {
+                    metar_display.innerHTML = listOfMetar(data.data);
+                })
+                // Catch any errors and log them to the console
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            
+                return false;
+            }
+        }
     });
 
 function listOfMetar(metar)
