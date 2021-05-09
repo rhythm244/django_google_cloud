@@ -17,8 +17,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const taf_display = document.querySelector("#taf_display")
             taf_display.innerHTML = '';
 
-
-            //29c7f5d572ed49019d1d5bddcf
             loading(taf_display);
 
             let re = /[^A-Za-z]/g; //split ด้วยทุกตัวที่ไม่ใช้ตัวอักษรภาษาอังกฤษ
