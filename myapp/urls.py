@@ -29,6 +29,7 @@ urlpatterns = [
     path('lessonlearn_filter/<int:airport_id>', views.lessonlearn_filter, name='lessonlearn_filter'),
     path('lessonlearn_filter_one/<int:pk>', views.lessonlearn_filter_one, name='lessonlearn_filter_one'),
     path('airport/', views.airport, name='airport'),
+    path('weather_key', views.weather_key, name='weather_key'),
 
     #API for react
     # path('login_react', view_api.login_react, name='login_react'),

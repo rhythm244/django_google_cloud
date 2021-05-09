@@ -108,31 +108,31 @@ def login_react(request):
 
 
 #in file authenthicate.py
-from rest_framework_simplejwt.authentication import JWTAuthentication    
-from django.conf import settings
+# from rest_framework_simplejwt.authentication import JWTAuthentication    
+# from django.conf import settings
 
-class CookieHandlerJWTAuthentication(JWTAuthentication):
-    def authenticate(self, request):
-        # If cookie contains access token, put it inside authorization header
-        access_token = request.COOKIES.get('access_token')
-        if(access_token):
-            request.META['HTTP_AUTHORIZATION'] = '{header_type} {access_token}'.format(
-                header_type=settings.SIMPLE_JWT['AUTH_HEADER_TYPES'][0], access_token=access_token)
+# class CookieHandlerJWTAuthentication(JWTAuthentication):
+#     def authenticate(self, request):
+#         # If cookie contains access token, put it inside authorization header
+#         access_token = request.COOKIES.get('access_token')
+#         if(access_token):
+#             request.META['HTTP_AUTHORIZATION'] = '{header_type} {access_token}'.format(
+#                 header_type=settings.SIMPLE_JWT['AUTH_HEADER_TYPES'][0], access_token=access_token)
 
-        return super().authenticate(request)
+#         return super().authenticate(request)
 
-class BlacklistTokenUpdateView(APIView):
-    permission_classes = [AllowAny]
-    authentication_classes = ()
+# class BlacklistTokenUpdateView(APIView):
+#     permission_classes = [AllowAny]
+#     authentication_classes = ()
 
-    def post(self, request):
-        try:
-            refresh_token = request.data["refresh_token"]
-            token = RefreshToken(refresh_token)
-            token.blacklist()
-            return Response(status=status.HTTP_205_RESET_CONTENT)
-        except Exception as e:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+#     def post(self, request):
+#         try:
+#             refresh_token = request.data["refresh_token"]
+#             token = RefreshToken(refresh_token)
+#             token.blacklist()
+#             return Response(status=status.HTTP_205_RESET_CONTENT)
+#         except Exception as e:
+#             return Response(status=status.HTTP_400_BAD_REQUEST)
 
 @ensure_csrf_cookie
 @api_view(['POST'])
@@ -175,3 +175,40 @@ def pilot_c130(request):
         'employees': employees,
     }
     return render(request, "myapp/pilot_c130.html", context)
+
+# def open_access_middleware(get_response):
+#     def middleware(request):
+#         response = get_response(request)
+#         response["Access-Control-Allow-Origin"] = "http://localhost:3000"
+#         response["Access-Control-Allow-Methods"] = "GET,HEAD,OPTIONS,POST,PUT"
+#         response["Access-Control-Allow-Headers"] = "Origin, X-Requested-With, Content-Type, Accept, Authorization, x-csrftoken"
+#         return response
+#     return middleware
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ROTATE_REFRESH_TOKENS': True,
+    'BLACKLIST_AFTER_ROTATION': True,
+    'UPDATE_LAST_LOGIN': False,
+
+    'ALGORITHM': 'HS256',
+    'SIGNING_KEY': settings.SECRET_KEY,
+    'VERIFYING_KEY': None,
+    'AUDIENCE': None,
+    'ISSUER': None,
+
+    'AUTH_HEADER_TYPES': ('Bearer', 'JWT'),
+    'AUTH_HEADER_NAME': 'HTTP_AUTHORIZATION',
+    'USER_ID_FIELD': 'id',
+    'USER_ID_CLAIM': 'user_id',
+
+    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+    'TOKEN_TYPE_CLAIM': 'token_type',
+
+    'JTI_CLAIM': 'jti',
+
+    'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
+    'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
+    'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
+}

@@ -1,3 +1,4 @@
+import os
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -24,9 +25,11 @@ def index(request):
         }
         return render(request, "myapp/index.html", context)
 
+
 def preflight(request):
     if request.method == "GET":
         return render(request, "myapp/preflight.html")
+
 
 def login_view(request):
     if request.method == "POST":
@@ -53,6 +56,7 @@ def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse("myapp:index"))
 
+
 @login_required
 def pilot_c130(request):
     """แสดงนักบิน C130 ที่ผ่านมาทุกคน """
@@ -62,6 +66,7 @@ def pilot_c130(request):
         'employees': employees,
     }
     return render(request, "myapp/pilot_c130.html", context)
+
 
 @login_required
 def pilot_c130_page(request, page):
@@ -300,13 +305,23 @@ def lessonlearn_info(request, id):
 
     return render(request, 'myapp/lessonlearn_one.html', context)
 
+
 @login_required
 def airport(request):
     airports = Airport.objects.all().order_by('icao_code')
 
     context = {
-        'airport' : airports,
+        'airport': airports,
     }
 
     return render(request, 'myapp/airport.html', context)
 # ---------------------------------------------------------------------------------------------------------------------------------
+
+
+@login_required
+def weather_key(request):
+    if request.method == 'GET':
+        weahter_key = os.environ.get('WEATHER_KEY')
+        # serialized_obj = serializers.serialize('json', weahter_key)
+        
+        return JsonResponse({"weather_key":weahter_key})

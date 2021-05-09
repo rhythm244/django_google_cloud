@@ -1,0 +1,221 @@
+* {
+    margin:0;
+    padding: 0;
+    font-family: 'Times New Roman', Times, serif;
+    list-style: none;
+    
+}
+
+body {
+    min-height: 600px;
+}
+
+header {
+    background-color: #2b6430;
+}
+
+/* footer {
+    height: 2em;
+    position: relative;
+    z-index: 1;
+    background-color: #006699;
+    
+} */
+
+footer{
+    display: block;
+    position: relative;
+    text-align: center;
+    font-size: 0.75em;
+    bottom:0;
+    width: 100%;
+    height: 30px;
+    background-color: #006699;
+    
+}
+
+.footer-text {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 5px;
+    font-size: 16px;
+    font-weight: 200;
+    color: #fff;
+}
+
+
+/* .cover {
+    background: url("https://storage.googleapis.com/media-bucket-thong-django-2/cover/bg_c130.jpg") 50%;
+    height: min-content;
+} */
+
+/* td{
+    width: 80px;
+    height: 10px;
+    word-wrap: break-word;
+    min-width: 100px; 
+    max-width: 90px;
+} */
+
+.logo {
+    height: 70px;
+    width: 100px;
+}
+
+#joinworld {
+    font-family: sans-serif;
+    color: #f0f0f0;
+    font-size: 3rem;
+    font-weight: 700;
+}
+
+#metar_display li {
+    border: solid black 2px;
+    margin: 10px 5px;
+}
+
+.link-other a li{
+    font-size : 18px;
+    font-weight: 800;
+    color:rgb(26, 126, 121);
+}
+
+.sign {
+    font-family: sans-serif;
+    color: #f0f0f0;
+    font-size: 1rem;
+    font-weight: 200;
+}
+
+.list-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    border: solid rgb(88, 113, 228) 2px;
+    padding: 10px;
+}
+
+.sidebar {
+    background-color: #333;
+    padding: 0px; 
+    min-height: 650px;
+}
+
+.sidebar a{
+    color: #f0f0f0;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.pilotc130_box {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    border: 1px blue solid;
+}
+
+.container-thong {
+    width: 1000px;
+    width: 100%
+}
+
+.leson-item {
+    display: grid;
+    grid-template-columns: fit-content(900px);
+    border: solid 1px blueviolet;
+    width: 100%
+}
+
+
+
+.lesson-item {
+    border: 1px blue solid;
+}
+
+.loader {
+    margin: 20px;
+    padding: 10px;
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    animation: spin 2s linear infinite;
+    border-top: 16px solid blue;
+    border-right: 16px solid green;
+    border-bottom: 16px solid red;
+    border-left: 16px solid pink;
+      
+  }
+  
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    50% { transform: rotate(90deg); }
+    100% { transform: rotate(720deg); }
+  }
+
+#logo {
+    display: flex;
+    justify-items: flex-start;
+}
+
+#authen {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px;
+}
+
+@media only screen and (max-width: 576px) {
+    #logo {
+        display: flex;
+        justify-content: center;
+        
+    }
+    #authen {
+        display: flex;
+        justify-content: center;
+    }
+    #joinworld {
+        font-family: sans-serif;
+        color: #f0f0f0;
+        font-size: 2rem;
+        font-weight: 700;
+        align-self: center;
+    }
+}
+
+@media only screen and (min-width: 576px) {
+    .jumbotron {
+        padding: 1rem;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .sidebar a{
+        color: #f0f0f0;
+        font-size: 2rem;
+        font-weight: 500;
+    }
+    .sidebar {
+        background-color: #333;
+        text-align: center;
+        padding: 0px; 
+        height: 250px;
+        min-height: 0;
+    }
+}
+
+  /* // Extra small devices (portrait phones, less than 576px)
+  // No media query since this is the default in Bootstrap
+  
+  // Small devices (landscape phones, 576px and up)
+  @media (min-width: 576px) { ... }
+  
+  // Medium devices (tablets, 768px and up)
+  @media (min-width: 768px) { ... }
+  
+  // Large devices (desktops, 992px and up)
+  @media (min-width: 992px) { ... }
+  
+  // Extra large devices (large desktops, 1200px and up)
+  @media (min-width: 1200px) { ... } */
+
