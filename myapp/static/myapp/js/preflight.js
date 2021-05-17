@@ -1,18 +1,12 @@
 //TAF-----------------------------------------------------------------------------------------------------------------------------
-document.addEventListener('DOMContentLoaded', onLoaded());
 
-//get weather_key from django
-function onLoaded() {
-    const promise = [];
-    const url_key = `/weather_key`;
-    promise.push(fetch(url_key).then((res) => res.json()));
-    Promise.all(promise).then((result) => {
-      const weather_key = result[0].weather_key;
-      
-      onRefreshTAF(weather_key)
-      onRefreshMetar(weather_key)
-    });
-}
+document.addEventListener('DOMContentLoaded', async function () {
+
+  const data = await getWeatherKey();
+  onRefreshTAF(data.weather_key)
+  onRefreshMetar(data.weather_key)
+});
+
 
 //onSubmit TAF request
 function onRefreshTAF(WEATHER_KEY) {
@@ -146,6 +140,27 @@ function loading(div_display) {
     div_spin.setAttribute("role", "status");
     div_spin.setAttribute("aria-hidden", "true");
 }
+
+async function getWeatherKey() {
+  const url_key = `/weather_key`;
+  const response = await fetch(url_key)
+  const data = await response.json()
+
+  return data;
+}
+
+//get weather_key from django
+// function onLoaded() {
+//     const promise = [];
+//     const url_key = `/weather_key`;
+//     promise.push(fetch(url_key).then((res) => res.json()));
+//     Promise.all(promise).then((result) => {
+//       const weather_key = result[0].weather_key;
+      
+//       onRefreshTAF(weather_key)
+//       onRefreshMetar(weather_key)
+//     });
+// }
 
 
 
