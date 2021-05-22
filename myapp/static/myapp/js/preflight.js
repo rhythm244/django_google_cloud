@@ -21,19 +21,27 @@ function onRefreshTAF(WEATHER_KEY) {
       let re = /[^A-Za-z]/g; //split ด้วยทุกตัวที่ไม่ใช้ตัวอักษรภาษาอังกฤษ
       let airport_re = re[Symbol.split](airport);
 
-      var url = `https://api.checkwx.com/taf/${airport_re}`;
-      fetch(url, {
-        headers: {
-          "X-API-Key": WEATHER_KEY,
-        },
-      })
-        .then((response) => response.json())
+      const url = `https://api.checkwx.com/taf/${airport_re}`;
+
+      //fetch data from checkapiwx.com
+      fetch(url, { headers: { "X-API-Key": WEATHER_KEY } })
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          }
+          return response
+            .status(500)
+            .json({ message: "No data in airport you looking for." });
+        })
         .then((data) => {
+          if (data.results === 0) {
+            return (taf_display.innerHTML = "No TAF data in airport you looking for. Please adjust your ICAO code.");
+          }
           listOfTaf(data.data);
         })
         // Catch any errors and log them to the console
         .catch((error) => {
-          console.error("Error:", error);
+          console.error(`Error: ${error}`);
         });
 
       return false;
@@ -93,15 +101,20 @@ function onRefreshMetar(WEATHER_KEY){
 
     var url_metar = `https://api.checkwx.com/metar/${airport_re}`
     
-    const option = {
-        headers: {
-            "X-API-Key": WEATHER_KEY,
-        }
-    }
+    const option = {headers: {"X-API-Key": WEATHER_KEY,}}
 
     fetch(url_metar, option)
-    .then(response => response.json())
+    .then(response => {
+      if (response.ok) {
+        return response.json()
+      }
+      return response.status(500).json({ message: "Something went wrong." });
+    })
     .then(data => {
+        if (data.results === 0) {
+          return (metar_display.innerHTML = "No METAR data in airport you looking for. Please adjust your ICAO code.")
+        }
+        //ตรงนี้เขียนคนละแบบกับ listofTAF
         metar_display.innerHTML = listOfMetar(data.data);
     })
     // Catch any errors and log them to the console
@@ -148,19 +161,5 @@ async function getWeatherKey() {
 
   return data;
 }
-
-//get weather_key from django
-// function onLoaded() {
-//     const promise = [];
-//     const url_key = `/weather_key`;
-//     promise.push(fetch(url_key).then((res) => res.json()));
-//     Promise.all(promise).then((result) => {
-//       const weather_key = result[0].weather_key;
-      
-//       onRefreshTAF(weather_key)
-//       onRefreshMetar(weather_key)
-//     });
-// }
-
 
 

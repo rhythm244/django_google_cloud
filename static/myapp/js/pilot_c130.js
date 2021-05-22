@@ -42,7 +42,12 @@ function load_pilot130(range)
         },
         body : JSON.stringify()
     })  
-    .then((response) => response.json())
+    .then((response) => {
+        if (response.ok){
+            return response.json()
+        }
+        return response.status(500).json({message: "Response is not OK."})
+    })
     .then((data) => {  
         load.style.display = 'none'
         show_data(data) 
@@ -60,7 +65,7 @@ function show_data(data)
     data.forEach((item) => {
         valid_data()
         
-        const { btn_detail, img, name, afaps, lucky_number, telephone, main, ul } = element(); 
+        const { btn_detail, box_image, img, name, afaps, lucky_number, telephone, main, ul } = element(); 
         
         if ( `${item['fields'].picture}` === 'null') {
             img.src = "";
@@ -68,6 +73,8 @@ function show_data(data)
         }
         else {
             img.src = `${image_url}${item['fields'].picture}`; 
+            box_image.className = 'image'
+            box_image.appendChild(img)
             describe()
         }
         
@@ -132,7 +139,7 @@ function show_data(data)
             telephone.innerHTML = `<strong> เบอร์ : </strong> ${item['fields'].telephone}`;
 
             pilot130_view.appendChild(main);
-            main.appendChild(img);
+            main.appendChild(box_image);
             main.appendChild(ul);
             ul.append(name, afaps, lucky_number, telephone, btn_detail);
             load.style.display = 'none'
@@ -159,12 +166,13 @@ function element() {
     const afaps = document.createElement("li");
     const lucky_number = document.createElement("li");
     const telephone = document.createElement("li");
+    const box_image = document.createElement('div')
     const img = document.createElement('img');
 
     const btn_detail = document.createElement('button');
     btn_detail.className = 'btn btn-info';
     btn_detail.innerHTML = "รายละเอียด";
-    return { btn_detail, img, name, afaps, lucky_number, telephone, main, ul };
+    return { btn_detail, img, name, afaps, lucky_number, telephone, main, ul, box_image };
 }
 //--------------ฟังก์ชั่นที่เอา csrf token มา---------------------------
 function getCookie(name) {
