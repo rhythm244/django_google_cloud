@@ -120,7 +120,7 @@ app.yaml
 cloud_sql_proxy.exe.exe
 media/
 credential.json
-
+/lib
 /static/myapp
 
 

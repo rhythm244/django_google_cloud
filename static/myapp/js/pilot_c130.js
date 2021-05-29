@@ -36,23 +36,24 @@ function load_pilot130(range)
 
     const url = `/pilot_c130/${range}`;
     fetch(url, {
-        method: 'POST',
-        headers:{
-            'X-CSRFToken': csrftoken,
-        },
-        body : JSON.stringify()
-    })  
-    .then((response) => {
-        if (response.ok){
-            return response.json()
+      method: "POST",
+      headers: {"X-CSRFToken": csrftoken,},
+      body: JSON.stringify(),
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
         }
-        return response.status(500).json({message: "Response is not OK."})
-    })
-    .then((data) => {  
-        load.style.display = 'none'
-        show_data(data) 
-    })
-    .catch((error) => console.error(error));
+        return response.status(500).json({ message: "Response is not OK." });
+      })
+      .then((data) => {
+        load.style.display = "none";
+        if (!data) {
+            return pilot130_view.innerHTML = "No data for you looking for.";;
+        }
+        show_data(data);
+      })
+      .catch((error) => console.error(error));
 }
 
 function show_data(data)
@@ -166,6 +167,7 @@ function element() {
     const afaps = document.createElement("li");
     const lucky_number = document.createElement("li");
     const telephone = document.createElement("li");
+
     const box_image = document.createElement('div')
     const img = document.createElement('img');
 

@@ -11,19 +11,23 @@ from django.urls import reverse
 
 from .form import EmployeeForm, LessonlearnForm, PictureForm
 from .models import *
+# from . import util
+# from markdown2 import Markdown
 
-# from django.views.decorators.csrf import ensure_csrf_cookie
-
-# Create your views here.
-
+# markdowner = Markdown()
 
 def index(request):
-    if request.method == "GET":
-        form = PictureForm()
-        context = {
-            'form': form,
-        }
-        return render(request, "myapp/index.html", context)
+
+    # entries = util.get_entry('aviation')
+
+    # page_convert = markdowner.convert(entries)
+    # print(page_convert)
+
+    # context = {
+    #     'page': page_convert
+    # }
+    
+    return render(request, "myapp/index.html")
 
 
 def preflight(request):

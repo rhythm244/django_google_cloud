@@ -48,10 +48,10 @@ function load_pilot130(range)
       })
       .then((data) => {
         load.style.display = "none";
-        if (data) {
-          show_data(data);
+        if (!data) {
+            return pilot130_view.innerHTML = "No data for you looking for.";;
         }
-        return pilot130_view.innerHTML = "No data for you looking for.";;
+        show_data(data);
       })
       .catch((error) => console.error(error));
 }
