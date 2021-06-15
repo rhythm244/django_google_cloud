@@ -11,21 +11,9 @@ from django.urls import reverse
 
 from .form import EmployeeForm, LessonlearnForm, PictureForm
 from .models import *
-# from . import util
-# from markdown2 import Markdown
 
-# markdowner = Markdown()
 
 def index(request):
-
-    # entries = util.get_entry('aviation')
-
-    # page_convert = markdowner.convert(entries)
-    # print(page_convert)
-
-    # context = {
-    #     'page': page_convert
-    # }
     
     return render(request, "myapp/index.html")
 

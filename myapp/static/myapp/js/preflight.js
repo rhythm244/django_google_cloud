@@ -31,7 +31,7 @@ function onRefreshTAF(WEATHER_KEY) {
           }
           return response
             .status(500)
-            .json({ message: "No data in airport you looking for." });
+            .json({ message: "Something went wrong with server checkapiWX" });
         })
         .then((data) => {
           if (data.results === 0) {
@@ -43,9 +43,10 @@ function onRefreshTAF(WEATHER_KEY) {
         .catch((error) => {
           console.error(`Error: ${error}`);
         });
-
-      return false;
+      
+        return false
     };
+
 }
 
 //รับค่า data.data เข้ามาในฟังก์ชั่น listOfTaf
